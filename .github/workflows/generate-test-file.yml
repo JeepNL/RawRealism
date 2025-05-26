@@ -3,7 +3,7 @@ name: Generate Test File
 on:
   push:
     branches:
-      - master  # Of je default branch
+      - master
 
 jobs:
   build:
@@ -21,11 +21,11 @@ jobs:
         run: ls -la
 
       - name: Toon inhoud van RawRealism.Parser directory
-        run: ls -la RawRealism.Parser        
+        run: ls -la RawRealism.Parser
 
       - name: Restore dependencies
         run: dotnet restore RawRealism.Parser/RawRealism.Parser.csproj
-      
+
       - name: Build solution
         run: dotnet build RawRealism.Parser/RawRealism.Parser.csproj --no-restore
 
@@ -34,3 +34,22 @@ jobs:
 
       - name: Show www directory contents
         run: ls -la RawRealism/www
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add generated files
+        run: git add RawRealism/www
+
+      - name: Commit changes
+        id: commit-changes
+        run: |
+          git diff --cached --quiet || git commit -m "Auto-generate static site [skip ci]"
+
+      - name: Push changes
+        if: success() && steps.commit-changes.outcome == 'success'
+        run: git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
