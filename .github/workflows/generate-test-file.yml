@@ -1,0 +1,36 @@
+name: Generate Test File
+
+on:
+  push:
+    branches:
+      - master  # Of je default branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Toon inhoud current directory
+        run: ls -la
+
+      - name: Toon inhoud van RawRealism.Parser directory
+        run: ls -la RawRealism.Parser        
+
+      - name: Restore dependencies
+        run: dotnet restore RawRealism.Parser/RawRealism.Parser.csproj
+      
+      - name: Build solution
+        run: dotnet build RawRealism.Parser/RawRealism.Parser.csproj --no-restore
+
+      - name: Run RawRealism.Parser
+        run: dotnet run --project RawRealism.Parser/RawRealism.Parser.csproj --no-build
+
+      - name: Show www directory contents
+        run: ls -la RawRealism/www
