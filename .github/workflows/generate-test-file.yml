@@ -17,20 +17,20 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      #- name: Restore dependencies
-      #  run: dotnet restore
-
-      - name: Toon current directory inhoud
+      - name: Toon inhoud current directory
         run: ls -la
 
-      - name: Toon inhoud van RawRealism.Parser
+      - name: Toon inhoud van RawRealism.Parser directory
         run: ls -la RawRealism.Parser        
 
-      #- name: Build solution
-      #  run: dotnet build --no-restore
+      - name: Restore dependencies
+        run: dotnet restore RawRealism.Parser/RawRealism.Parser.csproj
+      
+      - name: Build solution
+        run: dotnet build RawRealism.Parser/RawRealism.Parser.csproj --no-restore
 
-      #- name: Run RawRealism.Parser
-      #  run: dotnet run --project RawRealism.Parser/RawRealism.Parser.csproj
+      - name: Run RawRealism.Parser
+        run: dotnet run --project RawRealism.Parser/RawRealism.Parser.csproj --no-build
 
-      #- name: Show www directory contents
-      #  run: ls -l RawRealism/www
+      - name: Show www directory contents
+        run: ls -la RawRealism/www
