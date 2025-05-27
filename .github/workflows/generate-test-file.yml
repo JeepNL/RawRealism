@@ -45,7 +45,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .
-          git diff --cached --quiet || git commit -m "Sync www output to cf-pages [skip ci]"
+          # [skip ci] only needed for Cloudflare Pages if you dan't want to deploy (skip it).
+          # git diff --cached --quiet || git commit -m "Sync www output to cf-pages [skip ci]"
+          git diff --cached --quiet || git commit -m "Sync www output to cf-pages"
           git push origin cf-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
