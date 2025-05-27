@@ -3,53 +3,52 @@ name: Generate Test File
 on:
   push:
     branches:
-      - master
+      - main
+    paths:
+      - 'RawRealism/www/**'  # Trigger alleen bij wijzigingen in de www map
 
 jobs:
-  build:
+  generate:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: main  # Haal main branch op, want daar staat je parser
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
-      - name: Toon inhoud current directory
-        run: ls -la
+      - name: Build and Run Parser
+        run: |
+          dotnet restore RawRealism.Parser/RawRealism.Parser.csproj
+          dotnet build RawRealism.Parser/RawRealism.Parser.csproj --no-restore
+          dotnet run --project RawRealism.Parser/RawRealism.Parser.csproj --no-build
 
-      - name: Toon inhoud van RawRealism.Parser directory
-        run: ls -la RawRealism.Parser
-
-      - name: Restore dependencies
-        run: dotnet restore RawRealism.Parser/RawRealism.Parser.csproj
-
-      - name: Build solution
-        run: dotnet build RawRealism.Parser/RawRealism.Parser.csproj --no-restore
-
-      - name: Run RawRealism.Parser
-        run: dotnet run --project RawRealism.Parser/RawRealism.Parser.csproj --no-build
-
-      - name: Show www directory contents
+      - name: Toon inhoud van www-directory
         run: ls -la RawRealism/www
 
-      - name: Configure Git
+      - name: Checkout cf-pages branch
+        uses: actions/checkout@v4
+        with:
+          ref: cf-pages
+          path: cf-pages-branch
+
+      - name: Copy gegenereerde bestanden naar cf-pages branch
         run: |
+          mkdir -p cf-pages-branch/RawRealism/www
+          cp -r RawRealism/www/* cf-pages-branch/RawRealism/www/
+
+      - name: Commit & Push naar cf-pages
+        run: |
+          cd cf-pages-branch
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Add generated files
-        run: git add RawRealism/www
-
-      - name: Commit changes
-        id: commit-changes
-        run: |
+          git add RawRealism/www
           git diff --cached --quiet || git commit -m "Auto-generate static site [skip ci]"
-
-      - name: Push changes
-        if: success() && steps.commit-changes.outcome == 'success'
-        run: git push
+          git push origin cf-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
