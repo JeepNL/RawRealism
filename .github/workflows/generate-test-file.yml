@@ -5,31 +5,28 @@ on:
     branches:
       - main
     paths:
-      - 'RawRealism/www/**'  # Trigger alleen bij wijzigingen in de www map
+      - 'RawRealism/www/**'
 
 jobs:
   generate:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout main branch
         uses: actions/checkout@v4
         with:
-          ref: main  # Haal main branch op, want daar staat je parser
+          ref: main
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
-      - name: Build and Run Parser
+      - name: Build and run parser
         run: |
           dotnet restore RawRealism.Parser/RawRealism.Parser.csproj
           dotnet build RawRealism.Parser/RawRealism.Parser.csproj --no-restore
           dotnet run --project RawRealism.Parser/RawRealism.Parser.csproj --no-build
-
-      - name: Toon inhoud van www-directory
-        run: ls -la RawRealism/www
 
       - name: Checkout cf-pages branch
         uses: actions/checkout@v4
@@ -37,18 +34,18 @@ jobs:
           ref: cf-pages
           path: cf-pages-branch
 
-      - name: Copy gegenereerde bestanden naar cf-pages branch
+      - name: Force sync cf-pages with www content only
         run: |
-          mkdir -p cf-pages-branch/RawRealism/www
-          cp -r RawRealism/www/* cf-pages-branch/RawRealism/www/
+          rm -rf cf-pages-branch/*
+          cp -r RawRealism/www/* cf-pages-branch/
 
-      - name: Commit & Push naar cf-pages
+      - name: Commit and push to cf-pages
         run: |
           cd cf-pages-branch
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add RawRealism/www
-          git diff --cached --quiet || git commit -m "Auto-generate static site [skip ci]"
+          git add .
+          git diff --cached --quiet || git commit -m "Sync www output to cf-pages [skip ci]"
           git push origin cf-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
