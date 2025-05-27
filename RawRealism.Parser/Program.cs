@@ -1,14 +1,9 @@
-﻿using System;
-using System.IO;
-
-namespace RawRealism.Parser;
+﻿namespace RawRealism.Parser;
 
 internal class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine($"Versie 2.00");
-
         // Pad naar de www-map van het hoofdproject (relatief vanaf de repo-root)
         var wwwPath = Path.Combine("RawRealism", "www");
 
@@ -31,9 +26,10 @@ internal class Program
 
         // Toon de inhoud van de www-directory (vergelijkbaar met 'ls -la')
         Console.WriteLine($"\nInhoud van {wwwPath}:");
-        foreach (var file in Directory.GetFiles(wwwPath))
+        foreach (FileInfo? info in from string file in Directory.GetFiles(wwwPath)
+                             let info = new FileInfo(file)
+                             select info)
         {
-            var info = new FileInfo(file);
             Console.WriteLine($"{info.Name}\t{info.Length} bytes\t{info.LastWriteTimeUtc:yyyy-MM-dd HH:mm:ss} UTC");
         }
     }
