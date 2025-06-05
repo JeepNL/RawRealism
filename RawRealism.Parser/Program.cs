@@ -208,7 +208,7 @@ internal class Program
 
         string postDirectoryName = contentMetaData.Locale switch
         {
-            "nl-NL" => "archief",
+            "nl_NL" => "archief",
             _ => "archive"
         };
 

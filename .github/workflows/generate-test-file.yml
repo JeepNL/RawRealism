@@ -10,7 +10,7 @@ on:
     branches:
       - main
     paths:
-      - 'RawRealism/www/**'
+      - 'RawRealism/content/post_content.md'
 
 jobs:
   generate:
@@ -35,6 +35,16 @@ jobs:
           dotnet restore RawRealism.Parser/RawRealism.Parser.csproj
           dotnet build RawRealism.Parser/RawRealism.Parser.csproj --no-restore
           dotnet run --project RawRealism.Parser/RawRealism.Parser.csproj --no-build
+
+      - name: Commit and push generated content files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add RawRealism/content/*
+          git diff --cached --quiet || git commit -m "Add/update generated content files"
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout cf-pages branch
         uses: actions/checkout@v4
