@@ -27,8 +27,11 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: List files in working directory pre -build
-        run: ls -la
+      #- name: List files in working directory pre -build
+      #  run: ls -la
+
+      - name: List all .md files in content/posts
+        run: find RawRealism/content/posts -name '*.md' || true
 
       - name: Build and run parser
         run: |

@@ -206,6 +206,8 @@ internal class Program
             .Replace("{{ meta Author.Name }}", contentMetaData.Author.Name)
             .Replace("{{ config Site.Generator }}", site.Generator);
 
+        // VERSION NEW
+
         string postDirectoryName = contentMetaData.Locale switch
         {
             "nl_NL" => "archief",
