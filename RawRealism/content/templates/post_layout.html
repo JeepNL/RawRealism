@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="{{ meta Language }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="{{ meta CanonicalUrl }}">
+<title>{{ meta PostTitle }} | {{ config Site.Name }}</title>
+<meta name="description" content="{{ meta Description }}">
+<meta name="author" content="{{ meta Author.Name }}">
+<meta name="generator" content="{{ config Site.Generator }}">
+<meta property="og:site_name" content="{{ config Site.Name }}">
+<meta property="og:locale" content="{{ meta Locale }}">
+<meta property="og:title" content="{{ meta PostTitle }}">
+<meta property="og:url" content="{{ meta CanonicalUrl }}">
+<meta property="og:type" content="article">
+<meta property="og:description" content="{{ meta Description }}">
+<meta property="og:image" content="{{ meta Image.Url }}">
+<meta property="og:image:secure_url" content="{{ meta Image.Url }}">
+<meta property="article:published_time" content="{{ meta DateIso8601 }}">
+<meta property="article:section" content="{{ meta Category }}">
+<meta property="article:author" content="{{ meta Author.Name }}">
+{{ array Tags }}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ meta PostTitle }}">
+<meta name="twitter:description" content="{{ meta Description }}">
+<meta name="twitter:image" content="{{ meta Image.Url }}">
+<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<!--
+Todo Site Header
+-->
+<div class="container">
+<article>
+{{ include post_header.html }}
+{{ include post_content.md }}
+</article>
+<div>
+{{ include post_footer.html }}
+</div>
+</div> <!-- End of container -->
+</body>
+</html>
