@@ -1,5 +1,5 @@
 {
-  "Locale": "en_US",
+  "Locale": "nl_NL",
   "DateIso8601": "2025-05-26T14:00:00+02:00",
   "PostTitle": "My First Post",
   "Slug": "my-first-post",
