@@ -1,17 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="content\posts\" />
-    <Folder Include="content\posts\en\2025\05\" />
-    <Folder Include="www\archive\" />
-    <Folder Include="www\archive\2025\05\" />
-    <Folder Include="www\img\en\2025\05\" />
-  </ItemGroup>
 
 </Project>
