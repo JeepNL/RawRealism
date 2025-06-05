@@ -1,7 +1,7 @@
 {
   "Locale": "nl_NL",
   "DateIso8601": "2025-05-26T14:00:00+02:00",
-  "PostTitle": "My First Post",
+  "PostTitle": "My First Post2",
   "Slug": "my-first-post",
   "Description": "This is my first post on Raw Realism, where I share my thoughts and experiences.",
   "SubTitle": "Why I Started This Blog",
