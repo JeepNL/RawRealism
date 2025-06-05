@@ -27,6 +27,9 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: List files in working directory pre -build
+        run: ls -la
+
       - name: Build and run parser
         run: |
           dotnet restore RawRealism.Parser/RawRealism.Parser.csproj
