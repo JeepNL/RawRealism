@@ -123,7 +123,9 @@ internal class Program
         /// So, every time we generate all the HTML files.
         ///
 
-        foreach (string mdFile in Directory.EnumerateFiles(targetContentDir, "*.md", SearchOption.AllDirectories))
+        // Target Root Directory for for/each
+        string targetRootDir = Path.Combine(site.ProjectRoot, "content", "posts");
+        foreach (string mdFile in Directory.EnumerateFiles(targetRootDir, "*.md", SearchOption.AllDirectories))
         {
             // Read the contents of the current .md file
             //string fileContent = File.ReadAllText(mdFile);
