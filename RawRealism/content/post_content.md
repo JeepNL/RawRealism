@@ -1,8 +1,8 @@
 {
-  "Locale": "en_US",
+  "Locale": "nl_NL",
   "DateIso8601": "2025-05-26T14:00:00+02:00",
-  "PostTitle": "My First Post3",
-  "Slug": "my-first-post3",
+  "PostTitle": "My First Post4",
+  "Slug": "my-first-post4",
   "Description": "This is my first post on Raw Realism, where I share my thoughts and experiences.",
   "SubTitle": "Why I Started This Blog",
   "Intro": "Welcome to my first blog post on Raw Realism! In this post, I will share why I started this blog and what you can expect from it.",
