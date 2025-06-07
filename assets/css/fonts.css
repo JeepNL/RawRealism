@@ -6,7 +6,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('/assets/fonts/source-serif-4-v13-latin-regular.woff2') format('woff2');
+    src: url('/assets/fonts/source-serif-4-v13-latin_latin-ext-regular.woff2') format('woff2');
 }
 
 /* Italic */
@@ -15,7 +15,7 @@
     font-style: italic;
     font-weight: 400;
     font-display: swap;
-    src: url('/assets/fonts/source-serif-4-v13-latin-italic.woff2') format('woff2');
+    src: url('/assets/fonts/source-serif-4-v13-latin_latin-ext-italic.woff2') format('woff2');
 }
 
 /* Bold */
@@ -24,7 +24,7 @@
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url('/assets/fonts/source-serif-4-v13-latin-700.woff2') format('woff2');
+    src: url('/assets/fonts/source-serif-4-v13-latin_latin-ext-700.woff2') format('woff2');
 }
 
 /* Bold Italic */
@@ -33,7 +33,7 @@
     font-style: italic;
     font-weight: 700;
     font-display: swap;
-    src: url('/assets/fonts/source-serif-4-v13-latin-700italic.woff2') format('woff2');
+    src: url('/assets/fonts/source-serif-4-v13-latin_latin-ext-700italic.woff2') format('woff2');
 }
 
 /* === Inter === */
@@ -44,7 +44,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('/assets/fonts/inter-v18-latin-regular.woff2') format('woff2');
+    src: url('/assets/fonts/inter-v18-latin_latin-ext-regular.woff2') format('woff2');
 }
 
 /* Italic */
@@ -53,7 +53,7 @@
     font-style: italic;
     font-weight: 400;
     font-display: swap;
-    src: url('/assets/fonts/inter-v18-latin-italic.woff2') format('woff2');
+    src: url('/assets/fonts/inter-v18-latin_latin-ext-italic.woff2') format('woff2');
 }
 
 /* Bold */
@@ -62,7 +62,7 @@
     font-style: normal;
     font-weight: 700;
     font-display: swap;
-    src: url('/assets/fonts/inter-v18-latin-700.woff2') format('woff2');
+    src: url('/assets/fonts/inter-v18-latin_latin-ext-700.woff2') format('woff2');
 }
 
 /* Bold Italic */
@@ -71,5 +71,5 @@
     font-style: italic;
     font-weight: 700;
     font-display: swap;
-    src: url('/assets/fonts/inter-v18-latin-700italic.woff2') format('woff2');
+    src: url('/assets/fonts/inter-v18-latin_latin-ext-700italic.woff2') format('woff2');
 }

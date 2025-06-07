@@ -144,3 +144,13 @@ kbd {
     font-size: 0.9em;
     box-shadow: inset 0 -1px 0 #bbb;
 }
+
+time {
+    color: #fff;
+    background-color: #bbb;
+    border-radius: 10px;
+    padding: 0em 0.5em;
+    margin: 0.5em 0em;
+    display: inline-block;
+    font-size: 0.95em;
+}
