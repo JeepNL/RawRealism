@@ -1,13 +1,13 @@
 {
   "Locale": "nl_NL",
-  "DateIso8601": "2025-06-07T19:00:00+02:00",
-  "PostTitle": "Dit is de Title van de 5e Post",
-  "Slug": "de-titel-van-de-vijfde-post",
-  "Description": "Omschrijving: Dit is de vijfde post van Raw Realism, waarin persoonlijke inzichten en ervaringen worden gedeeld.",
-  "SubTitle": "De subtitel van de vijfde post",
-  "Intro": "Intro: In deze vijfde post van Raw Realism delen we persoonlijke inzichten en ervaringen die ons leven hebben gevormd.",
-  "Category": "personal",
-  "Tags": ["introductie", "blogging", "raw realism"],
+  "DateIso8601": "2025-06-04T19:00:00+02:00",
+  "PostTitle": "Initiële Test Post",
+  "Slug": "initiele-test-post",
+  "Description": "Omschrijving: Dit is een test post van Raw Realism, waarin persoonlijke inzichten en ervaringen worden gedeeld.",
+  "SubTitle": "De subtitel van de test post",
+  "Intro": "Intro: In deze test post van Raw Realism delen we persoonlijke inzichten en ervaringen die ons leven hebben gevormd.",
+  "Category": "persoonlijk",
+  "Tags": ["introductie", "blogging", "raw realism", "test"],
   "Author": {
     "Name": "Jaap"
   },

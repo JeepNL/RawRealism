@@ -30,6 +30,8 @@ internal class Program
         ///     For Index.html, about.html, "Over" or "About" (etc).
         ///     Maybe select a language at top of the page, so the user can switch between languages?
         ///
+        /// - For Cloudflare, add 404.html, 500.html, and other error pages.
+        ///
         /// END TODO
         ///
 
@@ -212,7 +214,7 @@ internal class Program
         string articlesHtml = string.Join("\n", summaries
             .OrderByDescending(s => s.Date)
             .Select(s =>
-                $"<article><time>{s.DisplayDateLang}</time><h2><a href=\"{s.RelativeUrl}\">{s.Title}</a></h2><h3>{s.SubTitle}</h3><p>{s.Description}</p></article><hr>"));
+                $"<article><time>{s.DisplayDateLang}</time><h2><a href=\"{s.RelativeUrl}\">{s.Title}</a></h2><h3>{s.SubTitle}</h3><p>{s.Description}</p></article><hr /><br />"));
 
         // TODO: Refactor, with JavaScript (browser language detection) we can select the correct language for the index.html page.
         indexHtml = indexHtml
