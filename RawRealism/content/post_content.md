@@ -1,13 +1,13 @@
 ﻿{
   "Locale": "en_US",
-  "DateIso8601": "2025-06-04T19:00:00+02:00",
-  "PostTitle": "Tomorrow's 😉 Post",
-  "Slug": "tomorrows-post",
-  "Description": "Description: This is tomorrow's post from Raw Realism, sharing personal insights and experiences.",
-  "SubTitle": "The subtitle of tomorrow's post",
-  "Intro": "Intro: In this tomorrow's post from Raw Realism, we share personal insights and experiences that have shaped our lives.",
+  "DateIso8601": "2025-06-07T20:30:00+02:00",
+  "PostTitle": "Characters Test Post: ë",
+  "Slug": "characters-test-post",
+  "Description": "Description: This is a test post from Raw Realism, sharing personal insights and experiences.",
+  "SubTitle": "The subtitle of characters test post: ï",
+  "Intro": "Intro: In this characters test post from Raw Realism, we share personal insights and experiences that have shaped our lives.",
   "Category": "personal",
-  "Tags": ["introduction", "blogging", "raw realism", "tomorrow"],
+  "Tags": ["introduction", "blogging", "raw realism", "characters"],
   "Author": {
     "Name": "Jaap"
   },

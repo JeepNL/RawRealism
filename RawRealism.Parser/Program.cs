@@ -223,7 +223,7 @@ internal class Program
             .Replace("{{ var YearToday }}", contentMetaData!.YearToday);
 
         string indexFilePath = Path.Combine(site.ProjectRoot, "www", "index.html");
-        File.WriteAllText(indexFilePath, indexHtml);
+        File.WriteAllText(indexFilePath, indexHtml, System.Text.Encoding.UTF8);
     }
 
     private static void GenerateHtmlFromMeta(Meta contentMetaData, Site site)
@@ -320,7 +320,7 @@ internal class Program
         // Save the generated HTML to the appropriate directory
         string htmlFileName = $"{contentMetaData.Slug}.html";
         string htmlFilePath = Path.Combine(site.ProjectRoot, "www", contentMetaData.PostLangDirName!, yearMonth.Yyyy, yearMonth.Mm, htmlFileName);
-        File.WriteAllText(htmlFilePath, postLayoutHtml);
+        File.WriteAllText(htmlFilePath, postLayoutHtml, System.Text.Encoding.UTF8);
         Console.WriteLine($"HTML file created: {htmlFilePath}");
     }
 
