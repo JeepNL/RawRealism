@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -38,13 +38,10 @@
         <h3>Posts</h3>
 
         <div>
-            <article><time>7 juni 2025</time><h2><a href="/archief/2025/06/de-titel-van-de-vierde-post">Dit is de Title van de Vierde Post</a></h2><h3>De subtitel van de vierde post</h3><p>Omschrijving: Dit is de vierde post van Raw Realism, waarin persoonlijke inzichten en ervaringen worden gedeeld.</p></article><hr>
-<article><time>June 7, 2025</time><h2><a href="/archive/2025/06/the-title-of-the-third-post">The Title of the Third Post</a></h2><h3>The Subtitle of the Third Post</h3><p>Description Third Post: Raw Realism, a blog about personal insights and experiences.</p></article><hr>
-<article><time>June 7, 2025</time><h2><a href="/archive/2025/06/the-title-of-the-second-post">The Title of the Second Post</a></h2><h3>The Subtitle of the Second Post</h3><p>Description Second Post: Raw Realism, a blog about personal insights and experiences.</p></article><hr>
-<article><time>June 6, 2025</time><h2><a href="/archive/2025/06/the-title-of-the-first-post">The Title of the First Post</a></h2><h3>The Subtitle of the First Post</h3><p>Description First Post: Raw Realism, a blog about personal insights and experiences.</p></article><hr>
+            {{ content Articles }}
         </div>
 
-        <p><small>&copy; 2025-2025 Raw Realism | <a href="/pages/en/about">About</a></small></p>
+        <p><small>&copy; 2025-{{ var YearToday }} {{ config Site.Name }} | <a href="/pages/en/about">About</a></small></p>
     </div>
 </body>
 </html>

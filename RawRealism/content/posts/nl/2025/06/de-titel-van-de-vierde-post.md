@@ -1,11 +1,11 @@
 {
   "Locale": "nl_NL",
   "DateIso8601": "2025-06-07T19:00:00+02:00",
-  "PostTitle": "Dit is de Title van de 5e Post",
-  "Slug": "de-titel-van-de-vijfde-post",
-  "Description": "Omschrijving: Dit is de vijfde post van Raw Realism, waarin persoonlijke inzichten en ervaringen worden gedeeld.",
-  "SubTitle": "De subtitel van de vijfde post",
-  "Intro": "Intro: In deze vijfde post van Raw Realism delen we persoonlijke inzichten en ervaringen die ons leven hebben gevormd.",
+  "PostTitle": "Dit is de Title van de Vierde Post",
+  "Slug": "de-titel-van-de-vierde-post",
+  "Description": "Omschrijving: Dit is de vierde post van Raw Realism, waarin persoonlijke inzichten en ervaringen worden gedeeld.",
+  "SubTitle": "De subtitel van de vierde post",
+  "Intro": "Intro: In deze vierde post van Raw Realism delen we persoonlijke inzichten en ervaringen die ons leven hebben gevormd.",
   "Category": "personal",
   "Tags": ["introductie", "blogging", "raw realism"],
   "Author": {

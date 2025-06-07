@@ -12,13 +12,33 @@ internal class Program
     {
         ///
         /// TODO
-        /// Create robots.txt
-        /// Generate Index.html, sitemap.xml, feed.xml, and other static files.
-        /// Use <meta property="og:type" content="website" /> (lowercase `og` is important!) for Index.html
+        ///
+        /// - Create robots.txt
+        ///
+        /// - Generate Index.html, sitemap.xml, feed.xml, and other static files.
+        ///
+        /// - Use <meta property="og:type" content="website" /> (lowercase `og` is important!) for Index.html ('article' for blog posts)
+        ///
+        /// - Add date to each blog post, maybe before `intro`? Only date, not the time,
+        ///     and it should look like this: `1 oktober 2023` (in Dutch) or `October 1, 2023` (in English).
+        ///
+        /// - Default <head></head> in "index.html, about.html, and other? pages.
+        ///     Need a default `<head>` template for the index.html, about.html, and other pages?
+        ///     But in 2 languages, English and Dutch, so we need to load the correct template based on the language.
+        ///
+        /// - Check language of browser with JavaScript, only use Dutch if browser language is Dutch, otherwise English.
+        ///     For Index.html, about.html, "Over" or "About" (etc).
+        ///     Maybe select a language at top of the page, so the user can switch between languages?
+        ///
+        /// END TODO
         ///
 
+
+        ///
+        /// Start of the program
         ///
         /// Step 1
+        ///
         /// check if the appsettings.*.json file exists and load it.
         ///
 
@@ -125,6 +145,7 @@ internal class Program
 
         // Target Root Directory for for/each
         string targetRootDir = Path.Combine(site.ProjectRoot, "content", "posts");
+        var summaries = new List<BlogPostSummary>();
         foreach (string mdFile in Directory.EnumerateFiles(targetRootDir, "*.md", SearchOption.AllDirectories))
         {
             // Read the contents of the current .md file
@@ -136,10 +157,71 @@ internal class Program
                 Console.WriteLine($"ERROR: Skipping file '{mdFile}' due to null contentMetaData.");
                 continue;
             }
+
             contentMetaData.Language = contentMetaData.Locale.Length >= 2 ? contentMetaData.Locale[..2] : contentMetaData.Locale;
             contentMetaData.ContentPath = Path.GetDirectoryName(mdFile);
+
+            contentMetaData.PostLangDirName = contentMetaData.Locale switch
+            {
+                "nl_NL" => "archief",
+                _ => "archive"
+            };
+
+            contentMetaData.PostDirectory = Path.Combine(site.ProjectRoot, "www", contentMetaData.PostLangDirName, yearMonth.Yyyy, yearMonth.Mm);
+            contentMetaData.ImageDirectory = Path.Combine(site.ProjectRoot, "www", "img", contentMetaData.Language!, yearMonth.Yyyy, yearMonth.Mm);
+
+            Directory.CreateDirectory(contentMetaData.PostDirectory);
+            Directory.CreateDirectory(contentMetaData.ImageDirectory);
+
+            // Generate Relative URL
+            //contentMetaData.RelativeUrl = $"/{contentMetaData.PostLangDirName}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}.html";
+            contentMetaData.RelativeUrl = $"/{contentMetaData.PostLangDirName}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}";
+            // Generate Relative Image URL
+            contentMetaData.Image.RelativeUrl = $"/img/{contentMetaData.Language}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}.webp";
+
             GenerateHtmlFromMeta(contentMetaData, site);
+
+            summaries.Add(new BlogPostSummary
+            {
+                Lang = contentMetaData.Language.ToUpper(), // Use uppercase for the language code, e.g., "EN", "NL" for Display on Index.html
+                Title = contentMetaData.PostTitle,
+                SubTitle = contentMetaData.SubTitle,
+                RelativeUrl = contentMetaData.RelativeUrl,
+                Description = contentMetaData.Description,
+                Date = DateTimeOffset.Parse(contentMetaData.DateIso8601).UtcDateTime,
+                DateIso8601 = contentMetaData.DateIso8601,
+                DisplayDateLang = DateTimeOffset
+                    .Parse(contentMetaData.DateIso8601).UtcDateTime
+                    .ToString(contentMetaData.Locale == "nl_NL" ? "d MMMM yyyy" : "MMMM d, yyyy",
+                    System.Globalization.CultureInfo.GetCultureInfo(contentMetaData.Locale)),
+                Author = contentMetaData.Author.Name,
+                ImageRelativeUrl = contentMetaData.Image.RelativeUrl,
+                ImageAlt = contentMetaData.Image.Alt,
+                Tags = contentMetaData.Tags,
+                Category = contentMetaData.Category,
+                Intro = contentMetaData.Intro
+            });
         }
+
+        // Load the index template from the templates directory
+        string postIndexTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "post_index.html");
+        if (!File.Exists(postIndexTemplate))
+            ExitError($"ERROR: File [post_index.html] '{postIndexTemplate}' does not exist.");
+
+        string indexHtml = File.ReadAllText(postIndexTemplate);
+        string articlesHtml = string.Join("\n", summaries
+            .OrderByDescending(s => s.Date)
+            .Select(s =>
+                $"<article><time>{s.DisplayDateLang}</time><h2><a href=\"{s.RelativeUrl}\">{s.Title}</a></h2><h3>{s.SubTitle}</h3><p>{s.Description}</p></article><hr>"));
+
+        // TODO: Refactor, with JavaScript (browser language detection) we can select the correct language for the index.html page.
+        indexHtml = indexHtml
+            .Replace("{{ content Articles }}", articlesHtml)
+            .Replace("{{ config Site.Name }}", site.Name)
+            .Replace("{{ var YearToday }}", contentMetaData!.YearToday);
+
+        string indexFilePath = Path.Combine(site.ProjectRoot, "www", "index.html");
+        File.WriteAllText(indexFilePath, indexHtml);
     }
 
     private static void GenerateHtmlFromMeta(Meta contentMetaData, Site site)
@@ -157,16 +239,13 @@ internal class Program
         if (!File.Exists(postHeaderTemplate))
             ExitError($"ERROR: File [post_header.html] '{postHeaderTemplate}' does not exist.");
 
-        // Image URL
-        contentMetaData.Image.Url = $"{site.Domain}/img/{contentMetaData.Language}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}.webp";
-
         string postHeaderHtml = File.ReadAllText(postHeaderTemplate);
         postHeaderHtml = postHeaderHtml
             .Replace("{{ meta PostTitle }}", contentMetaData.PostTitle)
             .Replace("{{ meta SubTitle }}", contentMetaData.SubTitle)
             .Replace("{{ meta Image.Alt }}", contentMetaData.Image.Alt)
             .Replace("{{ meta Intro }}", contentMetaData.Intro)
-            .Replace("{{ meta Image.Url }}", contentMetaData.Image.Url);
+            .Replace("{{ meta Image.Url }}", contentMetaData.Image.RelativeUrl);
 
         //
         // Load the post_footer template
@@ -177,12 +256,13 @@ internal class Program
 
         string postFooterHtml = File.ReadAllText(postFooterTemplate);
         string textAbout = (contentMetaData.Language == "nl") ? "Over" : "About";
-        string pagesAbout = $"{textAbout.ToLower()}.html";
-        string pagesAboutPath = $"{site.Domain}/pages/{contentMetaData.Language}/{pagesAbout}";
+        //string pagesAbout = $"{textAbout.ToLower()}.html";
+        string pagesAbout = $"{textAbout.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
+        string pagesAboutPath = $"/pages/{contentMetaData.Language}/{pagesAbout}";
 
         postFooterHtml = postFooterHtml
             .Replace("{{ config Site.Name }}", site.Name)
-            .Replace("{{ var YearToday }}", DateTime.Now.Year.ToString())
+            .Replace("{{ var YearToday }}", contentMetaData.YearToday)
             .Replace("{{ link About }}", pagesAboutPath)
             .Replace("{{ var TextAbout }}", textAbout);
 
@@ -199,32 +279,15 @@ internal class Program
         postLayoutHtml = postLayoutHtml
             .Replace("{{ meta Language }}", contentMetaData.Language)
             .Replace("{{ meta PostTitle }}", contentMetaData.PostTitle)
-            .Replace("{{ meta Image.Url }}", contentMetaData.Image.Url)
+            .Replace("{{ meta Image.Url }}", site.Domain + contentMetaData.Image.RelativeUrl)
             .Replace("{{ config Site.Name }}", site.Name)
             .Replace("{{ meta Description }}", contentMetaData.Description)
             .Replace("{{ meta DateIso8601 }}", contentMetaData.DateIso8601)
             .Replace("{{ meta Category }}", contentMetaData.Category)
             .Replace("{{ meta Locale }}", contentMetaData.Locale)
             .Replace("{{ meta Author.Name }}", contentMetaData.Author.Name)
-            .Replace("{{ config Site.Generator }}", site.Generator);
-
-        // VERSION NEW
-
-        string postDirectoryName = contentMetaData.Locale switch
-        {
-            "nl_NL" => "archief",
-            _ => "archive"
-        };
-
-        string postDirectory = Path.Combine(site.ProjectRoot, "www", postDirectoryName, yearMonth.Yyyy, yearMonth.Mm);
-        string imageDirectory = Path.Combine(site.ProjectRoot, "www", "img", contentMetaData.Language!, yearMonth.Yyyy, yearMonth.Mm);
-
-        Directory.CreateDirectory(postDirectory);
-        Directory.CreateDirectory(imageDirectory);
-
-        // Generate Canonical URL
-        string canonicalUrl = $"{site.Domain}/{postDirectoryName}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}.html";
-        postLayoutHtml = postLayoutHtml.Replace("{{ meta CanonicalUrl }}", canonicalUrl);
+            .Replace("{{ config Site.Generator }}", site.Generator)
+            .Replace("{{ meta CanonicalUrl }}", site.Domain + contentMetaData.RelativeUrl);
 
         // Copy the image file to the img directory
         string imageFileName = $"{contentMetaData.Slug}.webp";
@@ -247,13 +310,14 @@ internal class Program
             postLayoutHtml = postLayoutHtml.Replace("{{ array Tags }}", string.Empty);
         }
 
-        postLayoutHtml = postLayoutHtml.Replace("{{ include post_header.html }}", postHeaderHtml);
-        postLayoutHtml = postLayoutHtml.Replace("{{ include post_content.md }}", postMd2HtmlContent);
-        postLayoutHtml = postLayoutHtml.Replace("{{ include post_footer.html }}", postFooterHtml);
+        postLayoutHtml = postLayoutHtml
+            .Replace("{{ include post_header.html }}", postHeaderHtml)
+            .Replace("{{ include post_content.md }}", postMd2HtmlContent)
+            .Replace("{{ include post_footer.html }}", postFooterHtml);
 
         // Save the generated HTML to the appropriate directory
         string htmlFileName = $"{contentMetaData.Slug}.html";
-        string htmlFilePath = Path.Combine(site.ProjectRoot, "www", postDirectoryName, yearMonth.Yyyy, yearMonth.Mm, htmlFileName);
+        string htmlFilePath = Path.Combine(site.ProjectRoot, "www", contentMetaData.PostLangDirName!, yearMonth.Yyyy, yearMonth.Mm, htmlFileName);
         File.WriteAllText(htmlFilePath, postLayoutHtml);
         Console.WriteLine($"HTML file created: {htmlFilePath}");
     }
