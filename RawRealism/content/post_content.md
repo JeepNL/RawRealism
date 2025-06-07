@@ -1,13 +1,13 @@
-{
-  "Locale": "nl_NL",
+﻿{
+  "Locale": "en_US",
   "DateIso8601": "2025-06-04T19:00:00+02:00",
-  "PostTitle": "Initi�le Test Post",
-  "Slug": "initiele-test-post",
-  "Description": "Omschrijving: Dit is een test post van Raw Realism, waarin persoonlijke inzichten en ervaringen worden gedeeld.",
-  "SubTitle": "De subtitel van de test post",
-  "Intro": "Intro: In deze test post van Raw Realism delen we persoonlijke inzichten en ervaringen die ons leven hebben gevormd.",
-  "Category": "persoonlijk",
-  "Tags": ["introductie", "blogging", "raw realism", "test"],
+  "PostTitle": "Tomorrow's 😉 Post",
+  "Slug": "tomorrows-post",
+  "Description": "Description: This is tomorrow's post from Raw Realism, sharing personal insights and experiences.",
+  "SubTitle": "The subtitle of tomorrow's post",
+  "Intro": "Intro: In this tomorrow's post from Raw Realism, we share personal insights and experiences that have shaped our lives.",
+  "Category": "personal",
+  "Tags": ["introduction", "blogging", "raw realism", "tomorrow"],
   "Author": {
     "Name": "Jaap"
   },

@@ -1,7 +1,7 @@
 {
   "Locale": "nl_NL",
   "DateIso8601": "2025-06-07T19:00:00+02:00",
-  "PostTitle": "Dit is de Title van de Vierde Post",
+  "PostTitle": "Dit is de Titel van de Vierde Post",
   "Slug": "de-titel-van-de-vierde-post",
   "Description": "Omschrijving: Dit is de vierde post van Raw Realism, waarin persoonlijke inzichten en ervaringen worden gedeeld.",
   "SubTitle": "De subtitel van de vierde post",

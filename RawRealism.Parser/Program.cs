@@ -214,7 +214,7 @@ internal class Program
         string articlesHtml = string.Join("\n", summaries
             .OrderByDescending(s => s.Date)
             .Select(s =>
-                $"<article><time>{s.DisplayDateLang}</time><h2><a href=\"{s.RelativeUrl}\">{s.Title}</a></h2><h3>{s.SubTitle}</h3><p>{s.Description}</p></article><hr /><br />"));
+                $"<article><time>{s.DisplayDateLang}</time><h2><a href=\"{s.RelativeUrl}\">{s.Title}</a></h2><h3>{s.SubTitle}</h3>{s.Description}</article><hr /><br />"));
 
         // TODO: Refactor, with JavaScript (browser language detection) we can select the correct language for the index.html page.
         indexHtml = indexHtml
