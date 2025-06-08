@@ -1,6 +1,6 @@
 ﻿namespace RawRealism.Parser.Models;
 
-public class BlogPostSummary // Class representing a summary of a blog post, used for listing posts on the website and in RSS feeds.
+public class IndexPost // Class representing a summary of a blog post, used for listing posts on the website and in RSS feeds.
 {
     public required string Lang { get; set; }
     public required string Title { get; set; }

@@ -13,7 +13,7 @@ internal class Program
         ///
         /// TODO
         ///
-        /// - Create robots.txt
+        /// - Create statric templates with a <head></head> template for several pages, like index.html, about.html, etc.
         ///
         /// - Generate Index.html, sitemap.xml, feed.xml, and other static files.
         ///
@@ -30,7 +30,8 @@ internal class Program
         ///     For Index.html, about.html, "Over" or "About" (etc).
         ///     Maybe select a language at top of the page, so the user can switch between languages?
         ///
-        /// - For Cloudflare, add 404.html, 500.html, and other error pages.
+        /// - Create and image converter, so we can convert images to WebP format with 75% quality, and a width of 800px, and variable height.
+        ///     Maybe use jpeg for images, if I don't need an extra external library for that, but WebP is better for quality and size.
         ///
         /// END TODO
         ///
@@ -147,7 +148,7 @@ internal class Program
 
         // Target Root Directory for for/each
         string targetRootDir = Path.Combine(site.ProjectRoot, "content", "posts");
-        var summaries = new List<BlogPostSummary>();
+        var indexPosts = new List<IndexPost>();
         foreach (string mdFile in Directory.EnumerateFiles(targetRootDir, "*.md", SearchOption.AllDirectories))
         {
             // Read the contents of the current .md file
@@ -181,9 +182,9 @@ internal class Program
             // Generate Relative Image URL
             contentMetaData.Image.RelativeUrl = $"/img/{contentMetaData.Language}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}.webp";
 
-            GenerateHtmlFromMeta(contentMetaData, site);
+            GenerateBlogPostHtml(contentMetaData, site);
 
-            summaries.Add(new BlogPostSummary
+            indexPosts.Add(new IndexPost
             {
                 Lang = contentMetaData.Language.ToUpper(), // Use uppercase for the language code, e.g., "EN", "NL" for Display on Index.html
                 Title = contentMetaData.PostTitle,
@@ -204,29 +205,33 @@ internal class Program
                 Intro = contentMetaData.Intro
             });
         }
+        GenerateIndexHtml(indexPosts, site, contentMetaData!.YearToday);
+    }
 
+    private static void GenerateIndexHtml(List<IndexPost> indexPosts, Site site, string YearToday) // TODO, refactor YearToday.
+    {
         // Load the index template from the templates directory
         string postIndexTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "post_index.html");
         if (!File.Exists(postIndexTemplate))
             ExitError($"ERROR: File [post_index.html] '{postIndexTemplate}' does not exist.");
 
         string indexHtml = File.ReadAllText(postIndexTemplate);
-        string articlesHtml = string.Join("\n", summaries
+        string articlesHtml = string.Join("\n", indexPosts
             .OrderByDescending(s => s.Date)
             .Select(s =>
-                $"<article><time>{s.DisplayDateLang}</time><h2><a href=\"{s.RelativeUrl}\">{s.Title}</a></h2><h3>{s.SubTitle}</h3>{s.Description}</article><hr /><br />"));
+                $"<article><time>{s.DisplayDateLang}</time><h2><a href=\"{s.RelativeUrl}\">{s.Title}</a></h2><h3>{s.SubTitle}</h3>{s.Description}</article><hr>"));
 
         // TODO: Refactor, with JavaScript (browser language detection) we can select the correct language for the index.html page.
         indexHtml = indexHtml
             .Replace("{{ content Articles }}", articlesHtml)
             .Replace("{{ config Site.Name }}", site.Name)
-            .Replace("{{ var YearToday }}", contentMetaData!.YearToday);
+            .Replace("{{ var YearToday }}", YearToday);
 
         string indexFilePath = Path.Combine(site.ProjectRoot, "www", "index.html");
         File.WriteAllText(indexFilePath, indexHtml, System.Text.Encoding.UTF8);
     }
 
-    private static void GenerateHtmlFromMeta(Meta contentMetaData, Site site)
+    private static void GenerateBlogPostHtml(Meta contentMetaData, Site site)
     {
         // Prepare values
         YearMonth yearMonth = GetYearMonthFromIso8601(contentMetaData.DateIso8601);
@@ -295,7 +300,7 @@ internal class Program
         string imageFileName = $"{contentMetaData.Slug}.webp";
         string imageSourcePath = Path.Combine(contentMetaData.ContentPath!, imageFileName);
         string imageDestPath = Path.Combine(site.ProjectRoot, "www", "img", contentMetaData.Language!, yearMonth.Yyyy, yearMonth.Mm, imageFileName);
-        File.Copy(imageSourcePath, imageDestPath, overwrite: false);
+        File.Copy(imageSourcePath, imageDestPath, overwrite: true);
         Console.WriteLine($"Image file copied: {imageDestPath}");
 
         // TODO Check if meta properties are null, if so, don't use the meta property in the HTML, but remove it from the layoutHtml string.
@@ -380,7 +385,7 @@ internal class Program
         PropertyNameCaseInsensitive = true
     };
 
-    private static YearMonth GetYearMonthFromIso8601(string iso8601Date)
+    private static YearMonth GetYearMonthFromIso8601(string iso8601Date) // TODO, move this to a separate utility class, so we can use it in other parts of the code.
     {
         DateTimeOffset dto = DateTimeOffset.Parse(iso8601Date);
         DateTime utcTime = dto.UtcDateTime;

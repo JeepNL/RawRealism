@@ -29,7 +29,7 @@ public class Meta
     public required string[] Tags { get; set; } // Tags are used for categorization and(!) hashtags in the content. And for SEO.
     public required string? Category { get; set; } // Category of the blog post, used for categorization and SEO.
 
-    // Properties below are propagated later, so that's why they can be null here, but not in the final output.
+    // The properties below are set later, so they can be null here, but not in the final output.
     public string? RelativeUrl { get; set; } // Relative URL for the blog post, e.g., "/posts/en/2023/10/my-blog-post.html". Canonical url is relative url + site.Domain.
     public string? ContentPath { get; set; } // The path to the content file, e.g., "/content/posts/en/2023/10/my-blog-post.md"
     public string? Language { get; set; } // e.g., "en", "nl", etc. (for directory structure and URLs)

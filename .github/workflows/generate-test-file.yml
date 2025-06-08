@@ -1,8 +1,7 @@
 name: Generate Test File
 
 #
-# TODO: Only run when there is a new `.new` file in the `RawRealism/content` directory.
-# TODO: Ask AI how to temporarily disable the "Run on push" trigger so that we can test the workflow without triggering it on every commit.
+# TODO: Only run when there is a new `post_content.md` file in the `RawRealism/content` directory.
 #
 
 on:
@@ -30,8 +29,8 @@ jobs:
       #- name: List files in working directory pre -build
       #  run: ls -la
 
-      - name: List all .md files in content/posts
-        run: find RawRealism/content/posts -name '*.md' || true
+      #- name: List all .md files in content/posts
+      #  run: find RawRealism/content/posts -name '*.md' || true
 
       - name: Build and run parser
         run: |

@@ -15,7 +15,43 @@ body {
     line-height: 1.8;
     background-color: #fdfdfd;
     color: #222;
-    padding: 2rem 1rem;
+    /* padding: 2rem 1rem; */
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #005577;
+    color: #fff;
+    padding: 0.25rem 0;
+    margin-top: 0;
+    text-align: center;
+    /* margin-bottom: 2rem; */
+}
+
+    header h1 {
+        font-family: 'Inter', sans-serif;
+        font-weight: 700;
+        font-size: 2rem;
+        color: #fff;
+        line-height: 1.25;
+        padding: 0;
+        margin: 0;
+    }
+
+    header a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+        header a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+footer {
+    font-size: small;
+    margin-bottom: 2rem;
 }
 
 /* ====== CONTAINER ====== */
@@ -31,19 +67,21 @@ h1, h2, h3 {
     font-weight: 700;
     line-height: 1.25;
     margin-bottom: 1rem;
-    color: #111;
 }
 
 h1 {
     font-size: 2.2rem;
+    color: #111;
 }
 
 h2 {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
+    color: #666;
 }
 
 h3 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+    color: #666;
 }
 
 /* ====== PARAGRAPHS ====== */
@@ -57,7 +95,7 @@ img {
     display: block;
     max-width: 100%;
     height: auto;
-    margin: 2rem 0;
+    margin: 1rem 0;
     border-radius: 4px;
 }
 
@@ -96,7 +134,7 @@ blockquote {
 /* ====== SMALL CAPS ====== */
 .small-caps {
     font-variant: small-caps;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.05rem;
     font-weight: 500;
     font-family: 'Inter', sans-serif;
     color: #333;
@@ -106,9 +144,9 @@ blockquote {
 code {
     font-family: 'Courier New', Courier, monospace;
     background-color: #f4f4f4;
-    padding: 0.1em 0.3em;
+    padding: 0.1rem 0.3rem;
     border-radius: 4px;
-    font-size: 0.95em;
+    font-size: 0.95rem;
     color: #c7254e;
 }
 
@@ -121,7 +159,7 @@ pre {
     overflow-x: auto;
     margin: 2rem 0;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 0.95em;
+    font-size: 0.95rem;
     line-height: 1.6;
     color: #2a2a2a;
 }
@@ -141,16 +179,23 @@ kbd {
     border: 1px solid #ccc;
     border-radius: 3px;
     padding: 2px 4px;
-    font-size: 0.9em;
+    font-size: 0.9rem;
     box-shadow: inset 0 -1px 0 #bbb;
 }
 
 time {
-    color: #fff;
-    background-color: #bbb;
+    color: #555;
+    /* background-color: #bbb;
     border-radius: 10px;
-    padding: 0em 0.5em;
-    margin: 0.5em 0em;
-    display: inline-block;
-    font-size: 0.95em;
+    padding: 0rem 0.5rem;
+    margin: 0.5rem 0rem;
+    display: inline-block;*/
+    font-size: 0.85rem;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #003f5c;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }

@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="{{ meta Language }}">
 <head>
+<!-- TODO: Create and <head> external template -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="{{ meta CanonicalUrl }}">
@@ -32,17 +33,13 @@
 <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
-<!--
-Todo Site Header
--->
+<header><a href="/"><h1>Raw Realism</h1></a></header>
 <div class="container">
-<article>
+<article style="margin-top: 1rem">
 {{ include post_header.html }}
 {{ include post_content.md }}
 </article>
-<div>
 {{ include post_footer.html }}
-</div>
 </div> <!-- End of container -->
 </body>
 </html>
