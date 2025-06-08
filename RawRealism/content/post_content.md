@@ -1,18 +1,18 @@
 ﻿{
-  "Locale": "en_US",
-  "DateIso8601": "2025-06-08T19:00:00+02:00",
-  "PostTitle": "Characters Second Test Post: ë",
-  "Slug": "characters-test-post",
-  "Description": "Description: This is the second test post from Raw Realism, sharing personal insights and experiences.",
-  "SubTitle": "The subtitle of characters second test post: ï",
-  "Intro": "Intro: In this characters second test post from Raw Realism, we share personal insights and experiences that have shaped our lives.",
+  "Locale": "nl_NL",
+  "DateIso8601": "2025-06-08T19:30:00+02:00",
+  "PostTitle": "GitHub Post",
+  "Slug": "github-post",
+  "Description": "Een post gemaakt via de GitHub webinterface.",
+  "SubTitle": "Via Jaap's Minimalistic Statig Site Generator",
+  "Intro": "In deze post Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat.",
   "Category": "personal",
-  "Tags": ["introduction", "blogging", "raw realism", "characters"],
+  "Tags": ["github", "blogging", "raw realism"],
   "Author": {
     "Name": "Jaap"
   },
   "Image": {
-    "Alt": "Edward Hopper Style Image"
+    "Alt": "New Edward Hopper Style Image! Yahoo!"
   }
 }
 
