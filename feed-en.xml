@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+    <title>RSS Feed Raw Realism (English)</title>
+    <link>https://rawrealism.com/</link>
+    <description>Latest English posts from Raw Realism</description>
+    <language>en-US</language>
+    <copyright>Copyright © 2025 Raw Realism. All rights reserved</copyright>
+    <generator>Jaap&apos;s Minimalistic Static Site Generator (SSG) v0.99ß</generator>
+    <lastBuildDate>Mon, 09 Jun 2025 14:07:34 GMT</lastBuildDate>
+    <image><url>https://rawrealism.com/img/rawrealism-header.webp</url><title>RSS Feed Raw Realism (English)</title><link>https://rawrealism.com/</link></image>
+    <item>
+    <title>RSS Feeds Test</title>
+    <link>https://rawrealism.com/archive/2025/06/rss-feed-test</link>
+    <description>Description: RSS Feeds Test.</description>
+    <category>rss</category>
+    <enclosure url="https://rawrealism.com/img/en/2025/06/rss-feed-test.webp" type="image/webp" />
+    <pubDate>Mon, 09 Jun 2025 10:00:00 GMT</pubDate>
+    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/rss-feed-test</guid>
+    <author>Jaap</author>
+</item>
+<item>
+    <title>Characters Second Test Post: ë</title>
+    <link>https://rawrealism.com/archive/2025/06/characters-test-post</link>
+    <description>Description: This is the second test post from Raw Realism, sharing personal insights and experiences.</description>
+    <category>personal</category>
+    <enclosure url="https://rawrealism.com/img/en/2025/06/characters-test-post.webp" type="image/webp" />
+    <pubDate>Sun, 08 Jun 2025 17:00:00 GMT</pubDate>
+    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/characters-test-post</guid>
+    <author>Jaap</author>
+</item>
+<item>
+    <title>The Title of the Third Post</title>
+    <link>https://rawrealism.com/archive/2025/06/the-title-of-the-third-post</link>
+    <description>Description Third Post: Raw Realism, a blog about personal insights and experiences.</description>
+    <category>personal</category>
+    <enclosure url="https://rawrealism.com/img/en/2025/06/the-title-of-the-third-post.webp" type="image/webp" />
+    <pubDate>Sat, 07 Jun 2025 16:00:00 GMT</pubDate>
+    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/the-title-of-the-third-post</guid>
+    <author>Jaap</author>
+</item>
+<item>
+    <title>The Title of the Second Post</title>
+    <link>https://rawrealism.com/archive/2025/06/the-title-of-the-second-post</link>
+    <description>Description Second Post: Raw Realism, a blog about personal insights and experiences.</description>
+    <category>personal</category>
+    <enclosure url="https://rawrealism.com/img/en/2025/06/the-title-of-the-second-post.webp" type="image/webp" />
+    <pubDate>Sat, 07 Jun 2025 10:00:00 GMT</pubDate>
+    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/the-title-of-the-second-post</guid>
+    <author>Jaap</author>
+</item>
+<item>
+    <title>The Title of the First Post</title>
+    <link>https://rawrealism.com/archive/2025/06/the-title-of-the-first-post</link>
+    <description>Description First Post: Raw Realism, a blog about personal insights and experiences.</description>
+    <category>personal</category>
+    <enclosure url="https://rawrealism.com/img/en/2025/06/the-title-of-the-first-post.webp" type="image/webp" />
+    <pubDate>Fri, 06 Jun 2025 10:00:00 GMT</pubDate>
+    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/the-title-of-the-first-post</guid>
+    <author>Jaap</author>
+</item>
+<item>
+    <title>Tomorrow&apos;s 😉 Post</title>
+    <link>https://rawrealism.com/archive/2025/06/tomorrows-post</link>
+    <description>Description: This is tomorrow&apos;s post from Raw Realism, sharing personal insights and experiences.</description>
+    <category>personal</category>
+    <enclosure url="https://rawrealism.com/img/en/2025/06/tomorrows-post.webp" type="image/webp" />
+    <pubDate>Wed, 04 Jun 2025 17:00:00 GMT</pubDate>
+    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/tomorrows-post</guid>
+    <author>Jaap</author>
+</item>
+</channel>
+</rss>
