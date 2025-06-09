@@ -131,6 +131,14 @@ blockquote {
     color: #444;
 }
 
+/* ====== LISTS ====== */
+ul, ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+    font-size: medium;
+    line-height: 1.6;
+}
+
 /* ====== SMALL CAPS ====== */
 .small-caps {
     font-variant: small-caps;

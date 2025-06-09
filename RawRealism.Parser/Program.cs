@@ -32,6 +32,7 @@ internal class Program
         ///
         /// - Create and image converter, so we can convert images to WebP format with 75% quality, and a width of 800px, and variable height.
         ///     Maybe use jpeg for images, if I don't need an extra external library for that, but WebP is better for quality and size.
+        ///     Use ImageSharp for this. Supports Webp too.
         ///
         /// END TODO
         ///
@@ -52,7 +53,7 @@ internal class Program
             : "Production";
 
         // Print the Base Directory for debugging purposes, we need to load appsettings.*.json from there
-        Console.WriteLine($"AppContext Base Directory: {AppContext.BaseDirectory}");
+        //Console.WriteLine($"AppContext Base Directory: {AppContext.BaseDirectory}");
 
         // Build configuration
         var config = new ConfigurationBuilder()
@@ -74,9 +75,9 @@ internal class Program
             site.Domain = site.Domain.TrimEnd('/');
 
         // For debugging purposes, print the loaded appsettings
-        Console.WriteLine($"Loaded appsetting for: {site.Environment} {site.Name} ({site.Domain})");
-        Console.WriteLine($"ProjectRoot: {site.ProjectRoot}");
-        Console.WriteLine($"GitHubParserRoot: {site.GitHubParserRoot}");
+        //Console.WriteLine($"Loaded appsetting for: {site.Environment} {site.Name} ({site.Domain})");
+        //Console.WriteLine($"ProjectRoot: {site.ProjectRoot}");
+        //Console.WriteLine($"GitHubParserRoot: {site.GitHubParserRoot}");
 
         if (!Directory.Exists(site.ProjectRoot))
             ExitError($"ERROR: Directory [site.ProjectRoot]: '{site.ProjectRoot}' doesn't exist.");
@@ -206,16 +207,104 @@ internal class Program
             });
         }
         GenerateIndexHtml(indexPosts, site, contentMetaData!.YearToday);
+        GenerateRss(indexPosts, site);
+    }
+
+    private static void GenerateRss(List<IndexPost> indexPosts, Site site)
+    {
+        var now = DateTime.UtcNow;
+
+        // Local Function Helper to create a channel for a given language
+        // Local functions need to be declared before calling them, so we declared it here.
+        void CreateFeed(string lang, string fileName)
+        {
+            var posts = indexPosts
+                .Where(p => p.Lang.Equals(lang, StringComparison.OrdinalIgnoreCase))
+                .OrderByDescending(p => p.Date)
+                .ToList();
+
+            if (posts.Count == 0) return;
+
+            var channel = new RssChannel
+            {
+                Title = "RSS Feed " +  site.Name + (lang == "NL" ? " (Nederlands)" : " (English)"),
+                Link = site.Domain + "/",
+                Image = site.Domain + "/img/rawrealism-header.webp",
+                Description = lang == "NL" ? "Laatste Nederlandstalige posts van Raw Realism" : "Latest English posts from Raw Realism",
+                Language = lang == "NL" ? "nl-NL" : "en-US",
+                Copyright = $"Copyright © {now.Year} Raw Realism. " + (lang == "NL" ? "Alle rechten voorbehouden" : "All rights reserved"),
+                Generator = site.Generator,
+                LastBuildDate = now,
+                // Instead of `.ToList()`, we use the array initializer syntax to create a new array = Simplified Collection initialization
+                RssItems = [.. posts.Select(p => new RssItem
+                {
+                    Title = p.Title,
+                    Link = site.Domain + p.RelativeUrl,
+                    Description = p.Description,
+                    Category = p.Category ?? "",
+                    EnclosureUrl = !string.IsNullOrEmpty(p.ImageRelativeUrl) ? site.Domain + p.ImageRelativeUrl : "",
+                    EnclosureType = !string.IsNullOrEmpty(p.ImageRelativeUrl) ? "image/webp" : "",
+                    PubDate = p.Date,
+                    Guid = site.Domain + p.RelativeUrl,
+                    Author = p.Author
+                })]
+            };
+
+            // Serialize to XML (simple manual approach)
+            var xml = GenerateRssXml(channel);
+            var path = Path.Combine(site.ProjectRoot, "www", fileName);
+            File.WriteAllText(path, xml, System.Text.Encoding.UTF8);
+            Console.WriteLine($"RSS feed generated: {path}");
+        }
+
+        CreateFeed("EN", "feed-en.xml");
+        CreateFeed("NL", "feed-nl.xml");
+    }
+
+    // Minimal RSS XML generator (expand as needed)
+    private static string GenerateRssXml(RssChannel channel)
+    {
+        var itemsXml = string.Join("\n", channel.RssItems.Select(item =>
+            $"""
+        <item>
+            <title>{System.Security.SecurityElement.Escape(item.Title)}</title>
+            <link>{item.Link}</link>
+            <description>{System.Security.SecurityElement.Escape(item.Description)}</description>
+            <category>{item.Category}</category>
+            {(string.IsNullOrEmpty(item.EnclosureUrl) ? "" : $"<enclosure url=\"{item.EnclosureUrl}\" type=\"{item.EnclosureType}\" />")}
+            <pubDate>{item.PubDate:R}</pubDate>
+            <guid isPermaLink="true">{item.Guid}</guid>
+            {(string.IsNullOrEmpty(item.Author) ? "" : $"<author>{item.Author}</author>")}
+        </item>
+        """));
+
+        return
+            $"""
+        <?xml version="1.0" encoding="UTF-8"?>
+        <rss version="2.0">
+        <channel>
+            <title>{System.Security.SecurityElement.Escape(channel.Title)}</title>
+            <link>{channel.Link}</link>
+            <description>{System.Security.SecurityElement.Escape(channel.Description)}</description>
+            <language>{channel.Language}</language>
+            <copyright>{System.Security.SecurityElement.Escape(channel.Copyright)}</copyright>
+            <generator>{System.Security.SecurityElement.Escape(channel.Generator)}</generator>
+            <lastBuildDate>{channel.LastBuildDate:R}</lastBuildDate>
+            {(string.IsNullOrEmpty(channel.Image) ? "" : $"<image><url>{channel.Image}</url><title>{System.Security.SecurityElement.Escape(channel.Title)}</title><link>{channel.Link}</link></image>")}
+            {itemsXml}
+        </channel>
+        </rss>
+        """;
     }
 
     private static void GenerateIndexHtml(List<IndexPost> indexPosts, Site site, string YearToday) // TODO, refactor YearToday.
     {
         // Load the index template from the templates directory
-        string postIndexTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "post_index.html");
-        if (!File.Exists(postIndexTemplate))
-            ExitError($"ERROR: File [post_index.html] '{postIndexTemplate}' does not exist.");
+        string IndexTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "index.html");
+        if (!File.Exists(IndexTemplate))
+            ExitError($"ERROR: File [index.html] '{IndexTemplate}' does not exist.");
 
-        string indexHtml = File.ReadAllText(postIndexTemplate);
+        string indexHtml = File.ReadAllText(IndexTemplate);
         string articlesHtml = string.Join("\n", indexPosts
             .OrderByDescending(s => s.Date)
             .Select(s =>
@@ -242,9 +331,9 @@ internal class Program
         //
         // Load the post_header template
         //
-        string postHeaderTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "post_header.html");
+        string postHeaderTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "post_top.html");
         if (!File.Exists(postHeaderTemplate))
-            ExitError($"ERROR: File [post_header.html] '{postHeaderTemplate}' does not exist.");
+            ExitError($"ERROR: File [post_top.html] '{postHeaderTemplate}' does not exist.");
 
         string postHeaderHtml = File.ReadAllText(postHeaderTemplate);
         postHeaderHtml = postHeaderHtml
@@ -257,11 +346,11 @@ internal class Program
         //
         // Load the post_footer template
         //
-        string postFooterTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "post_footer.html");
+        string footerTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "footer.html");
         if (!File.Exists(postHeaderTemplate))
-            ExitError($"ERROR: File [post_footer.html] '{postFooterTemplate}' does not exist.");
+            ExitError($"ERROR: File [footer.html] '{footerTemplate}' does not exist.");
 
-        string postFooterHtml = File.ReadAllText(postFooterTemplate);
+        string postFooterHtml = File.ReadAllText(footerTemplate);
         string textAbout = (contentMetaData.Language == "nl") ? "Over" : "About";
         //string pagesAbout = $"{textAbout.ToLower()}.html";
         string pagesAbout = $"{textAbout.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
@@ -301,7 +390,7 @@ internal class Program
         string imageSourcePath = Path.Combine(contentMetaData.ContentPath!, imageFileName);
         string imageDestPath = Path.Combine(site.ProjectRoot, "www", "img", contentMetaData.Language!, yearMonth.Yyyy, yearMonth.Mm, imageFileName);
         File.Copy(imageSourcePath, imageDestPath, overwrite: true);
-        Console.WriteLine($"Image file copied: {imageDestPath}");
+        //Console.WriteLine($"Image file copied: {imageDestPath}");
 
         // TODO Check if meta properties are null, if so, don't use the meta property in the HTML, but remove it from the layoutHtml string.
         // Do the same as with the Tag placeholder for these properties, generate the HTML here. Not in the layout.html file.
@@ -318,9 +407,9 @@ internal class Program
         }
 
         postLayoutHtml = postLayoutHtml
-            .Replace("{{ include post_header.html }}", postHeaderHtml)
+            .Replace("{{ include post_top.html }}", postHeaderHtml)
             .Replace("{{ include post_content.md }}", postMd2HtmlContent)
-            .Replace("{{ include post_footer.html }}", postFooterHtml);
+            .Replace("{{ include footer.html }}", postFooterHtml);
 
         // Save the generated HTML to the appropriate directory
         string htmlFileName = $"{contentMetaData.Slug}.html";
@@ -366,8 +455,8 @@ internal class Program
         contentMetaData.MarkDownContent = string.Join(Environment.NewLine, lines.Skip(dividerIndex + 1)).Trim();
 
         // For debugging: print some meta info
-        Console.WriteLine($"Meta loaded: {contentMetaData.PostTitle} ({contentMetaData.Locale}) - {contentMetaData.DateIso8601}");
-        Console.WriteLine($"Markdown content length: {contentMetaData.MarkDownContent.Length}");
+        //Console.WriteLine($"Meta loaded: {contentMetaData.PostTitle} ({contentMetaData.Locale}) - {contentMetaData.DateIso8601}");
+        //Console.WriteLine($"Markdown content length: {contentMetaData.MarkDownContent.Length}");
 
         return contentMetaData;
     }
