@@ -1,6 +1,7 @@
-﻿namespace RawRealism.Parser.Models;
-using SixLabors.ImageSharp;
+﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
+
+namespace RawRealism.Parser.Models;
 
 public static class Utils
 {

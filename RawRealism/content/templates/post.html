@@ -2,20 +2,20 @@
 <!DOCTYPE html>
 <html lang="{{ meta Language }}">
 <head>
-    {{ include head.html }}
-    {{ array Tags }}
+{{ include head.html }}
+{{ array Tags }}
 </head>
 <body>
-    {{ include site_header.html }}
-    <div class="container">
-        <article style="margin-top: 1rem">
-            <h1>{{ meta PostTitle }}</h1>
-            <img src="{{ meta Graphic.Url }}" alt="Image for {{ meta Graphic.Alt }}" />
-            <h2>{{ meta SubTitle }}</h2>
-            <p>{{ meta Intro }}</p>
-            {{ meta MarkdownContent }}
-        </article>
-        {{ include footer.html }}
-    </div> <!-- End of container -->
+{{ include site_header.html }}
+<div class="container">
+<article style="margin-top: 1rem">
+<h1>{{ meta PostTitle }}</h1>
+<img src="{{ meta Graphic.Url }}" alt="Image for {{ meta Graphic.Alt }}" />
+<h2>{{ meta SubTitle }}</h2>
+<p>{{ meta Intro }}</p>
+{{ meta MarkdownContent }}
+</article>
+{{ include footer.html }}
+</div> <!-- End of container -->
 </body>
 </html>

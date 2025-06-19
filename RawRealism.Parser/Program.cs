@@ -313,8 +313,12 @@ internal class Program
 
         // footer
         string textAbout = (contentMetaData.Language == "nl") ? "Over" : "About";
+        string textPrivacy = "Privacy";
+        string TextRights = (contentMetaData.Language == "nl") ? "Alle rechten voorbehouden" : "All rights reserved";
         string pagesAbout = $"{textAbout.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
         string pagesAboutPath = $"/pages/{contentMetaData.Language}/{pagesAbout}";
+        string pagesPrivacy = $"{textPrivacy.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
+        string pagesPrivacyPath = $"/pages/{contentMetaData.Language}/{pagesPrivacy}";
 
         // Now we have the full defaultTemplateContent with the head, header and footer included.
         // We need to replace all of the placeholders with the actual content.
@@ -337,8 +341,11 @@ internal class Program
             .Replace("{{ meta DateIso8601 }}", contentMetaData.DateIso8601)
             .Replace("{{ meta MarkdownContent }}", contentMetaData.MarkdownContent)
             .Replace("{{ var YearToday }}", DateTime.Now.ToString("yyyy", System.Globalization.CultureInfo.InvariantCulture))
+            .Replace("{{ var TextRights }}", TextRights)
             .Replace("{{ link About }}", pagesAboutPath)
-            .Replace("{{ var TextAbout }}", textAbout);
+            .Replace("{{ var TextAbout }}", textAbout)
+            .Replace("{{ link Privacy }}", pagesPrivacyPath)
+            .Replace("{{ var TextPrivacy }}", textPrivacy);
 
         // Index and 404 pages have special handling, and they need to save in the www root directory.
         string htmlFilePath = string.Empty;
@@ -441,16 +448,22 @@ internal class Program
             Utils.ExitError($"ERROR: File [footer.html] '{footerTemplate}' does not exist.");
 
         string footerHtml = File.ReadAllText(footerTemplate);
+        string TextRights = (contentMetaData.Language == "nl") ? "Alle rechten voorbehouden" : "All rights reserved";
         string textAbout = (contentMetaData.Language == "nl") ? "Over" : "About";
-        //string pagesAbout = $"{textAbout.ToLower()}.html";
         string pagesAbout = $"{textAbout.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
         string pagesAboutPath = $"/pages/{contentMetaData.Language}/{pagesAbout}";
+        string textPrivacy = "Privacy";
+        string pagesPrivacy = $"{textPrivacy.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
+        string pagesPrivacyPath = $"/pages/{contentMetaData.Language}/{pagesPrivacy}";
 
         footerHtml = footerHtml
             .Replace("{{ config Site.Name }}", site.Name)
             .Replace("{{ var YearToday }}", DateTime.Now.ToString("yyyy", System.Globalization.CultureInfo.InvariantCulture))
+            .Replace("{{ var TextRights }}", TextRights)
             .Replace("{{ link About }}", pagesAboutPath)
-            .Replace("{{ var TextAbout }}", textAbout);
+            .Replace("{{ var TextAbout }}", textAbout)
+            .Replace("{{ link Privacy }}", pagesPrivacyPath)
+            .Replace("{{ var TextPrivacy }}", textPrivacy);
 
         // Copy the image file to the img directory
         string imageFileName = $"{contentMetaData.Slug}.webp";
