@@ -6,12 +6,13 @@
   "Description": "Description: This is the second test post from Raw Realism, sharing personal insights and experiences.",
   "SubTitle": "The subtitle of characters second test post: ï",
   "Intro": "Intro: In this characters second test post from Raw Realism, we share personal insights and experiences that have shaped our lives.",
+  "OGType": "article",
   "Category": "personal",
   "Tags": ["introduction", "blogging", "raw realism", "characters"],
   "Author": {
     "Name": "Jaap"
   },
-  "Image": {
+  "Graphic": {
     "Alt": "Edward Hopper Style Image"
   }
 }

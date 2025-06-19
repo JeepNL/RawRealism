@@ -6,12 +6,13 @@
   "Description": "Omschrijving: Dit is een test post van Raw Realism, waarin persoonlijke inzichten en ervaringen worden gedeeld.",
   "SubTitle": "De subtitel van de test post",
   "Intro": "Intro: In deze test post van Raw Realism delen we persoonlijke inzichten en ervaringen die ons leven hebben gevormd.",
+  "OGType": "article",
   "Category": "persoonlijk",
   "Tags": ["introductie", "blogging", "raw realism", "test"],
   "Author": {
     "Name": "Jaap"
   },
-  "Image": {
+  "Graphic": {
     "Alt": "Edward Hopper Style Image"
   }
 }

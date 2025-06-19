@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Markdig;
+using Microsoft.Extensions.Configuration;
 using RawRealism.Parser.Models;
 using System.Runtime.InteropServices;
 using System.Text.Json;
-using Markdig;
 
 namespace RawRealism.Parser;
 
@@ -13,7 +13,7 @@ internal class Program
         ///
         /// TODO
         ///
-        /// - Create statric templates with a <head></head> template for several pages, like index.html, about.html, etc.
+        /// - Create static templates with a <head></head> template for several pages, like index.html, about.html, etc.
         ///
         /// - Generate Index.html, sitemap.xml, feed.xml, and other static files.
         ///
@@ -36,7 +36,6 @@ internal class Program
         ///
         /// END TODO
         ///
-
 
         ///
         /// Start of the program
@@ -66,7 +65,7 @@ internal class Program
         var site = config.GetSection("Settings").Get<Site>();
         if (site == null)
         {
-            ExitError("ERROR: Failed to load 'appsettigs.*.json'.");
+            Utils.ExitError("ERROR: Failed to load 'appsettigs.*.json'.");
             return;
         }
 
@@ -80,12 +79,12 @@ internal class Program
         //Console.WriteLine($"GitHubParserRoot: {site.GitHubParserRoot}");
 
         if (!Directory.Exists(site.ProjectRoot))
-            ExitError($"ERROR: Directory [site.ProjectRoot]: '{site.ProjectRoot}' doesn't exist.");
+            Utils.ExitError($"ERROR: Directory [site.ProjectRoot]: '{site.ProjectRoot}' doesn't exist.");
 
         ///
         /// Step 2
-        /// Load the markdown file `content.md` from /RawRealism/content/
-        /// For every new blogpost I use the same file `content.md` (for now) to write the new content.
+        /// Load the markdown file `post.md` from /RawRealism/content/
+        /// For every new blogpost I use the same file `post.md` (for now) to write the new content.
         /// I'm doing this because I want to figure out the title (and slug) when writing my blogpost.
         /// So then I have my title and slug when the parser runs and it will create a new file in the:
         /// '/RawRealism/content/posts/[language]/[year]/[month]' directory, with the day (with leading zero if necessary) as the filename as the first part of the filename.
@@ -97,30 +96,34 @@ internal class Program
         // Path to the new blog post source, the `content.md` file.
 
         var contentPathRoot = Path.Combine(site.ProjectRoot, "content");
-        var contentMdPath = Path.Combine(contentPathRoot, "post_content.md");
-        if (!File.Exists(contentMdPath))
-            ExitError($"ERROR: File [post_content.md] '{contentMdPath}' does not exist.");
+        var postMd = Path.Combine(contentPathRoot, "post.md");
+        if (!File.Exists(postMd))
+            Utils.ExitError($"ERROR: File [post.md] '{postMd}' does not exist.");
 
-        // Read the content of the content.md file and parse it to a Meta object
-        Meta contentMetaData = LoadMetaFromMarkdown(contentMdPath);
+        // Read the content of the post.md file and parse it to a Meta object
+        Meta contentMetaData = LoadMetaFromMarkdown(postMd);
         contentMetaData.Language = contentMetaData.Locale.Length >= 2 ? contentMetaData.Locale[..2] : contentMetaData.Locale;
+
+        string originalImgPath = Path.Combine(contentPathRoot, "post.webp");
+        //contentMetaData.Graphic.Alt = contentMetaData.Graphic.Alt;
 
         ///
         /// Step 3, Image handling
         ///
 
-        string contentImgPath = Path.Combine(contentPathRoot, "post_content.webp");
-        contentMetaData.Image.Alt = contentMetaData.Image.Alt;
+        if (!File.Exists(originalImgPath))
+            Utils.ExitError($"ERROR: Image file '{originalImgPath}' does not exist.");
+
+        // Load the image file and convert it to WebP format, with 75% quality and a width of 800px, and variable height.
+        string encodedImgPath = Path.Combine(contentPathRoot, "post_encoded.webp");
+        Utils.ConvertImage(originalImgPath, encodedImgPath);
 
         ///
         /// Step 4
-        /// Previously I made an error in my thought process. I wrongly thought I could directly parse the markdown file and generate the HTML file from it, but now we
-        /// actually need to copy the `content.md` file to the `www/content/posts/[language]/[year]/[month]` directory, with the slugified title as the filename, like `my-first-post.html`.
-        /// So the `/content/posts/` directory is the directory where the sources of the blog posts  (the `.md` files) are stored, and the `content.md` file is the template for a new blog post.
         ///
 
         /// Copy the content.md file to the target directory, with the slugified title as the filename
-        YearMonth yearMonth = GetYearMonthFromIso8601(contentMetaData.DateIso8601);
+        YearMonth yearMonth = Utils.GetYearMonthFromIso8601(contentMetaData.DateIso8601);
         string targetContentDir = Path.Combine(site.ProjectRoot, "content", "posts", contentMetaData.Language, yearMonth.Yyyy, yearMonth.Mm);
         Directory.CreateDirectory(targetContentDir);
 
@@ -130,16 +133,16 @@ internal class Program
         // Check if the target file already exists, if it does, exit with an error, we should not overwrite existing blog posts!
         // We can always edit the sources of the blog posts, but we should not overwrite existing blog posts.
         if (File.Exists(targetFilePath))
-            ExitError($"ERROR: Target file '{targetFilePath}' already exists.");
-        File.Copy(contentMdPath, targetFilePath, overwrite: false);
+            Utils.ExitError($"ERROR: Target file '{targetFilePath}' already exists.");
+        File.Copy(postMd, targetFilePath, overwrite: false);
 
         // Copy the image file to the target directory too.
         // The image file is copied to the same directory as the content file, so it can be used in the blog post.
         string targetImageName = $"{contentMetaData.Slug}.webp";
         string targetImagePath = Path.Combine(targetContentDir, targetImageName);
         if (File.Exists(targetImagePath))
-            ExitError($"ERROR: Target image file '{targetImagePath}' already exists.");
-        File.Copy(contentImgPath, targetImagePath, overwrite: false);
+            Utils.ExitError($"ERROR: Target image file '{targetImagePath}' already exists.");
+        File.Copy(encodedImgPath, targetImagePath, overwrite: false);
 
         ///
         /// Step 5
@@ -172,19 +175,21 @@ internal class Program
             };
 
             contentMetaData.PostDirectory = Path.Combine(site.ProjectRoot, "www", contentMetaData.PostLangDirName, yearMonth.Yyyy, yearMonth.Mm);
-            contentMetaData.ImageDirectory = Path.Combine(site.ProjectRoot, "www", "img", contentMetaData.Language!, yearMonth.Yyyy, yearMonth.Mm);
+            contentMetaData.GraphicDirectory = Path.Combine(site.ProjectRoot, "www", "img", contentMetaData.Language!, yearMonth.Yyyy, yearMonth.Mm);
 
             Directory.CreateDirectory(contentMetaData.PostDirectory);
-            Directory.CreateDirectory(contentMetaData.ImageDirectory);
+            Directory.CreateDirectory(contentMetaData.GraphicDirectory);
 
             // Generate Relative URL
             //contentMetaData.RelativeUrl = $"/{contentMetaData.PostLangDirName}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}.html";
             contentMetaData.RelativeUrl = $"/{contentMetaData.PostLangDirName}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}";
             // Generate Relative Image URL
-            contentMetaData.Image.RelativeUrl = $"/img/{contentMetaData.Language}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}.webp";
+            contentMetaData.Graphic.RelativeUrl = $"/img/{contentMetaData.Language}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}.webp";
 
+            // In this for/each-loop generate the individual HTML files for the blog posts.
             GenerateBlogPostHtml(contentMetaData, site);
 
+            // This is for the generation of index.html and RSS feeds, list of posts.
             indexPosts.Add(new IndexPost
             {
                 Lang = contentMetaData.Language.ToUpper(), // Use uppercase for the language code, e.g., "EN", "NL" for Display on Index.html
@@ -199,15 +204,315 @@ internal class Program
                     .ToString(contentMetaData.Locale == "nl_NL" ? "d MMMM yyyy" : "MMMM d, yyyy",
                     System.Globalization.CultureInfo.GetCultureInfo(contentMetaData.Locale)),
                 Author = contentMetaData.Author.Name,
-                ImageRelativeUrl = contentMetaData.Image.RelativeUrl,
-                ImageAlt = contentMetaData.Image.Alt,
+                ImageRelativeUrl = contentMetaData.Graphic.RelativeUrl,
+                ImageAlt = contentMetaData.Graphic.Alt,
                 Tags = contentMetaData.Tags,
                 Category = contentMetaData.Category,
                 Intro = contentMetaData.Intro
             });
         }
-        GenerateIndexHtml(indexPosts, site, contentMetaData!.YearToday);
+
+        // TODO
+        // for each default pages, like index.html, about.html, etc. generate the HTML files.
+        // The default pages are in `var contentPathRoot = Path.Combine(site.ProjectRoot, "default");`
+        // There are 2 HTML pages with 'special needs': index.html and 404.html. They need to be saved in the www root directory.
+        // The other pages are saved in the /pages/[language]/ directory, e.g., /pages/en/about.html and /pages/nl/over.html.
+        // maybe should'mt do a foreach loop for these.
+        // There's another thing about the index.html, we need to replace the {{ content Articles }} placeholder with the articles HTML.
+
+        // let's start with a foreach loop for the default pages located in `var contentPathRoot = Path.Combine(site.ProjectRoot, "default");`
+
+        ///
+        /// Step 6
+        /// Default pages generation
+        ///
+
+        var defaultMdPath = Path.Combine(site.ProjectRoot, "content", "default");
+        if (!Directory.Exists(defaultMdPath))
+            Utils.ExitError($"ERROR: Directory [default pages] '{defaultMdPath}' does not exist.");
+
+        foreach (string defaultMdFile in Directory.EnumerateFiles(defaultMdPath, "*.md"))
+        {
+            string defaultPageContent = File.ReadAllText(defaultMdFile);
+
+            contentMetaData = LoadMetaFromMarkdown(defaultMdFile); // Load the meta data from the default page markdown file.
+            contentMetaData.Language = contentMetaData.Locale.Length >= 2 ? contentMetaData.Locale[..2] : contentMetaData.Locale;
+            //contentMetaData.RelativeUrl = $"/{contentMetaData.PostLangDirName}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}";
+            //contentMetaData.Graphic.RelativeUrl = $"/img/{contentMetaData.Language}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}.webp";
+
+            if (contentMetaData == null)
+            {
+                Console.WriteLine($"ERROR: Skipping file '{defaultMdFile}' due to null contentMetaData.");
+                continue;
+            }
+
+            if (contentMetaData.Slug == "index") // Special case for index.html, replace the content Articles placeholder with the articles HTML.
+                GenerateDefaultPages(site, contentMetaData, indexPosts);
+            else
+                GenerateDefaultPages(site, contentMetaData);
+        }
+
         GenerateRss(indexPosts, site);
+    }
+
+    private static void GenerateDefaultPages(Site site, Meta contentMetaData, List<IndexPost>? indexPosts = null) // TODO, refactor YearToday.
+    {
+        // The markdown content is already loaded in the contentMetaData.MarkdownContent property.
+        if (string.IsNullOrEmpty(contentMetaData.MarkdownContent))
+            Utils.ExitError($"ERROR: The markdown content for '{contentMetaData.Slug}' is empty or null.");
+
+        // Init
+        string defaultTemplatePath = Path.Combine(site.ProjectRoot, "content", "templates", "page.html");
+        string defaultTemplateContent = File.ReadAllText(defaultTemplatePath);
+        string pageHeaderFileName =  (contentMetaData.Slug == "index") ? "page_header_index.html" : "page_header.html";
+
+        // Read the templates for head, header, and footer.
+        string headContent = File.ReadAllText(Path.Combine(site.ProjectRoot, "content", "templates", "head.html"));
+        string siteHeaderContent = File.ReadAllText(Path.Combine(site.ProjectRoot, "content", "templates", "site_header.html"));
+        string pageHeader = File.ReadAllText(Path.Combine(site.ProjectRoot, "content", "templates", pageHeaderFileName));
+        string footerContent = File.ReadAllText(Path.Combine(site.ProjectRoot, "content", "templates", "footer.html"));
+
+        // Replace the {{ meta Graphic.Url }} in the PageHeader (HTML Page, not a <head></head> property) with the Relative URL of the graphic.
+        contentMetaData.Graphic.RelativeUrl = $"/img/{contentMetaData.Slug}.webp";
+        pageHeader = pageHeader.Replace("{{ meta Graphic.Url }}", contentMetaData.Graphic.RelativeUrl);
+
+        // Convert Markdown to HTML, Note: MarkDig places <p> tags around the content, if there are no HTML tags in the Markdown content.
+        // In the index.md, there's now only `{{ content Articles }}` so MarkDig will places <p> tags around it.
+        string markdownHtmlContent = Markdown.ToHtml(contentMetaData.MarkdownContent!);
+
+        defaultTemplateContent = defaultTemplateContent
+            .Replace("{{ include head.html }}", headContent)
+            .Replace("{{ include site_header.html }}", siteHeaderContent)
+            .Replace("{{ var PageHeader }}", pageHeader)
+            .Replace("{{ meta MarkdownContent }}", markdownHtmlContent)
+            .Replace("{{ include footer.html }}", footerContent);
+
+        // Generate the relative URL for the page.
+        if (contentMetaData.Slug == "index" || contentMetaData.Slug == "404")
+            contentMetaData.RelativeUrl = $"/{contentMetaData.Slug}";
+        else
+        {
+            // Create the directory for the page if it doesn't exist.
+            string pageDir = Path.Combine(site.ProjectRoot, "www", "pages", contentMetaData.Language);
+            Directory.CreateDirectory(pageDir);
+            contentMetaData.RelativeUrl = $"/pages/{contentMetaData.Language}/{contentMetaData.Slug}";
+        }
+
+        /// Image handling
+        string origDefImgPath = Path.Combine(site.ProjectRoot, "content", "default", $"{contentMetaData.Slug}.webp");
+        string encDefImgPath = Path.Combine(site.ProjectRoot, "www", "img", $"{contentMetaData.Slug}.webp");
+
+        if (!File.Exists(origDefImgPath))
+            Utils.ExitError($"ERROR: (Source) Image file '{origDefImgPath}' does not exist.");
+
+        Utils.ConvertImage(origDefImgPath, encDefImgPath);
+
+        // Generate the graphic URL, this is the relative URL to the image file.
+        contentMetaData.Graphic.RelativeUrl = $"/img/{contentMetaData.Slug}.webp";
+        string targetImgDir = Path.Combine(site.ProjectRoot, "www", "img");
+
+        // footer
+        string textAbout = (contentMetaData.Language == "nl") ? "Over" : "About";
+        string pagesAbout = $"{textAbout.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
+        string pagesAboutPath = $"/pages/{contentMetaData.Language}/{pagesAbout}";
+
+        // Now we have the full defaultTemplateContent with the head, header and footer included.
+        // We need to replace all of the placeholders with the actual content.
+        defaultTemplateContent = defaultTemplateContent
+            .Replace("{{ meta Language }}", contentMetaData.Language)
+            .Replace("{{ meta PostTitle }}", contentMetaData.PostTitle)
+            .Replace("{{ config Site.Name }}", site.Name)
+            .Replace("{{ meta CanonicalUrl }}", site.Domain + contentMetaData.RelativeUrl)
+            .Replace("{{ meta Description }}", contentMetaData.Description)
+            .Replace("{{ meta Author.Name }}", contentMetaData.Author.Name)
+            .Replace("{{ config Site.Generator }}", site.Generator)
+            .Replace("{{ meta Graphic.Url }}", site.Domain + contentMetaData.Graphic.RelativeUrl)
+            .Replace("{{ meta Graphic.Alt }}", contentMetaData.Graphic.Alt)
+            .Replace("{{ meta Locale }}", contentMetaData.Locale)
+            .Replace("{{ meta Category }}", contentMetaData.Category)
+            .Replace("{{ meta OGType }}", contentMetaData.OGType)
+            .Replace("{{ meta SubTitle }}", contentMetaData.SubTitle)
+            .Replace("{{ meta Intro }}", contentMetaData.Intro)
+            .Replace("{{ var YearToday }}", DateTime.Now.ToString("yyyy", System.Globalization.CultureInfo.InvariantCulture)) // footer
+            .Replace("{{ meta DateIso8601 }}", contentMetaData.DateIso8601)
+            .Replace("{{ meta MarkdownContent }}", contentMetaData.MarkdownContent)
+            .Replace("{{ var YearToday }}", DateTime.Now.ToString("yyyy", System.Globalization.CultureInfo.InvariantCulture))
+            .Replace("{{ link About }}", pagesAboutPath)
+            .Replace("{{ var TextAbout }}", textAbout);
+
+        // Index and 404 pages have special handling, and they need to save in the www root directory.
+        string htmlFilePath = string.Empty;
+        if (contentMetaData.Slug == "index")
+        {
+            string articlesHtml = string.Join("\n", indexPosts!
+                .OrderByDescending(s => s.Date)
+                .Select(s =>
+                    $"<article><time>{s.DisplayDateLang}</time><h2><a href=\"{s.RelativeUrl}\">{s.Title}</a></h2><h3>{s.SubTitle}</h3>{s.Description}</article><hr>"));
+
+            // Remove the last <hr> tag, so we don't have a double <hr> tag with the footer.
+            if (articlesHtml.EndsWith("<hr>"))
+                articlesHtml = articlesHtml[..^"<hr>".Length];
+
+            // TODO: Refactor, with JavaScript (browser language detection) we can select the correct language for the index.html page.
+            defaultTemplateContent = defaultTemplateContent
+                .Replace("{{ content Articles }}", articlesHtml);
+
+            htmlFilePath = Path.Combine(site.ProjectRoot, "www", "index.html");
+            File.WriteAllText(htmlFilePath, defaultTemplateContent, System.Text.Encoding.UTF8);
+        }
+        else if (contentMetaData.Slug == "404")
+        {
+            htmlFilePath = Path.Combine(site.ProjectRoot, "www", "404.html");
+            File.WriteAllText(htmlFilePath, defaultTemplateContent, System.Text.Encoding.UTF8);
+        }
+        else // For other pages, we save them in the /pages/[language]/ directory.
+        {
+            htmlFilePath = Path.Combine(site.ProjectRoot, "www", "pages", contentMetaData.Language, $"{contentMetaData.Slug}.html");
+            File.WriteAllText(htmlFilePath, defaultTemplateContent, System.Text.Encoding.UTF8);
+        }
+
+        Console.WriteLine($"(Pages) HTML file created: {htmlFilePath}");
+    }
+
+    private static void GenerateBlogPostHtml(Meta contentMetaData, Site site)
+    {
+        // Prepare values
+        YearMonth yearMonth = Utils.GetYearMonthFromIso8601(contentMetaData.DateIso8601);
+
+        // Load 'post.html' template from the templates directory.
+        string postTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "post.html");
+        if (!File.Exists(postTemplate))
+            Utils.ExitError($"ERROR: File [post.html] '{postTemplate}' does not exist.");
+
+        string postHtml = File.ReadAllText(postTemplate);
+        postHtml = postHtml
+            .Replace("{{ meta Language }}", contentMetaData.Language)
+            .Replace("{{ meta PostTitle }}", contentMetaData.PostTitle)
+            .Replace("{{ meta SubTitle }}", contentMetaData.SubTitle)
+            .Replace("{{ meta Intro }}", contentMetaData.Intro)
+            .Replace("{{ meta Graphic.Alt }}", contentMetaData.Graphic.Alt)
+            .Replace("{{ meta Graphic.Url }}", contentMetaData.Graphic.RelativeUrl);
+
+        // TODO Check if meta properties are null, if so, don't use the meta property in the HTML, but remove it from the layoutHtml string.
+        // Do the same as with the Tag placeholder for these properties, generate the HTML here. Not in the layout.html file.
+
+        // Tags (in post.html, not in head.html)
+        if (contentMetaData.Tags != null && contentMetaData.Tags.Length > 0)
+        {
+            string tagsHtml = string.Join(Environment.NewLine, contentMetaData.Tags.Select(tag => $"<meta property=\"article:tag\" content=\"{tag}\" />"));
+            postHtml = postHtml.Replace("{{ array Tags }}", tagsHtml);
+        }
+        else // If there are no tags, remove the placeholder from the postHtml string.
+        {
+            postHtml = postHtml.Replace("{{ array Tags }}", string.Empty);
+        }
+
+        // Load the '<head></head>' template from the templates directory.
+        string headTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "head.html");
+        if (!File.Exists(headTemplate))
+            Utils.ExitError($"ERROR: File [head.html] '{headTemplate}' does not exist.");
+
+        string headHtml = File.ReadAllText(headTemplate);
+        headHtml = headHtml
+            .Replace("{{ meta PostTitle }}", contentMetaData.PostTitle)
+            .Replace("{{ meta Graphic.Url }}", site.Domain + contentMetaData.Graphic.RelativeUrl)
+            .Replace("{{ config Site.Name }}", site.Name)
+            .Replace("{{ meta Description }}", contentMetaData.Description)
+            .Replace("{{ meta DateIso8601 }}", contentMetaData.DateIso8601)
+            .Replace("{{ meta Category }}", contentMetaData.Category)
+            .Replace("{{ meta Locale }}", contentMetaData.Locale)
+            .Replace("{{ meta Author.Name }}", contentMetaData.Author.Name)
+            .Replace("{{ config Site.Generator }}", site.Generator)
+            .Replace("{{ meta CanonicalUrl }}", site.Domain + contentMetaData.RelativeUrl)
+            .Replace("{{ meta OGType }}", contentMetaData.OGType);
+
+        // Load the header template {{ include site_header.html }}
+        string headerTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "site_header.html");
+        if (!File.Exists(headerTemplate))
+            Utils.ExitError($"ERROR: File [site_header.html] '{headerTemplate}' does not exist.");
+        string headerHtml = File.ReadAllText(headerTemplate);
+
+        // Convert Markdown to HTML
+        string postMd2HtmlContent = Markdown.ToHtml(contentMetaData.MarkdownContent!);
+
+        // Load the footer template
+        string footerTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "footer.html");
+        if (!File.Exists(postTemplate))
+            Utils.ExitError($"ERROR: File [footer.html] '{footerTemplate}' does not exist.");
+
+        string footerHtml = File.ReadAllText(footerTemplate);
+        string textAbout = (contentMetaData.Language == "nl") ? "Over" : "About";
+        //string pagesAbout = $"{textAbout.ToLower()}.html";
+        string pagesAbout = $"{textAbout.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
+        string pagesAboutPath = $"/pages/{contentMetaData.Language}/{pagesAbout}";
+
+        footerHtml = footerHtml
+            .Replace("{{ config Site.Name }}", site.Name)
+            .Replace("{{ var YearToday }}", DateTime.Now.ToString("yyyy", System.Globalization.CultureInfo.InvariantCulture))
+            .Replace("{{ link About }}", pagesAboutPath)
+            .Replace("{{ var TextAbout }}", textAbout);
+
+        // Copy the image file to the img directory
+        string imageFileName = $"{contentMetaData.Slug}.webp";
+        string imageSourcePath = Path.Combine(contentMetaData.ContentPath!, imageFileName);
+        string imageDestPath = Path.Combine(site.ProjectRoot, "www", "img", contentMetaData.Language!, yearMonth.Yyyy, yearMonth.Mm, imageFileName);
+        File.Copy(imageSourcePath, imageDestPath, overwrite: true);
+        //Console.WriteLine($"Image file copied: {imageDestPath}");
+
+        postHtml = postHtml
+            .Replace("{{ include head.html }}", headHtml)
+            .Replace("{{ include site_header.html }}", headerHtml)
+            .Replace("{{ meta MarkdownContent }}", postMd2HtmlContent)
+            .Replace("{{ include footer.html }}", footerHtml);
+
+        // Save the generated HTML to the appropriate directory
+        string htmlFileName = $"{contentMetaData.Slug}.html";
+        string htmlFilePath = Path.Combine(site.ProjectRoot, "www", contentMetaData.PostLangDirName!, yearMonth.Yyyy, yearMonth.Mm, htmlFileName);
+        File.WriteAllText(htmlFilePath, postHtml, System.Text.Encoding.UTF8);
+        Console.WriteLine($"(Posts) HTML file created: {htmlFilePath}");
+    }
+
+    private static Meta LoadMetaFromMarkdown(string filePath)
+    {
+        if (!File.Exists(filePath))
+            Utils.ExitError($"ERROR: File '{filePath}' does not exist.");
+
+        var lines = File.ReadAllLines(filePath);
+
+        // Find the first divider line (---)
+        int dividerIndex = Array.FindIndex(lines, line => line.Trim().StartsWith("---"));
+        if (dividerIndex == -1)
+            Utils.ExitError($"ERROR: No '---' divider found in '{filePath}'.");
+
+        // Extract JSON (everything before the divider)
+        string json = string.Join(Environment.NewLine, lines.Take(dividerIndex)).Trim();
+
+        // Deserialize JSON to Meta
+        Meta? contentMetaData;
+        try
+        {
+            contentMetaData = JsonSerializer.Deserialize<Meta>(json, CachedSerializerOptions);
+        }
+        catch (Exception ex)
+        {
+            Utils.ExitError($"ERROR: Failed to deserialize Meta in '{filePath}': {ex.Message}");
+            return null!; // Unreachable, but for compiler safety
+        }
+
+        if (contentMetaData == null)
+        {
+            Utils.ExitError($"ERROR: Meta is null after deserialization in '{filePath}'.");
+            return null!; // Unreachable, but for compiler safety
+        }
+
+        // Extract Markdown content (everything after the divider)
+        contentMetaData.MarkdownContent = string.Join(Environment.NewLine, lines.Skip(dividerIndex + 1)).Trim();
+
+        // For debugging: print some meta info
+        //Console.WriteLine($"Meta loaded: {contentMetaData.PostTitle} ({contentMetaData.Locale}) - {contentMetaData.DateIso8601}");
+        //Console.WriteLine($"Markdown content length: {contentMetaData.MarkdownContent.Length}");
+
+        return contentMetaData;
     }
 
     private static void GenerateRss(List<IndexPost> indexPosts, Site site)
@@ -227,11 +532,11 @@ internal class Program
 
             var channel = new RssChannel
             {
-                Title = "RSS Feed " +  site.Name + (lang == "NL" ? " (Nederlands)" : " (English)"),
+                Title = "RSS Feed " + site.Name + (lang == "NL" ? " (Nederlands)" : " (English)"),
                 Link = site.Domain + "/",
                 Image = site.Domain + "/img/rawrealism-header.webp",
                 Description = lang == "NL" ? "Laatste Nederlandstalige posts van Raw Realism" : "Latest English posts from Raw Realism",
-                Language = lang == "NL" ? "nl-NL" : "en-US",
+                Language = lang == "NL" ? "nl-NL" : "en-US", // Use hyphen for RSS feeds, not underscore (og property uses underscore)
                 Copyright = $"Copyright © {now.Year} Raw Realism. " + (lang == "NL" ? "Alle rechten voorbehouden" : "All rights reserved"),
                 Generator = site.Generator,
                 LastBuildDate = now,
@@ -297,192 +602,9 @@ internal class Program
         """;
     }
 
-    private static void GenerateIndexHtml(List<IndexPost> indexPosts, Site site, string YearToday) // TODO, refactor YearToday.
-    {
-        // Load the index template from the templates directory
-        string IndexTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "index.html");
-        if (!File.Exists(IndexTemplate))
-            ExitError($"ERROR: File [index.html] '{IndexTemplate}' does not exist.");
-
-        string indexHtml = File.ReadAllText(IndexTemplate);
-        string articlesHtml = string.Join("\n", indexPosts
-            .OrderByDescending(s => s.Date)
-            .Select(s =>
-                $"<article><time>{s.DisplayDateLang}</time><h2><a href=\"{s.RelativeUrl}\">{s.Title}</a></h2><h3>{s.SubTitle}</h3>{s.Description}</article><hr>"));
-
-        // TODO: Refactor, with JavaScript (browser language detection) we can select the correct language for the index.html page.
-        indexHtml = indexHtml
-            .Replace("{{ content Articles }}", articlesHtml)
-            .Replace("{{ config Site.Name }}", site.Name)
-            .Replace("{{ var YearToday }}", YearToday);
-
-        string indexFilePath = Path.Combine(site.ProjectRoot, "www", "index.html");
-        File.WriteAllText(indexFilePath, indexHtml, System.Text.Encoding.UTF8);
-    }
-
-    private static void GenerateBlogPostHtml(Meta contentMetaData, Site site)
-    {
-        // Prepare values
-        YearMonth yearMonth = GetYearMonthFromIso8601(contentMetaData.DateIso8601);
-
-        // Convert Markdown to HTML
-        string postMd2HtmlContent = Markdown.ToHtml(contentMetaData.MarkDownContent!);
-
-        //
-        // Load the post_header template
-        //
-        string postHeaderTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "post_top.html");
-        if (!File.Exists(postHeaderTemplate))
-            ExitError($"ERROR: File [post_top.html] '{postHeaderTemplate}' does not exist.");
-
-        string postHeaderHtml = File.ReadAllText(postHeaderTemplate);
-        postHeaderHtml = postHeaderHtml
-            .Replace("{{ meta PostTitle }}", contentMetaData.PostTitle)
-            .Replace("{{ meta SubTitle }}", contentMetaData.SubTitle)
-            .Replace("{{ meta Image.Alt }}", contentMetaData.Image.Alt)
-            .Replace("{{ meta Intro }}", contentMetaData.Intro)
-            .Replace("{{ meta Image.Url }}", contentMetaData.Image.RelativeUrl);
-
-        //
-        // Load the post_footer template
-        //
-        string footerTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "footer.html");
-        if (!File.Exists(postHeaderTemplate))
-            ExitError($"ERROR: File [footer.html] '{footerTemplate}' does not exist.");
-
-        string postFooterHtml = File.ReadAllText(footerTemplate);
-        string textAbout = (contentMetaData.Language == "nl") ? "Over" : "About";
-        //string pagesAbout = $"{textAbout.ToLower()}.html";
-        string pagesAbout = $"{textAbout.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
-        string pagesAboutPath = $"/pages/{contentMetaData.Language}/{pagesAbout}";
-
-        postFooterHtml = postFooterHtml
-            .Replace("{{ config Site.Name }}", site.Name)
-            .Replace("{{ var YearToday }}", contentMetaData.YearToday)
-            .Replace("{{ link About }}", pagesAboutPath)
-            .Replace("{{ var TextAbout }}", textAbout);
-
-        //
-        // Load the post_layout template
-        //
-        string postLayoutTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "post_layout.html");
-        if (!File.Exists(postLayoutTemplate))
-            ExitError($"ERROR: File [post_layout.html] '{postLayoutTemplate}' does not exist.");
-
-        string postLayoutHtml = File.ReadAllText(postLayoutTemplate);
-
-        // Replace placeholders with actual values
-        postLayoutHtml = postLayoutHtml
-            .Replace("{{ meta Language }}", contentMetaData.Language)
-            .Replace("{{ meta PostTitle }}", contentMetaData.PostTitle)
-            .Replace("{{ meta Image.Url }}", site.Domain + contentMetaData.Image.RelativeUrl)
-            .Replace("{{ config Site.Name }}", site.Name)
-            .Replace("{{ meta Description }}", contentMetaData.Description)
-            .Replace("{{ meta DateIso8601 }}", contentMetaData.DateIso8601)
-            .Replace("{{ meta Category }}", contentMetaData.Category)
-            .Replace("{{ meta Locale }}", contentMetaData.Locale)
-            .Replace("{{ meta Author.Name }}", contentMetaData.Author.Name)
-            .Replace("{{ config Site.Generator }}", site.Generator)
-            .Replace("{{ meta CanonicalUrl }}", site.Domain + contentMetaData.RelativeUrl);
-
-        // Copy the image file to the img directory
-        string imageFileName = $"{contentMetaData.Slug}.webp";
-        string imageSourcePath = Path.Combine(contentMetaData.ContentPath!, imageFileName);
-        string imageDestPath = Path.Combine(site.ProjectRoot, "www", "img", contentMetaData.Language!, yearMonth.Yyyy, yearMonth.Mm, imageFileName);
-        File.Copy(imageSourcePath, imageDestPath, overwrite: true);
-        //Console.WriteLine($"Image file copied: {imageDestPath}");
-
-        // TODO Check if meta properties are null, if so, don't use the meta property in the HTML, but remove it from the layoutHtml string.
-        // Do the same as with the Tag placeholder for these properties, generate the HTML here. Not in the layout.html file.
-
-        // Tags
-        if (contentMetaData.Tags != null && contentMetaData.Tags.Length > 0)
-        {
-            string tagsHtml = string.Join(Environment.NewLine, contentMetaData.Tags.Select(tag => $"<meta property=\"article:tag\" content=\"{tag}\" />"));
-            postLayoutHtml = postLayoutHtml.Replace("{{ array Tags }}", tagsHtml);
-        }
-        else
-        {
-            postLayoutHtml = postLayoutHtml.Replace("{{ array Tags }}", string.Empty);
-        }
-
-        postLayoutHtml = postLayoutHtml
-            .Replace("{{ include post_top.html }}", postHeaderHtml)
-            .Replace("{{ include post_content.md }}", postMd2HtmlContent)
-            .Replace("{{ include footer.html }}", postFooterHtml);
-
-        // Save the generated HTML to the appropriate directory
-        string htmlFileName = $"{contentMetaData.Slug}.html";
-        string htmlFilePath = Path.Combine(site.ProjectRoot, "www", contentMetaData.PostLangDirName!, yearMonth.Yyyy, yearMonth.Mm, htmlFileName);
-        File.WriteAllText(htmlFilePath, postLayoutHtml, System.Text.Encoding.UTF8);
-        Console.WriteLine($"HTML file created: {htmlFilePath}");
-    }
-
-    private static Meta LoadMetaFromMarkdown(string filePath)
-    {
-        if (!File.Exists(filePath))
-            ExitError($"ERROR: File '{filePath}' does not exist.");
-
-        var lines = File.ReadAllLines(filePath);
-
-        // Find the first divider line (---)
-        int dividerIndex = Array.FindIndex(lines, line => line.Trim().StartsWith("---"));
-        if (dividerIndex == -1)
-            ExitError($"ERROR: No '---' divider found in '{filePath}'.");
-
-        // Extract JSON (everything before the divider)
-        string json = string.Join(Environment.NewLine, lines.Take(dividerIndex)).Trim();
-
-        // Deserialize JSON to Meta
-        Meta? contentMetaData;
-        try
-        {
-            contentMetaData = JsonSerializer.Deserialize<Meta>(json, CachedSerializerOptions);
-        }
-        catch (Exception ex)
-        {
-            ExitError($"ERROR: Failed to deserialize Meta in '{filePath}': {ex.Message}");
-            return null!; // Unreachable, but for compiler safety
-        }
-
-        if (contentMetaData == null)
-        {
-            ExitError($"ERROR: Meta is null after deserialization in '{filePath}'.");
-            return null!; // Unreachable, but for compiler safety
-        }
-
-        // Extract Markdown content (everything after the divider)
-        contentMetaData.MarkDownContent = string.Join(Environment.NewLine, lines.Skip(dividerIndex + 1)).Trim();
-
-        // For debugging: print some meta info
-        //Console.WriteLine($"Meta loaded: {contentMetaData.PostTitle} ({contentMetaData.Locale}) - {contentMetaData.DateIso8601}");
-        //Console.WriteLine($"Markdown content length: {contentMetaData.MarkDownContent.Length}");
-
-        return contentMetaData;
-    }
-
-    private static void ExitError(string message)
-    {
-        Console.Error.WriteLine(message);
-        Environment.Exit(1);
-        return; // unreachable, but for compiler safety. Environment.Exit will terminate the process
-    }
-
     // Cache the JsonSerializerOptions instance as a static readonly field
     private static readonly JsonSerializerOptions CachedSerializerOptions = new()
     {
         PropertyNameCaseInsensitive = true
     };
-
-    private static YearMonth GetYearMonthFromIso8601(string iso8601Date) // TODO, move this to a separate utility class, so we can use it in other parts of the code.
-    {
-        DateTimeOffset dto = DateTimeOffset.Parse(iso8601Date);
-        DateTime utcTime = dto.UtcDateTime;
-
-        return new YearMonth
-        {
-            Yyyy = utcTime.Year.ToString(),
-            Mm = utcTime.Month.ToString("D2")
-        };
-    }
 }

@@ -6,12 +6,13 @@
   "Description": "Description: This is tomorrow's post from Raw Realism, sharing personal insights and experiences.",
   "SubTitle": "The subtitle of tomorrow's post",
   "Intro": "Intro: In this tomorrow's post from Raw Realism, we share personal insights and experiences that have shaped our lives.",
+  "OGType": "article",
   "Category": "personal",
   "Tags": ["introduction", "blogging", "raw realism", "tomorrow"],
   "Author": {
     "Name": "Jaap"
   },
-  "Image": {
+  "Graphic": {
     "Alt": "Edward Hopper Style Image"
   }
 }

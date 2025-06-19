@@ -6,12 +6,13 @@
   "Description": "Omschrijving: Dit is de vierde post van Raw Realism, waarin persoonlijke inzichten en ervaringen worden gedeeld.",
   "SubTitle": "De subtitel van de vierde post",
   "Intro": "Intro: In deze vierde post van Raw Realism delen we persoonlijke inzichten en ervaringen die ons leven hebben gevormd.",
+  "OGType": "article",
   "Category": "personal",
   "Tags": ["introductie", "blogging", "raw realism"],
   "Author": {
     "Name": "Jaap"
   },
-  "Image": {
+  "Graphic": {
     "Alt": "Edward Hopper Style Image"
   }
 }

@@ -6,12 +6,13 @@
   "Description": "Een post gemaakt via de GitHub webinterface.",
   "SubTitle": "Via Jaap's `Minimalistic Static Site Generator`",
   "Intro": "In deze post Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat.",
+  "OGType": "article",
   "Category": "personal",
   "Tags": ["github", "blogging", "raw realism"],
   "Author": {
     "Name": "Jaap"
   },
-  "Image": {
+  "Graphic": {
     "Alt": "New Edward Hopper Style Image! Yahoo!"
   }
 }

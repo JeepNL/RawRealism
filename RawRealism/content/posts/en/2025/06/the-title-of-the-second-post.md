@@ -6,12 +6,13 @@
   "Description": "Description Second Post: Raw Realism, a blog about personal insights and experiences.",
   "SubTitle": "The Subtitle of the Second Post",
   "Intro": "Intro: This is the second post of Raw Realism, sharing personal insights and experiences.",
+  "OGType": "article",
   "Category": "personal",
   "Tags": ["introduction", "blogging", "raw realism"],
   "Author": {
     "Name": "Jaap"
   },
-  "Image": {
+  "Graphic": {
     "Alt": "Edward Hopper Style Image"
   }
 }

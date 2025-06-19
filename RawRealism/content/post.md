@@ -1,17 +1,18 @@
 ﻿{
   "Locale": "en_US",
-  "DateIso8601": "2025-06-09T12:00:00+02:00",
-  "PostTitle": "RSS Feeds Test",
-  "Slug": "rss-feed-test",
-  "Description": "Description: RSS Feeds Test.",
-  "SubTitle": "RSS Feeds Test",
-  "Intro": "Intro: RSS Feeds Test",
+  "DateIso8601": "2025-06-19T12:00:00+02:00",
+  "PostTitle": "RSS Feeds",
+  "Slug": "rss-feeds",
+  "Description": "Testing the RSS Feeds",
+  "SubTitle": "Test",
+  "Intro": "This is a test post for the RSS feeds.",
+  "OGType": "article",
   "Category": "rss",
-  "Tags": ["rss", "blogging", "raw realism", "test"],
+  "Tags": ["rss", "blogging", "raw realism"],
   "Author": {
     "Name": "Jaap"
   },
-  "Image": {
+  "Graphic": {
     "Alt": "New Edward Hopper Style Image"
   }
 }
@@ -20,8 +21,8 @@
 
 ### Raw Realism RSS Feeds
 
-- [English RSS Feed](/feed-en.xml)
-- [Dutch RSS Feed](/feed-nl.xml)
+- [RSS Feed (English)](/feed-en.xml)
+- [RSS Feed (Nederlands)](/feed-nl.xml)
 
 ### Introduction
 
