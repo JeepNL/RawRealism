@@ -1,6 +1,6 @@
 ﻿{
   "Locale": "en_US",
-  "DateIso8601": "2025-06-19T12:00:00+02:00",
+  "DateIso8601": "2025-06-19T20:00:00+02:00",
   "PostTitle": "RSS Feeds",
   "Slug": "rss-feeds",
   "Description": "Testing the RSS Feeds",
