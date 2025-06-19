@@ -1,7 +1,7 @@
 name: Generate Test File
 
 #
-# TODO: Only run when there is a new `post_content.md` file in the `RawRealism/content` directory.
+# TODO: Only run when there is a new `post.md` file in the `RawRealism/content` directory.
 #
 
 on:
@@ -9,7 +9,7 @@ on:
     branches:
       - main
     paths:
-      - 'RawRealism/content/post_content.md'
+      - 'RawRealism/content/post.md'
 
 jobs:
   generate:
