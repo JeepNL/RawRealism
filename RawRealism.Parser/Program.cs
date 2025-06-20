@@ -325,12 +325,15 @@ internal class Program
 
         // footer
         string textAbout = (contentMetaData.Language == "nl") ? "Over" : "About";
+        string textContact = "Contact";
         string textPrivacy = "Privacy";
         string TextRights = (contentMetaData.Language == "nl") ? "Alle rechten voorbehouden" : "All rights reserved";
         string pagesAbout = $"{textAbout.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
         string pagesAboutPath = $"/pages/{contentMetaData.Language}/{pagesAbout}";
         string pagesPrivacy = $"{textPrivacy.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
         string pagesPrivacyPath = $"/pages/{contentMetaData.Language}/{pagesPrivacy}";
+        string pagesContact = $"{textContact.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
+        string pagesContactPath = $"/pages/{contentMetaData.Language}/{pagesContact}";
 
         string postDate = DateTimeOffset // To display on the blog post page.
             .Parse(contentMetaData.DateIso8601).UtcDateTime
@@ -340,6 +343,8 @@ internal class Program
         string postDateTime = DateTimeOffset // For the HTML <time> tag.
             .Parse(contentMetaData.DateIso8601).UtcDateTime
             .ToString("yyyy-MM-ddTHH:mm:ssZ", System.Globalization.CultureInfo.InvariantCulture);
+
+        string by = (contentMetaData.Locale == "nl_NL" ? "door" : "by");
 
         // Now we have the full defaultTemplateContent with the head, header and footer included.
         // We need to replace all of the placeholders with the actual content.
@@ -365,11 +370,13 @@ internal class Program
             .Replace("{{ var TextRights }}", TextRights)
             .Replace("{{ link About }}", pagesAboutPath)
             .Replace("{{ var TextAbout }}", textAbout)
+            .Replace("{{ link Contact }}", pagesContactPath)
+            .Replace("{{ var TextContact }}", textContact)
             .Replace("{{ link Privacy }}", pagesPrivacyPath)
             .Replace("{{ var TextPrivacy }}", textPrivacy)
             .Replace("{{ meta PostDate }}", postDate)
             .Replace("{{ meta PostDateTime }}", postDateTime)
-            .Replace("{{ meta Author.Name }}", contentMetaData.Author.Name);
+            .Replace("{{ var ByAuthor }}", $", {by} {contentMetaData.Author.Name}");
 
         // Tags (in head.html)
         if (contentMetaData.Tags != null && contentMetaData.Tags.Length > 0)
@@ -435,6 +442,8 @@ internal class Program
             .Parse(contentMetaData.DateIso8601).UtcDateTime
             .ToString("yyyy-MM-ddTHH:mm:ssZ", System.Globalization.CultureInfo.InvariantCulture);
 
+        string by = (contentMetaData.Locale == "nl_NL" ? "door" : "by");
+
         string postHtml = File.ReadAllText(postTemplate);
         postHtml = postHtml
             .Replace("{{ meta Language }}", contentMetaData.Language)
@@ -445,8 +454,7 @@ internal class Program
             .Replace("{{ meta Graphic.Url }}", contentMetaData.Graphic.RelativeUrl)
             .Replace("{{ meta PostDate }}", postDate)
             .Replace("{{ meta PostDateTime }}", postDateTime) // For the HTML <time> tag, e.g., <time datetime="2023-10-01T12:00:00Z">1 oktober 2023</time>
-            .Replace("{{ meta Author.Name }}", contentMetaData.Author.Name);
-
+            .Replace("{{ var ByAuthor }}", $", {by} {contentMetaData.Author.Name}");
 
         // TODO Check if meta properties are null, if so, don't use the meta property in the HTML, but remove it from the layoutHtml string.
         // Do the same as with the Tag placeholder for these properties, generate the HTML here. Not in the layout.html file.
@@ -499,11 +507,14 @@ internal class Program
         string footerHtml = File.ReadAllText(footerTemplate);
         string TextRights = (contentMetaData.Language == "nl") ? "Alle rechten voorbehouden" : "All rights reserved";
         string textAbout = (contentMetaData.Language == "nl") ? "Over" : "About";
+        string textContact = "Contact";
         string pagesAbout = $"{textAbout.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
         string pagesAboutPath = $"/pages/{contentMetaData.Language}/{pagesAbout}";
         string textPrivacy = "Privacy";
         string pagesPrivacy = $"{textPrivacy.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
         string pagesPrivacyPath = $"/pages/{contentMetaData.Language}/{pagesPrivacy}";
+        string pagesContact = $"{textContact.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
+        string pagesContactPath = $"/pages/{contentMetaData.Language}/{pagesContact}";
 
         footerHtml = footerHtml
             .Replace("{{ config Site.Name }}", site.Name)
@@ -512,7 +523,9 @@ internal class Program
             .Replace("{{ link About }}", pagesAboutPath)
             .Replace("{{ var TextAbout }}", textAbout)
             .Replace("{{ link Privacy }}", pagesPrivacyPath)
-            .Replace("{{ var TextPrivacy }}", textPrivacy);
+            .Replace("{{ var TextPrivacy }}", textPrivacy)
+            .Replace("{{ link Contact }}", pagesContactPath)
+            .Replace("{{ var TextContact }}", textContact);
 
         // Copy the image file to the img directory
         string imageFileName = $"{contentMetaData.Slug}.webp";

@@ -9,7 +9,7 @@
 <article style="margin-top: 1rem">
 <h1>{{ meta PostTitle }}</h1>
 <img class="img-head" src="{{ meta Graphic.Url }}" alt="Image for {{ meta Graphic.Alt }}" />
-<div class="datetime-author"><time datetime="{{ meta PostDateTime }}">{{ meta PostDate }}</time>, by {{ meta Author.Name }}</div>
+<div class="datetime-author"><time datetime="{{ meta PostDateTime }}">{{ meta PostDate }}</time>{{ var ByAuthor }}</div>
 <h2>{{ meta SubTitle }}</h2>
 <p>{{ meta Intro }}</p>
 {{ meta MarkdownContent }}

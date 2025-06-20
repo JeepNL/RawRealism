@@ -1,11 +1,11 @@
 ﻿{
   "Locale": "en_US",
   "DateIso8601": "2025-06-20T20:00:00+02:00",
-  "PostTitle": "@ Raw Realism's RSS Feeds (EN/NL)",
+  "PostTitle": "Raw Realism RSS Feeds",
   "Slug": "rss-feeds",
-  "Description": "Testing the RSS Feeds",
+  "Description": "Testing the RSS Feeds of Raw Realism",
   "SubTitle": "Test",
-  "Intro": "This is a test post for the RSS feeds.",
+  "Intro": "This is a test post for the RSS feeds of Raw Realims.",
   "OGType": "article",
   "Category": "rss",
   "Tags": ["rss", "blogging", "raw realism"],
@@ -13,7 +13,7 @@
     "Name": "Jaap"
   },
   "Graphic": {
-    "Alt": "New Edward Hopper Style Image"
+    "Alt": "RSS Feeds Image, Edward Hopper Style"
   }
 }
 

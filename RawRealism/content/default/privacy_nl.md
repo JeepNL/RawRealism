@@ -4,7 +4,7 @@
   "PostTitle": "Privacyverklaring",
   "Slug": "privacy",
   "Description": "RawRealism's Privacyverklaring",
-  "SubTitle": "Welkom op RawRealism.",
+  "SubTitle": "Welkom op RawRealism",
   "Intro": "Ik vind jouw privacy belangrijk. Daarom verzamel ik geen persoonlijke gegevens van bezoekers.",
   "OGType": "website",
   "Category": "privacy",
