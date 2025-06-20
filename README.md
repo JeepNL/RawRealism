@@ -6,7 +6,14 @@
 
 ## Minimalistic Blogging Platform (C#)
 
+Website: [RawRealism.com](https://rawrealism.com)
+
 **RawRealism** uses **GitHub** as a **CMS**, GitHub Actions Workflow for static content generation which is then automatically deployed to **Cloudflare Pages** for hosting static assets.
+
+Follow Raw Realism on Bluesky for updates and discussions. You can also reach Raw Realism via the email address provided below.
+
+- Bluesky: <a href="https://bsky.app/profile/rawrealism.com" target="_blank">RawRealism</a>
+- RawRealism [at] Tutanota [dot] com
 
 ### Libraries used in this project:
 
