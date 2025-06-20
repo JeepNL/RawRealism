@@ -13,6 +13,10 @@ internal class Program
         ///
         /// TODO
         ///
+        /// - Raw Realism met een spatie in de naam, dus niet RawRealism, maar Raw Realism. Checken.
+        ///
+        /// - Tags voor default pages.
+        ///
         /// - Create static templates with a <head></head> template for several pages, like index.html, about.html, etc.
         ///
         /// - Generate Index.html, sitemap.xml, feed.xml, and other static files.
@@ -130,19 +134,27 @@ internal class Program
         string targetFileName = $"{contentMetaData.Slug}.md";
         string targetFilePath = Path.Combine(targetContentDir, targetFileName);
 
+        // Old
         // Check if the target file already exists, if it does, exit with an error, we should not overwrite existing blog posts!
         // We can always edit the sources of the blog posts, but we should not overwrite existing blog posts.
-        if (File.Exists(targetFilePath))
-            Utils.ExitError($"ERROR: Target file '{targetFilePath}' already exists.");
-        File.Copy(postMd, targetFilePath, overwrite: false);
+        //if (File.Exists(targetFilePath))
+        //    Utils.ExitError($"ERROR: Target file '{targetFilePath}' already exists.");
+
+        // New, no check, we overwrite the existing file.
+        File.Copy(postMd, targetFilePath, overwrite: true);
+
 
         // Copy the image file to the target directory too.
         // The image file is copied to the same directory as the content file, so it can be used in the blog post.
         string targetImageName = $"{contentMetaData.Slug}.webp";
         string targetImagePath = Path.Combine(targetContentDir, targetImageName);
-        if (File.Exists(targetImagePath))
-            Utils.ExitError($"ERROR: Target image file '{targetImagePath}' already exists.");
-        File.Copy(encodedImgPath, targetImagePath, overwrite: false);
+
+        //old
+        //if (File.Exists(targetImagePath))
+        //    Utils.ExitError($"ERROR: Target image file '{targetImagePath}' already exists.");
+
+        // New, no check, we overwrite the existing file.
+        File.Copy(encodedImgPath, targetImagePath, overwrite: true);
 
         ///
         /// Step 5
@@ -264,7 +276,7 @@ internal class Program
         // Init
         string defaultTemplatePath = Path.Combine(site.ProjectRoot, "content", "templates", "page.html");
         string defaultTemplateContent = File.ReadAllText(defaultTemplatePath);
-        string pageHeaderFileName =  (contentMetaData.Slug == "index") ? "page_header_index.html" : "page_header.html";
+        string pageHeaderFileName = (contentMetaData.Slug == "index") ? "page_header_index.html" : "page_header.html";
 
         // Read the templates for head, header, and footer.
         string headContent = File.ReadAllText(Path.Combine(site.ProjectRoot, "content", "templates", "head.html"));
@@ -272,7 +284,7 @@ internal class Program
         string pageHeader = File.ReadAllText(Path.Combine(site.ProjectRoot, "content", "templates", pageHeaderFileName));
         string footerContent = File.ReadAllText(Path.Combine(site.ProjectRoot, "content", "templates", "footer.html"));
 
-        // Replace the {{ meta Graphic.Url }} in the PageHeader (HTML Page, not a <head></head> property) with the Relative URL of the graphic.
+        // Replace the {{ meta Graphic.Url }} in the PageHeader (HTML Page, not a <head></head> property) with the RELATIVE URL of the graphic.
         contentMetaData.Graphic.RelativeUrl = $"/img/{contentMetaData.Slug}.webp";
         pageHeader = pageHeader.Replace("{{ meta Graphic.Url }}", contentMetaData.Graphic.RelativeUrl);
 
@@ -320,6 +332,15 @@ internal class Program
         string pagesPrivacy = $"{textPrivacy.ToLower()}"; // no .html extension, we use the /pages/ directory for static pages.
         string pagesPrivacyPath = $"/pages/{contentMetaData.Language}/{pagesPrivacy}";
 
+        string postDate = DateTimeOffset // To display on the blog post page.
+            .Parse(contentMetaData.DateIso8601).UtcDateTime
+            .ToString(contentMetaData.Locale == "nl_NL" ? "d MMMM yyyy" : "MMMM d, yyyy",
+            System.Globalization.CultureInfo.GetCultureInfo(contentMetaData.Locale));
+
+        string postDateTime = DateTimeOffset // For the HTML <time> tag.
+            .Parse(contentMetaData.DateIso8601).UtcDateTime
+            .ToString("yyyy-MM-ddTHH:mm:ssZ", System.Globalization.CultureInfo.InvariantCulture);
+
         // Now we have the full defaultTemplateContent with the head, header and footer included.
         // We need to replace all of the placeholders with the actual content.
         defaultTemplateContent = defaultTemplateContent
@@ -345,7 +366,21 @@ internal class Program
             .Replace("{{ link About }}", pagesAboutPath)
             .Replace("{{ var TextAbout }}", textAbout)
             .Replace("{{ link Privacy }}", pagesPrivacyPath)
-            .Replace("{{ var TextPrivacy }}", textPrivacy);
+            .Replace("{{ var TextPrivacy }}", textPrivacy)
+            .Replace("{{ meta PostDate }}", postDate)
+            .Replace("{{ meta PostDateTime }}", postDateTime)
+            .Replace("{{ meta Author.Name }}", contentMetaData.Author.Name);
+
+        // Tags (in head.html)
+        if (contentMetaData.Tags != null && contentMetaData.Tags.Length > 0)
+        {
+            string tagsHtml = string.Join(Environment.NewLine, contentMetaData.Tags.Select(tag => $"<meta property=\"article:tag\" content=\"{tag}\" />"));
+            defaultTemplateContent = defaultTemplateContent.Replace("{{ array Tags }}", tagsHtml);
+        }
+        else // If there are no tags, remove the placeholder from the postHtml string.
+        {
+            defaultTemplateContent = defaultTemplateContent.Replace("{{ array Tags }}", string.Empty);
+        }
 
         // Index and 404 pages have special handling, and they need to save in the www root directory.
         string htmlFilePath = string.Empty;
@@ -391,6 +426,15 @@ internal class Program
         if (!File.Exists(postTemplate))
             Utils.ExitError($"ERROR: File [post.html] '{postTemplate}' does not exist.");
 
+        string postDate = DateTimeOffset // To display on the blog post page.
+            .Parse(contentMetaData.DateIso8601).UtcDateTime
+            .ToString(contentMetaData.Locale == "nl_NL" ? "d MMMM yyyy" : "MMMM d, yyyy",
+            System.Globalization.CultureInfo.GetCultureInfo(contentMetaData.Locale));
+
+        string postDateTime = DateTimeOffset // For the HTML <time> tag.
+            .Parse(contentMetaData.DateIso8601).UtcDateTime
+            .ToString("yyyy-MM-ddTHH:mm:ssZ", System.Globalization.CultureInfo.InvariantCulture);
+
         string postHtml = File.ReadAllText(postTemplate);
         postHtml = postHtml
             .Replace("{{ meta Language }}", contentMetaData.Language)
@@ -398,21 +442,14 @@ internal class Program
             .Replace("{{ meta SubTitle }}", contentMetaData.SubTitle)
             .Replace("{{ meta Intro }}", contentMetaData.Intro)
             .Replace("{{ meta Graphic.Alt }}", contentMetaData.Graphic.Alt)
-            .Replace("{{ meta Graphic.Url }}", contentMetaData.Graphic.RelativeUrl);
+            .Replace("{{ meta Graphic.Url }}", contentMetaData.Graphic.RelativeUrl)
+            .Replace("{{ meta PostDate }}", postDate)
+            .Replace("{{ meta PostDateTime }}", postDateTime) // For the HTML <time> tag, e.g., <time datetime="2023-10-01T12:00:00Z">1 oktober 2023</time>
+            .Replace("{{ meta Author.Name }}", contentMetaData.Author.Name);
+
 
         // TODO Check if meta properties are null, if so, don't use the meta property in the HTML, but remove it from the layoutHtml string.
         // Do the same as with the Tag placeholder for these properties, generate the HTML here. Not in the layout.html file.
-
-        // Tags (in post.html, not in head.html)
-        if (contentMetaData.Tags != null && contentMetaData.Tags.Length > 0)
-        {
-            string tagsHtml = string.Join(Environment.NewLine, contentMetaData.Tags.Select(tag => $"<meta property=\"article:tag\" content=\"{tag}\" />"));
-            postHtml = postHtml.Replace("{{ array Tags }}", tagsHtml);
-        }
-        else // If there are no tags, remove the placeholder from the postHtml string.
-        {
-            postHtml = postHtml.Replace("{{ array Tags }}", string.Empty);
-        }
 
         // Load the '<head></head>' template from the templates directory.
         string headTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "head.html");
@@ -432,6 +469,18 @@ internal class Program
             .Replace("{{ config Site.Generator }}", site.Generator)
             .Replace("{{ meta CanonicalUrl }}", site.Domain + contentMetaData.RelativeUrl)
             .Replace("{{ meta OGType }}", contentMetaData.OGType);
+
+
+        // Tags (in head.html)
+        if (contentMetaData.Tags != null && contentMetaData.Tags.Length > 0)
+        {
+            string tagsHtml = string.Join(Environment.NewLine, contentMetaData.Tags.Select(tag => $"<meta property=\"article:tag\" content=\"{tag}\" />"));
+            headHtml = headHtml.Replace("{{ array Tags }}", tagsHtml);
+        }
+        else // If there are no tags, remove the placeholder from the postHtml string.
+        {
+            headHtml = headHtml.Replace("{{ array Tags }}", string.Empty);
+        }
 
         // Load the header template {{ include site_header.html }}
         string headerTemplate = Path.Combine(site.ProjectRoot, "content", "templates", "site_header.html");
@@ -504,7 +553,7 @@ internal class Program
         Meta? contentMetaData;
         try
         {
-            contentMetaData = JsonSerializer.Deserialize<Meta>(json, CachedSerializerOptions);
+            contentMetaData = JsonSerializer.Deserialize<Meta>(json, Utils.CachedSerializerOptions);
         }
         catch (Exception ex)
         {
@@ -569,7 +618,7 @@ internal class Program
             };
 
             // Serialize to XML (simple manual approach)
-            var xml = GenerateRssXml(channel);
+            var xml = Utils.GenerateRssXml(channel);
             var path = Path.Combine(site.ProjectRoot, "www", fileName);
             File.WriteAllText(path, xml, System.Text.Encoding.UTF8);
             Console.WriteLine($"RSS feed generated: {path}");
@@ -578,46 +627,4 @@ internal class Program
         CreateFeed("EN", "feed-en.xml");
         CreateFeed("NL", "feed-nl.xml");
     }
-
-    // Minimal RSS XML generator (expand as needed)
-    private static string GenerateRssXml(RssChannel channel)
-    {
-        var itemsXml = string.Join("\n", channel.RssItems.Select(item =>
-            $"""
-        <item>
-            <title>{System.Security.SecurityElement.Escape(item.Title)}</title>
-            <link>{item.Link}</link>
-            <description>{System.Security.SecurityElement.Escape(item.Description)}</description>
-            <category>{item.Category}</category>
-            {(string.IsNullOrEmpty(item.EnclosureUrl) ? "" : $"<enclosure url=\"{item.EnclosureUrl}\" type=\"{item.EnclosureType}\" />")}
-            <pubDate>{item.PubDate:R}</pubDate>
-            <guid isPermaLink="true">{item.Guid}</guid>
-            {(string.IsNullOrEmpty(item.Author) ? "" : $"<author>{item.Author}</author>")}
-        </item>
-        """));
-
-        return
-            $"""
-        <?xml version="1.0" encoding="UTF-8"?>
-        <rss version="2.0">
-        <channel>
-            <title>{System.Security.SecurityElement.Escape(channel.Title)}</title>
-            <link>{channel.Link}</link>
-            <description>{System.Security.SecurityElement.Escape(channel.Description)}</description>
-            <language>{channel.Language}</language>
-            <copyright>{System.Security.SecurityElement.Escape(channel.Copyright)}</copyright>
-            <generator>{System.Security.SecurityElement.Escape(channel.Generator)}</generator>
-            <lastBuildDate>{channel.LastBuildDate:R}</lastBuildDate>
-            {(string.IsNullOrEmpty(channel.Image) ? "" : $"<image><url>{channel.Image}</url><title>{System.Security.SecurityElement.Escape(channel.Title)}</title><link>{channel.Link}</link></image>")}
-            {itemsXml}
-        </channel>
-        </rss>
-        """;
-    }
-
-    // Cache the JsonSerializerOptions instance as a static readonly field
-    private static readonly JsonSerializerOptions CachedSerializerOptions = new()
-    {
-        PropertyNameCaseInsensitive = true
-    };
 }

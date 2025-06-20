@@ -1,5 +1,6 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
+using System.Text.Json;
 
 namespace RawRealism.Parser.Models;
 
@@ -46,4 +47,47 @@ public static class Utils
             ExitError($"ERROR: Failed to process image '{inputImgFile}': {ex.Message}");
         }
     }
+
+    // Minimal RSS XML generator (expand as needed)
+    public static string GenerateRssXml(RssChannel channel)
+    {
+        var itemsXml = string.Join("\n", channel.RssItems.Select(item =>
+            $"""
+        <item>
+            <title>{System.Security.SecurityElement.Escape(item.Title)}</title>
+            <link>{item.Link}</link>
+            <description>{System.Security.SecurityElement.Escape(item.Description)}</description>
+            <category>{item.Category}</category>
+            {(string.IsNullOrEmpty(item.EnclosureUrl) ? "" : $"<enclosure url=\"{item.EnclosureUrl}\" type=\"{item.EnclosureType}\" />")}
+            <pubDate>{item.PubDate:R}</pubDate>
+            <guid isPermaLink="true">{item.Guid}</guid>
+            {(string.IsNullOrEmpty(item.Author) ? "" : $"<author>{item.Author}</author>")}
+        </item>
+        """));
+
+        return
+            $"""
+        <?xml version="1.0" encoding="UTF-8"?>
+        <rss version="2.0">
+        <channel>
+            <title>{System.Security.SecurityElement.Escape(channel.Title)}</title>
+            <link>{channel.Link}</link>
+            <description>{System.Security.SecurityElement.Escape(channel.Description)}</description>
+            <language>{channel.Language}</language>
+            <copyright>{System.Security.SecurityElement.Escape(channel.Copyright)}</copyright>
+            <generator>{System.Security.SecurityElement.Escape(channel.Generator)}</generator>
+            <lastBuildDate>{channel.LastBuildDate:R}</lastBuildDate>
+            {(string.IsNullOrEmpty(channel.Image) ? "" : $"<image><url>{channel.Image}</url><title>{System.Security.SecurityElement.Escape(channel.Title)}</title><link>{channel.Link}</link></image>")}
+            {itemsXml}
+        </channel>
+        </rss>
+        """;
+    }
+
+    // Cache the JsonSerializerOptions instance as a static readonly field
+    public static readonly JsonSerializerOptions CachedSerializerOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
 }

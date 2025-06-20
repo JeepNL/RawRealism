@@ -1,7 +1,7 @@
 ﻿{
   "Locale": "en_US",
-  "DateIso8601": "2025-06-20T20:00:00+02:00",
-  "PostTitle": "@ Raw Realism's RSS Feeds (EN/NL)",
+  "DateIso8601": "2025-06-19T20:00:00+02:00",
+  "PostTitle": "RSS Feeds",
   "Slug": "rss-feeds",
   "Description": "Testing the RSS Feeds",
   "SubTitle": "Test",

@@ -1,4 +1,5 @@
-﻿<h1 style="margin-top: 1rem">{{ meta PostTitle }}</h1>
-<img src="{{ meta Graphic.Url }}" alt="Image for {{ meta Graphic.Alt }}" />
+﻿<h1>{{ meta PostTitle }}</h1>
+<img class="img-head" src="{{ meta Graphic.Url }}" alt="Image for {{ meta Graphic.Alt }}" />
+<div class="datetime-author"><time datetime="{{ meta PostDateTime }}">{{ meta PostDate }}</time>, by {{ meta Author.Name }}</div>
 <h2>{{ meta SubTitle }}</h2>
 <p>{{ meta Intro }}</p>

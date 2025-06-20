@@ -67,36 +67,51 @@ h1, h2, h3 {
     font-family: 'Inter', sans-serif;
     font-weight: 700;
     line-height: 1.25;
-    margin-bottom: 1rem;
 }
 
 h1 {
     font-size: 2.2rem;
     color: #111;
+    margin-bottom: 1rem;
 }
 
 h2 {
     font-size: 1.5rem;
     color: #666;
+    margin-bottom: 0.75rem;
 }
 
 h3 {
     font-size: 1.2rem;
     color: #666;
+    margin-bottom: 0.5rem;
 }
 
 /* ====== PARAGRAPHS ====== */
 p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem;
     font-weight: 400;
 }
 
 /* ====== IMAGES ====== */
-img {
+
+/* img {
     display: block;
     max-width: 100%;
     height: auto;
     margin: 1rem 0;
+    border-radius: 4px;
+} */
+
+.img-head {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    padding: 0rem;
+    margin-top: 0rem;
+    margin-bottom: 1rem;
+    margin-left: 0;
+    margin-right: 0;
     border-radius: 4px;
 }
 
@@ -194,12 +209,13 @@ kbd {
 
 time {
     color: #555;
-    /* background-color: #bbb;
-    border-radius: 10px;
-    padding: 0rem 0.5rem;
-    margin: 0.5rem 0rem;
-    display: inline-block;*/
-    font-size: 0.85rem;
+    font-size: 0.90rem;
+}
+
+.datetime-author {
+    color: #555;
+    font-size: 0.90rem;
+    margin-bottom: 0.5rem;
 }
 
 hr {
@@ -208,3 +224,20 @@ hr {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
+
+/* make a class to center text and svg's vertically on horizontal for use in the footer */
+.center-vertically {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em; /* optional: adds space between items */
+    padding: 0;
+    margin: 0;
+}
+
+    .center-vertically img {
+        vertical-align: middle;
+        display: inline-block;
+        position: relative;
+        top: -1px;
+    }
