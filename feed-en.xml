@@ -7,12 +7,12 @@
     <language>en-US</language>
     <copyright>Copyright © 2025 Raw Realism. All rights reserved</copyright>
     <generator>Jaap&apos;s Minimalistic Static Site Generator (SSG) v0.99ß</generator>
-    <lastBuildDate>Fri, 20 Jun 2025 14:47:54 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 20 Jun 2025 16:26:10 GMT</lastBuildDate>
     <image><url>https://rawrealism.com/img/rawrealism-header.webp</url><title>RSS Feed Raw Realism (English)</title><link>https://rawrealism.com/</link></image>
     <item>
-    <title>@ Raw Realism&apos;s RSS Feeds (EN/NL)</title>
+    <title>Raw Realism RSS Feeds</title>
     <link>https://rawrealism.com/archive/2025/06/rss-feeds</link>
-    <description>Testing the RSS Feeds</description>
+    <description>Testing the RSS Feeds of Raw Realism</description>
     <category>rss</category>
     <enclosure url="https://rawrealism.com/img/en/2025/06/rss-feeds.webp" type="image/webp" />
     <pubDate>Fri, 20 Jun 2025 18:00:00 GMT</pubDate>
