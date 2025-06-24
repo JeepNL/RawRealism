@@ -32,5 +32,3 @@ Mocht ik ooit iets veranderen aan deze privacyverklaring, dan laat ik dat hier w
 Dank je voor je bezoek.
 
 — Jaap
-
-<div><a href="/">Terug naar Home</a></div>

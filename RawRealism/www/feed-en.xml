@@ -7,66 +7,66 @@
     <language>en-US</language>
     <copyright>Copyright © 2025 Raw Realism. All rights reserved</copyright>
     <generator>Jaap&apos;s Minimalistic Static Site Generator (SSG) v0.99ß</generator>
-    <lastBuildDate>Fri, 20 Jun 2025 16:15:49 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 24 Jun 2025 14:52:41 GMT</lastBuildDate>
     <image><url>https://rawrealism.com/img/rawrealism-header.webp</url><title>RSS Feed Raw Realism (English)</title><link>https://rawrealism.com/</link></image>
     <item>
     <title>Raw Realism RSS Feeds</title>
-    <link>https://rawrealism.com/archive/2025/06/rss-feeds</link>
+    <link>https://rawrealism.com/archive/2025/06/rss-feeds.html</link>
     <description>Testing the RSS Feeds of Raw Realism</description>
     <category>rss</category>
     <enclosure url="https://rawrealism.com/img/en/2025/06/rss-feeds.webp" type="image/webp" />
     <pubDate>Fri, 20 Jun 2025 18:00:00 GMT</pubDate>
-    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/rss-feeds</guid>
+    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/rss-feeds.html</guid>
     <author>Jaap</author>
 </item>
 <item>
     <title>Characters Second Test Post: ë</title>
-    <link>https://rawrealism.com/archive/2025/06/characters-test-post</link>
+    <link>https://rawrealism.com/archive/2025/06/characters-test-post.html</link>
     <description>Description: This is the second test post from Raw Realism, sharing personal insights and experiences.</description>
     <category>personal</category>
     <enclosure url="https://rawrealism.com/img/en/2025/06/characters-test-post.webp" type="image/webp" />
     <pubDate>Sun, 08 Jun 2025 17:00:00 GMT</pubDate>
-    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/characters-test-post</guid>
+    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/characters-test-post.html</guid>
     <author>Jaap</author>
 </item>
 <item>
     <title>The Title of the Third Post</title>
-    <link>https://rawrealism.com/archive/2025/06/the-title-of-the-third-post</link>
+    <link>https://rawrealism.com/archive/2025/06/the-title-of-the-third-post.html</link>
     <description>Description Third Post: Raw Realism, a blog about personal insights and experiences.</description>
     <category>personal</category>
     <enclosure url="https://rawrealism.com/img/en/2025/06/the-title-of-the-third-post.webp" type="image/webp" />
     <pubDate>Sat, 07 Jun 2025 16:00:00 GMT</pubDate>
-    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/the-title-of-the-third-post</guid>
+    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/the-title-of-the-third-post.html</guid>
     <author>Jaap</author>
 </item>
 <item>
     <title>The Title of the Second Post</title>
-    <link>https://rawrealism.com/archive/2025/06/the-title-of-the-second-post</link>
+    <link>https://rawrealism.com/archive/2025/06/the-title-of-the-second-post.html</link>
     <description>Description Second Post: Raw Realism, a blog about personal insights and experiences.</description>
     <category>personal</category>
     <enclosure url="https://rawrealism.com/img/en/2025/06/the-title-of-the-second-post.webp" type="image/webp" />
     <pubDate>Sat, 07 Jun 2025 10:00:00 GMT</pubDate>
-    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/the-title-of-the-second-post</guid>
+    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/the-title-of-the-second-post.html</guid>
     <author>Jaap</author>
 </item>
 <item>
     <title>The Title of the First Post</title>
-    <link>https://rawrealism.com/archive/2025/06/the-title-of-the-first-post</link>
+    <link>https://rawrealism.com/archive/2025/06/the-title-of-the-first-post.html</link>
     <description>Description First Post: Raw Realism, a blog about personal insights and experiences.</description>
     <category>personal</category>
     <enclosure url="https://rawrealism.com/img/en/2025/06/the-title-of-the-first-post.webp" type="image/webp" />
     <pubDate>Fri, 06 Jun 2025 10:00:00 GMT</pubDate>
-    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/the-title-of-the-first-post</guid>
+    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/the-title-of-the-first-post.html</guid>
     <author>Jaap</author>
 </item>
 <item>
     <title>Tomorrow&apos;s 😉 Post</title>
-    <link>https://rawrealism.com/archive/2025/06/tomorrows-post</link>
+    <link>https://rawrealism.com/archive/2025/06/tomorrows-post.html</link>
     <description>Description: This is tomorrow&apos;s post from Raw Realism, sharing personal insights and experiences.</description>
     <category>personal</category>
     <enclosure url="https://rawrealism.com/img/en/2025/06/tomorrows-post.webp" type="image/webp" />
     <pubDate>Wed, 04 Jun 2025 17:00:00 GMT</pubDate>
-    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/tomorrows-post</guid>
+    <guid isPermaLink="true">https://rawrealism.com/archive/2025/06/tomorrows-post.html</guid>
     <author>Jaap</author>
 </item>
 </channel>

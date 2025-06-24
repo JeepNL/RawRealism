@@ -32,5 +32,3 @@ If I ever change this privacy statement, I’ll update it right here — clearly
 Thanks for stopping by.
 
 — Jaap
-
-<div><a href="/">Return to Home</a></div>

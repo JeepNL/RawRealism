@@ -1,8 +1,8 @@
-﻿<base href="/">
+﻿<base href="{{ var BaseHref }}">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ meta PostTitle }} | {{ config Site.Name }}</title>
-<link rel="canonical" href="{{ meta CanonicalUrl }}">
+<link rel="canonical" href="{{ var CanonicalUrl }}">
 <link rel="stylesheet" href="/assets/css/style.css">
 <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -17,15 +17,15 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ meta PostTitle }}">
 <meta name="twitter:description" content="{{ meta Description }}">
-<meta name="twitter:image" content="{{ meta Graphic.Url }}">
+<meta name="twitter:image" content="{{ var FullGraphicUrl }}">
 <meta property="og:site_name" content="{{ config Site.Name }}">
 <meta property="og:locale" content="{{ meta Locale }}">
 <meta property="og:title" content="{{ meta PostTitle }}">
-<meta property="og:url" content="{{ meta CanonicalUrl }}">
+<meta property="og:url" content="{{ var CanonicalUrl }}">
 <meta property="og:type" content="{{ meta OGType }}">
 <meta property="og:description" content="{{ meta Description }}">
-<meta property="og:image" content="{{ meta Graphic.Url }}">
-<meta property="og:image:secure_url" content="{{ meta Graphic.Url }}">
+<meta property="og:image" content="{{ var FullGraphicUrl }}">
+<meta property="og:image:secure_url" content="{{ var FullGraphicUrl }}">
 <meta property="article:published_time" content="{{ meta DateIso8601 }}">
 <meta property="article:section" content="{{ meta Category }}">
 <meta property="article:author" content="{{ meta Author.Name }}">

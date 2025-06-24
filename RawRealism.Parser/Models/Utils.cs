@@ -25,7 +25,6 @@ public static class Utils
         };
     }
 
-
     // Cnvert image to WebP format, with 75% quality and a width of 800px, and variable height.
     public static void ConvertImage(string inputImgFile, string outputImgFile)
     {
@@ -40,7 +39,7 @@ public static class Utils
             }));
             // Save the image as WebP with 75% quality
             image.Save(outputImgFile, new SixLabors.ImageSharp.Formats.Webp.WebpEncoder { Quality = 75 });
-            Console.WriteLine($"(Pages) Image encoded and saved: {outputImgFile}");
+            //Console.WriteLine($"(Pages) Image encoded and saved: {outputImgFile}");
         }
         catch (Exception ex)
         {

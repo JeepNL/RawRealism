@@ -1,11 +1,11 @@
 ﻿{
-  "Locale": "en_US",
+  "Locale": "nl_NL",
   "DateIso8601": "2025-06-09T12:00:00+02:00",
-  "PostTitle": "About",
-  "Slug": "about",
-  "Description": "About RawRealism",
-  "SubTitle": "Why I Started This Blog",
-  "Intro": "Raw Realism, a blog about personal insights and experiences.",
+  "PostTitle": "Over",
+  "Slug": "over",
+  "Description": "Over RawRealism",
+  "SubTitle": "Waarom ik deze blog gestart ben",
+  "Intro": "Raw Realism, een blog met persoonlijke inzichten en ervaringen",
   "OGType": "website",
   "Category": "about",
   "Tags": ["about", "blogging"],
@@ -25,4 +25,3 @@
 
 <p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</p>
 
-<div><a href="/">Return to Home</a></div>

@@ -1,5 +1,5 @@
 ﻿<h1>{{ meta PostTitle }}</h1>
 <img class="img-head" src="{{ meta Graphic.Url }}" alt="Image for {{ meta Graphic.Alt }}" />
-<div class="datetime-author"><time datetime="{{ meta PostDateTime }}">{{ meta PostDate }}</time>{{ var ByAuthor }}</div>
+<div class="datetime-author"><time datetime="{{ meta DateIso8601 }}">{{ var PostDate }}</time>{{ var ByAuthor }}</div>
 <h2>{{ meta SubTitle }}</h2>
 <p>{{ meta Intro }}</p>
