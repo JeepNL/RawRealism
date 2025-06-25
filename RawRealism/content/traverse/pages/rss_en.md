@@ -3,12 +3,12 @@
   "DateIso8601": "2025-06-09T12:00:00+02:00",
   "PostTitle": "RSS",
   "Slug": "rss",
-  "Description": "RSS Feeds for Raw Realism",
-  "SubTitle": "Raw Realism RSS Feeds",
-  "Intro": "This page provides links to the RSS feeds of Raw Realism.",
+  "Description": "RawRealism RSS Feeds",
+  "SubTitle": "RawRealism RSS Feeds",
+  "Intro": "This page provides links to the English and Dutch RSS feeds of RawRealism. Stay updated with the latest posts and articles!",
   "OGType": "website",
   "Category": "rss",
-  "Tags": ["rss", "blogging"],
+  "Tags": ["rss", "blogging", "updates"],
   "Author": {
     "Name": "Jaap"
   },

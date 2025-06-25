@@ -1,11 +1,11 @@
 ﻿{
   "Locale": "en_US",
-  "DateIso8601": "2025-06-09T12:00:00+02:00",
+  "DateIso8601": "2025-06-25T16:25:00+02:00",
   "PostTitle": "About",
   "Slug": "about",
   "Description": "About RawRealism",
-  "SubTitle": "Why I Started This Blog",
-  "Intro": "Raw Realism, a blog about personal insights and experiences.",
+  "SubTitle": "Welcome to RawRealism",
+  "Intro": "This blog is my place to write openly and honestly about how I experience the world. Not to convince others, but to share my thoughts — raw, personal, without embellishment.",
   "OGType": "website",
   "Category": "about",
   "Tags": ["about", "blogging"],
@@ -13,15 +13,18 @@
     "Name": "Jaap"
   },
   "Graphic": {
-    "Alt": "About Image"
+    "Alt": "Early 20th century newspaper press"
   }
 }
 
 ---
 
-<p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</p>
+I write because I feel a need for something: for nuance, for silence in the noise, for something that is real. I don't need to be right. But I do want to be real.
 
-<p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</p>
+Many blogs try to keep visitors engaged, to steer them, or to entice them. This blog does not do that. No tracking, no ads, no tricks. What you see is what it is.
 
-<p>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</p>
+And why did I build this myself, without WordPress or other systems? Because I can. Because I want to understand how it works. Because I like being independent.
 
+This place is mine — and if you find something valuable here, that only makes it more worthwhile.
+
+— Jaap

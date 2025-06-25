@@ -66,9 +66,19 @@ internal class Program
         string contentRootPath = Path.Combine(site.ProjectRoot, "content");
         string newPostName = "new_post";
         string newPostMd = $"{newPostName}.md";
-        string newPostImg = $"{newPostName}.webp";
+
+        string[] possibleImgExt = [".webp", ".jpg", ".jpeg", ".png"];
+        string? newPostImg = possibleImgExt
+            .Select(ext => Path.Combine(contentRootPath, $"{newPostName}{ext.ToLowerInvariant()}"))
+            .FirstOrDefault(File.Exists);
+        if (string.IsNullOrEmpty(newPostImg))
+        {
+            Utils.ExitError($"ERROR: (Source) Image file for '{newPostName}' does not exist (tried: {string.Join(", ", possibleImgExt)})");
+            return;
+        }
+
         string newPostMdPath = Path.Combine(contentRootPath, newPostMd);
-        string newPostImgPath = Path.Combine(contentRootPath, newPostImg);
+        string newPostImgPath = Path.Combine(contentRootPath, Path.GetFileName(newPostImg));
 
         if (!File.Exists(newPostMdPath))
             Utils.ExitError($"ERROR: File '{newPostMdPath}' does not exist.");
@@ -90,7 +100,7 @@ internal class Program
         Directory.CreateDirectory(targetContentDir);
 
         string targetFilePath = Path.Combine(targetContentDir, $"{contentMetaData.Slug}.md");
-        string targetImgPath = Path.Combine(targetContentDir, $"{contentMetaData.Slug}.webp");
+        string targetImgPath = Path.Combine(targetContentDir, $"{contentMetaData.Slug}{Path.GetExtension(newPostImg)}");
         File.Copy(newPostMdPath, targetFilePath, overwrite: true);
         File.Copy(newPostImgPath, targetImgPath, overwrite: true);
 
@@ -185,18 +195,20 @@ internal class Program
             Directory.CreateDirectory(contentMetaData.Graphic.PublishDir);
 
             // Image handling
-            string? origImgPath = Path.Combine(Path.GetDirectoryName(mdFile)!, $"{contentMetaData.Slug}.webp");
+            string? origImgPath = possibleImgExt
+                .Select(ext => Path.Combine(Path.GetDirectoryName(mdFile)!, $"{contentMetaData.Slug}{ext.ToLowerInvariant()}"))
+                .FirstOrDefault(File.Exists);
+
+            if (string.IsNullOrEmpty(origImgPath))
+            {
+                Utils.ExitError($"ERROR: ({origImgPath}) Image file for '{contentMetaData.Slug}' does not exist (tried: {string.Join(", ", possibleImgExt)})");
+                return;
+            }
+
             string encImgPath = Path.Combine(contentMetaData.Graphic.PublishDir, $"{contentMetaData.Slug}.webp");
-
-            if (!File.Exists(origImgPath) || string.IsNullOrEmpty(origImgPath))
-                Utils.ExitError($"ERROR: (Source) Image file '{origImgPath}' does not exist.");
-
-            //Console.WriteLine($"origImgPath: {origImgPath}");
-            //Console.WriteLine($"encImgPath: {encImgPath}");
             Utils.ConvertImage(origImgPath, encImgPath);
 
             // If `PageType.Index` save `contentMetaData` in another variable, so we can use it later for the index.html page.
-
             if (contentMetaData.PageType == PageType.Index) // Don't generate HTML for index.html yet, we will do that later, we need the list of posts first.
                 indexMetaData = contentMetaData;
             else
