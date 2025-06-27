@@ -1,6 +1,6 @@
 ﻿namespace RawRealism.Parser.Models;
 
-public class IndexPost // Class representing a summary of a blog post, used for listing posts on the website and in RSS feeds.
+public class AllPosts // Class representing a summary of a post, used for listing posts on the website, RSS feeds and sitemaps.
 {
     public required string Lang { get; set; } // uppercase, e.g., "EN" or "NL".
     public required string Title { get; set; }
@@ -17,4 +17,5 @@ public class IndexPost // Class representing a summary of a blog post, used for 
     public string? GraphicCaption { get; set; }
     public string[]? Tags { get; set; }
     public string? Category { get; set; }
+    public bool IsRss { get; set; } = true; // Indicates if the post is included in the RSS feed.
 }

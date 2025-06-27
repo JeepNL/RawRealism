@@ -6,4 +6,14 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="content\traverse\posts\en\" />
+    <Folder Include="content\traverse\posts\nl\" />
+    <Folder Include="www\archief\" />
+    <Folder Include="www\archive\" />
+    <Folder Include="www\img\en\" />
+    <Folder Include="www\img\nl\" />
+    <Folder Include="www\pages\" />
+  </ItemGroup>
+
 </Project>

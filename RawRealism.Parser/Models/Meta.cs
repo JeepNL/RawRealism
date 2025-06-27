@@ -28,7 +28,7 @@ public class Meta
     // IMPORTANT:
     // Open Graph uses the underscore format "en_US" or "nl_NL but for RSS feeds and HTML lang attribute, e.g., "en-US" or "nl-NL".
     // Below are the JSON properties that are required for the blog post metadata.
-    public required string Locale { get; set; } = "nl_NL";
+    public required string Locale { get; set; } // e.g., "en_US" or "nl_NL" (for Open Graph)
     public required string DateIso8601 { get; set; } // ISO 8601 format for date, e.g., "2023-10-01T12:00:00Z" (for RSS feeds)
     public required string PostTitle { get; set; } // Title of the blog post, used in the HTML title tag and RSS feed title
     public required string Description { get; set; } // Short description for SEO, social media and RSS feeds
@@ -48,11 +48,4 @@ public class Meta
     public string MarkdownContent { get; set; } = string.Empty; // The actual content of the blog post in mixed Markdown/HTML format.
     public string PublishDir { get; set; } = string.Empty; // The directory where the post is published, e.g., "/content/posts/en/2023/10/".
     public string RelativeUrl { get; set; } = string.Empty; // Relative URL for the blog post, e.g., "/posts/en/2023/10/my-blog-post.html". Canonical url is relative url + site.Domain.
-
-    //public string? ContentPath { get; set; } // The path to the content file, e.g., "/content/posts/en/2023/10/my-blog-post.md"
-    //public string? PostDirectory { get; set; } // The directory where the post is stored, e.g., "[archive/archief]/2023/10/"
-    //public string? PostLangDirName { get; set; } // The directory name for the language, e.g., "archief or "archive".
-
-    // Extra
-    //public string YearToday { get; set; } = DateTime.Now.ToString("yyyy", System.Globalization.CultureInfo.InvariantCulture); // For copyright in the footer, e.g., "2023".
 }

@@ -12,32 +12,46 @@ internal class Program
     static void Main(string[] args)
     {
         ///
-        /// TODO
-        ///
-        /// Strucure:
+        /// Pages and posts:
         ///     1) default root pages, index, 404.
         ///     2) default pages, about, contact etc.
         ///     3) posts
         ///
-        /// - Generate Index.html, sitemap.xml, feed.xml, and other static files.
+        /// Directory structure:
         ///
-        /// - Support, webp, png, and jpg as input image formats.
+        ///     /content/
+        ///         new_post.md
+        ///         ìmage: new_post.<ext> (new_post.webp, new_post.jpg, new_post.jpeg, new_post.png)
+        ///
+        ///     /content/templates/
+        ///         static templates, like head.html, footer.html, site_header.html, page_header.html, etc.
+        ///
+        ///     /content/traverse/
+        ///         /content/traverse/pages/
+        ///             Static source (markdown) pages, like about, contact, etc.
+        ///         /content/traverse/posts/
+        ///             Source (markdown) Posts.
+        ///
+        /// TODO
         ///
         /// - Check language of browser with JavaScript, only use Dutch if browser language is Dutch, otherwise English.
         ///     For Index.html, about.html, "Over" or "About" (etc).
         ///     Maybe select a language at top of the page, so the user can switch between languages?
         ///
+        /// - Use environment variable or command line argument to set environment
+        ///
+        /// - Browser language detection with JavaScript? We can select the correct language for the index.html page.
+        ///
         /// END TODO
         ///
 
         // Determine environment based on OS, Windows is Development, others are Production
-        // TODO: Use environment variable or command line argument to set environment
         string environment = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
             ? "Development"
             : "Production";
 
         // Set the path delimiter based on the OS
-        string pDl = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "\\" : "/";
+        string deli = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "\\" : "/";
 
         /// Step 1, check if the appsettings.*.json file exists and load it.
         // Build configuration
@@ -119,7 +133,7 @@ internal class Program
         }
 
         /// Step 5, Enumerate all .md files in the content/traverse directory and generate HTML files for each (default) page and post.
-        var indexPosts = new List<IndexPost>(); // for index.html and RSS feeds.
+        var allPosts = new List<AllPosts>(); // for index.html, RSS feeds and sitemap.xml
         string traverseContentPath = Path.Combine(site.ProjectRoot, "content", "traverse");
         foreach (string mdFile in Directory.EnumerateFiles(traverseContentPath, "*.md", SearchOption.AllDirectories))
         {
@@ -134,45 +148,25 @@ internal class Program
                 return;
             }
 
+            bool isRss = false; // Default to false, will be set later based on the page type.
+
             /// What do we have? 1) default root pages, 2) default pages, and 3) posts.
             /// But in the root we have 1 special page and that is the index.html page, with a list of posts.
             /// if path contains "posts" then it's a blog post, otherwise it's a default page, or a root page like index.html or 404.html.
-            if (mdFile.Contains($"{pDl}posts{pDl}")) // pDl = path delimiter for windows and linux
+            if (mdFile.Contains($"{deli}posts{deli}")) // pDl = path delimiter for windows and linux
             {
+                isRss = true; // If it's a post, we want to generate an RSS feed for it.
                 contentMetaData.PageType = PageType.Post;
                 string publishLangDir = contentMetaData.Lang == "nl" ? "archief" : "archive"; // Use "archief" for Dutch, "archive" for English.
                 contentMetaData.PublishDir = Path.Combine(site.ProjectRoot, "www", publishLangDir, yearMonth.Yyyy, yearMonth.Mm);
                 contentMetaData.Graphic.PublishDir = Path.Combine(site.ProjectRoot, "www", "img", contentMetaData.Lang, yearMonth.Yyyy, yearMonth.Mm);
                 contentMetaData.RelativeUrl = $"/{publishLangDir}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}.html"; // Relative URL for the post.
                 contentMetaData.Graphic.RelativeUrl = $"/img/{contentMetaData.Lang}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}.webp"; // Relative URL for the graphic.
-
-                // Refactor this to create a sitemap to. Not only RSS. So we need to add another property to the Meta class: for example: Bool IsRss
-                // and then put this add the end, and create a sitemap of all pages, but on and RSS when IsRss = true.,
-                indexPosts.Add(new IndexPost // for index.html and RSS feeds.
-                {
-                    Lang = contentMetaData.Lang.ToUpper(), // Use uppercase for the language code, e.g., "EN", "NL" for Display on Index.html
-                    Title = contentMetaData.PostTitle,
-                    SubTitle = contentMetaData.SubTitle,
-                    Description = contentMetaData.Description,
-                    Date = DateTimeOffset.Parse(contentMetaData.DateIso8601).UtcDateTime,
-                    DateIso8601 = contentMetaData.DateIso8601,
-                    DisplayDateLang = DateTimeOffset
-                        .Parse(contentMetaData.DateIso8601).UtcDateTime
-                        .ToString(contentMetaData.Locale == "nl_NL" ? "d MMMM yyyy" : "MMMM d, yyyy",
-                        System.Globalization.CultureInfo.GetCultureInfo(contentMetaData.Locale)),
-                    Author = contentMetaData.Author.Name,
-                    RelativeUrl = contentMetaData.RelativeUrl,
-                    GraphicRelativeUrl = contentMetaData.Graphic.RelativeUrl,
-                    GraphicAlt = contentMetaData.Graphic.Alt,
-                    GraphicCaption = contentMetaData.Graphic.Caption,
-                    Tags = contentMetaData.Tags,
-                    Category = contentMetaData.Category,
-                    Intro = contentMetaData.Intro
-                });
             }
             else // root or default pages
             {
-                if (mdFile.Contains($"{pDl}pages{pDl}root{pDl}")) // if path containts "root" then it's a default page in the www root, like index.html or 404.html.
+                isRss = false; // If it's a root or default page, we don't want to generate an RSS feed for it, 'false' is for sitemap.xml only.
+                if (mdFile.Contains($"{deli}pages{deli}root{deli}")) // if path containts "root" then it's a default page in the www root, like index.html or 404.html.
                 {
                     contentMetaData.PageType = mdFile.Contains("index.md") ? PageType.Index : PageType.Root; // index.html is special, it has a list of posts, so we set pageType to PageType.Index.
                     contentMetaData.PublishDir = Path.Combine(site.ProjectRoot, "www");
@@ -189,6 +183,29 @@ internal class Program
                 // root and default pages use the same graphic directory, so we can use the same path.
                 contentMetaData.Graphic.PublishDir = Path.Combine(site.ProjectRoot, "www", "img");
             }
+
+            allPosts.Add(new AllPosts // for index.html, RSS feeds and sitemap.xml
+            {
+                Lang = contentMetaData.Lang.ToUpper(), // Use uppercase for the language code, e.g., "EN", "NL" for Display on Index.html
+                Title = contentMetaData.PostTitle,
+                SubTitle = contentMetaData.SubTitle,
+                Description = contentMetaData.Description,
+                Date = DateTimeOffset.Parse(contentMetaData.DateIso8601).UtcDateTime,
+                DateIso8601 = contentMetaData.DateIso8601,
+                DisplayDateLang = DateTimeOffset
+                .Parse(contentMetaData.DateIso8601).UtcDateTime
+                .ToString(contentMetaData.Locale == "nl_NL" ? "d MMMM yyyy" : "MMMM d, yyyy",
+                System.Globalization.CultureInfo.GetCultureInfo(contentMetaData.Locale)),
+                Author = contentMetaData.Author.Name,
+                RelativeUrl = contentMetaData.RelativeUrl,
+                GraphicRelativeUrl = contentMetaData.Graphic.RelativeUrl,
+                GraphicAlt = contentMetaData.Graphic.Alt,
+                GraphicCaption = contentMetaData.Graphic.Caption,
+                Tags = contentMetaData.Tags,
+                Category = contentMetaData.Category,
+                Intro = contentMetaData.Intro,
+                IsRss = isRss
+            });
 
             // Create the directories if they don't exist
             Directory.CreateDirectory(contentMetaData.PublishDir);
@@ -210,17 +227,20 @@ internal class Program
 
             // If `PageType.Index` save `contentMetaData` in another variable, so we can use it later for the index.html page.
             if (contentMetaData.PageType == PageType.Index) // Don't generate HTML for index.html yet, we will do that later, we need the list of posts first.
-                indexMetaData = contentMetaData;
+            {
+                indexMetaData = contentMetaData; // for index.html page
+            }
             else
-                PublishPage(contentMetaData, site, templates); // Generate the HTML file for the page or post
+                PublishPage(contentMetaData, site, templates); // Generate the HTML file for each individual page or post
         }
 
         // Last: Generate index.html and RSS feeds
-        PublishPage(indexMetaData!, site, templates, indexPosts); // Generate the HTML file for index.html
-        PublishRss(indexPosts, site);
+        PublishPage(indexMetaData!, site, templates, allPosts); // Generate the HTML file for index.html
+        GenerateRssFeeds(allPosts, site);
+        GenerateSitemap(allPosts, site);
     }
 
-    private static void PublishPage(Meta contentMetaData, Site site, List<Template> templates, List<IndexPost>? indexPosts = null)
+    private static void PublishPage(Meta contentMetaData, Site site, List<Template> templates, List<AllPosts>? indexPosts = null)
     {
         Console.WriteLine($"Processing file: {contentMetaData.Slug + ".md"}");
 
@@ -317,6 +337,7 @@ internal class Program
         {
             string articlesHtml = string.Join("\n", indexPosts!
                 .OrderByDescending(s => s.Date)
+                .Where(s => s.IsRss == true) // Only include posts that are marked as RSS because these are the posts we want to show on the index.html page.
                 .Select(s =>
                     $"<article><time datetime=\"{s.DateIso8601}\">{s.DisplayDateLang}</time><h2><a href=\"{s.RelativeUrl}\">{s.Title}</a></h2><h3>{s.SubTitle}</h3>{s.Description}</article><hr>"));
 
@@ -324,7 +345,7 @@ internal class Program
             if (articlesHtml.EndsWith("<hr>"))
                 articlesHtml = articlesHtml[..^"<hr>".Length];
 
-            // TODO: Refactor, with JavaScript (browser language detection) we can select the correct language for the index.html page.
+            // Refactor, with JavaScript (browser language detection) we can select the correct language for the index.html page.
             defaultTemplateContent = defaultTemplateContent
                 .Replace("{{ content Articles }}", articlesHtml);
 
@@ -337,7 +358,31 @@ internal class Program
         File.WriteAllText(Path.Combine(contentMetaData.PublishDir, contentMetaData.Slug + ".html"), defaultTemplateContent, Encoding.UTF8);
     }
 
-    private static void PublishRss(List<IndexPost> indexPosts, Site site)
+    private static void GenerateSitemap(List<AllPosts> allPosts, Site site)
+    {
+        Console.WriteLine($"Processing file: sitemap.xml");
+
+        var sb = new StringBuilder();
+        sb.AppendLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
+        sb.AppendLine(@"<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">");
+
+        foreach (var post in allPosts.OrderByDescending(p => p.Date))
+        {
+            string loc = $"{site.Domain}{post.RelativeUrl}";
+            string lastmod = post.Date.ToString("yyyy-MM-dd");
+            sb.AppendLine("  <url>");
+            sb.AppendLine($"    <loc>{System.Security.SecurityElement.Escape(loc)}</loc>");
+            sb.AppendLine($"    <lastmod>{lastmod}</lastmod>");
+            sb.AppendLine("  </url>");
+        }
+
+        sb.AppendLine("</urlset>");
+
+        string sitemapPath = Path.Combine(site.ProjectRoot, "www", "sitemap.xml");
+        File.WriteAllText(sitemapPath, sb.ToString(), Encoding.UTF8);
+    }
+
+    private static void GenerateRssFeeds(List<AllPosts> indexPosts, Site site)
     {
         var now = DateTime.UtcNow;
 
@@ -347,8 +392,10 @@ internal class Program
         {
             Console.WriteLine($"Processing file: {fileName}");
 
+            // Filter posts by language and order by date descending
             var posts = indexPosts
                 .Where(p => p.Lang.Equals(lang, StringComparison.OrdinalIgnoreCase))
+                .Where(p => p.IsRss) // Only include posts that are marked as RSS
                 .OrderByDescending(p => p.Date)
                 .ToList();
 
@@ -425,6 +472,10 @@ internal class Program
         // Extract Markdown content (everything after the divider)
         contentMetaData.MarkdownContent = string.Join(Environment.NewLine, lines.Skip(dividerIndex + 1)).Trim();
         contentMetaData.Lang = contentMetaData.Locale[..2]; // locale is "nl_NL" or "en_US", so we take the first 2 characters for the language code, e.g., "nl" or "en".
+
+        // Add markdown characters `*` to the intro, so it can be used as a markdown content.
+        if (!string.IsNullOrEmpty(contentMetaData.Intro))
+            contentMetaData.Intro = $"<i>{contentMetaData.Intro.Trim()}</i>";
 
         return contentMetaData;
     }
