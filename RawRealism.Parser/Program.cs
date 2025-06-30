@@ -339,7 +339,7 @@ internal class Program
                 .OrderByDescending(s => s.Date)
                 .Where(s => s.IsRss == true) // Only include posts that are marked as RSS because these are the posts we want to show on the index.html page.
                 .Select(s =>
-                    $"<article><time datetime=\"{s.DateIso8601}\">{s.DisplayDateLang}</time><h2><a href=\"{s.RelativeUrl}\">{s.Title}</a></h2><h3>{s.SubTitle}</h3>{s.Description}</article><hr>"));
+                    $"<article><time datetime=\"{s.DateIso8601}\">{s.DisplayDateLang}</time><h2><a href=\"{s.RelativeUrl.Replace(".html", "")}\">{s.Title}</a></h2><h3>{s.SubTitle}</h3>{s.Description}</article><hr>"));
 
             // Remove the last <hr> tag, so we don't have a double <hr> tag with the footer.
             if (articlesHtml.EndsWith("<hr>"))
@@ -368,7 +368,7 @@ internal class Program
 
         foreach (var post in allPosts.OrderByDescending(p => p.Date))
         {
-            string loc = $"{site.Domain}{post.RelativeUrl}";
+            string loc = $"{site.Domain}{post.RelativeUrl.Replace(".html", "")}";
             string lastmod = post.Date.ToString("yyyy-MM-dd");
             sb.AppendLine("  <url>");
             sb.AppendLine($"    <loc>{System.Security.SecurityElement.Escape(loc)}</loc>");
@@ -415,13 +415,13 @@ internal class Program
                 RssItems = [.. posts.Select(p => new RssItem
                 {
                     Title = p.Title,
-                    Link = site.Domain + p.RelativeUrl,
+                    Link = site.Domain + p.RelativeUrl.Replace(".html", ""),
                     Description = p.Description,
                     Category = p.Category ?? "",
                     EnclosureUrl = !string.IsNullOrEmpty(p.GraphicRelativeUrl) ? site.Domain + p.GraphicRelativeUrl : "",
                     EnclosureType = !string.IsNullOrEmpty(p.GraphicRelativeUrl) ? "image/webp" : "",
                     PubDate = p.Date,
-                    Guid = site.Domain + p.RelativeUrl,
+                    Guid = site.Domain + p.RelativeUrl.Replace(".html", ""),
                     Author = p.Author
                 })]
             };
@@ -475,7 +475,7 @@ internal class Program
 
         // Add markdown characters `*` to the intro, so it can be used as a markdown content.
         if (!string.IsNullOrEmpty(contentMetaData.Intro))
-            contentMetaData.Intro = $"<i>{contentMetaData.Intro.Trim()}</i>";
+            contentMetaData.Intro = $"{contentMetaData.Intro.Trim()}";
 
         return contentMetaData;
     }
