@@ -7,16 +7,26 @@
     <language>nl-NL</language>
     <copyright>Copyright © 2025 Raw Realism. Alle rechten voorbehouden</copyright>
     <generator>Jaap&apos;s Minimalistic Static Site Generator (SSG) v0.99ß</generator>
-    <lastBuildDate>Fri, 27 Jun 2025 14:11:20 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 30 Jun 2025 15:53:41 GMT</lastBuildDate>
     <image><url>https://rawrealism.com/img/rawrealism-header.webp</url><title>RSS Feed RawRealism (Nederlands)</title><link>https://rawrealism.com/</link></image>
     <item>
+    <title>“Je begrijpt niet wat zionisme is.”</title>
+    <link>https://rawrealism.com/archief/2025/06/je_begrijpt_niet_wat_zionisme_is</link>
+    <description>Over hoe populistische politici en opiniemakers iemand ten onrechte tot zondebok maken — en waarom dat gevaarlijk is.</description>
+    <category>zionisme</category>
+    <enclosure url="https://rawrealism.com/img/nl/2025/06/je_begrijpt_niet_wat_zionisme_is.webp" type="image/webp" />
+    <pubDate>Mon, 30 Jun 2025 14:23:00 GMT</pubDate>
+    <guid isPermaLink="true">https://rawrealism.com/archief/2025/06/je_begrijpt_niet_wat_zionisme_is</guid>
+    <author>Jaap</author>
+</item>
+<item>
     <title>Waarom?</title>
-    <link>https://rawrealism.com/archief/2025/06/waarom.html</link>
+    <link>https://rawrealism.com/archief/2025/06/waarom</link>
     <description>Over RawRealism</description>
     <category>about</category>
     <enclosure url="https://rawrealism.com/img/nl/2025/06/waarom.webp" type="image/webp" />
     <pubDate>Fri, 27 Jun 2025 13:27:00 GMT</pubDate>
-    <guid isPermaLink="true">https://rawrealism.com/archief/2025/06/waarom.html</guid>
+    <guid isPermaLink="true">https://rawrealism.com/archief/2025/06/waarom</guid>
     <author>Jaap</author>
 </item>
 </channel>
