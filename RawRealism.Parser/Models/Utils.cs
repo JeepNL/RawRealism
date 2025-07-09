@@ -88,5 +88,4 @@ public static class Utils
     {
         PropertyNameCaseInsensitive = true
     };
-
 }

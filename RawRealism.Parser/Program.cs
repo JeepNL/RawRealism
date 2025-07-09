@@ -290,7 +290,8 @@ internal class Program
         // Now we have the full defaultTemplateContent with the head, header and footer included.
         // We need to replace all of the placeholders with the actual content.
         defaultTemplateContent = defaultTemplateContent
-            .Replace("{{ var BaseHref }}", (site.Environment == "Development") ? "/" : $"{site.Domain}/")
+            //.Replace("{{ var BaseHref }}", (site.Environment == "Development") ? "/" : $"{site.Domain}/")
+            .Replace("{{ var BaseHref }}", $"{site.Domain}/")
             .Replace("{{ meta Language }}", contentMetaData.Lang)
             .Replace("{{ meta PostTitle }}", contentMetaData.PostTitle)
             .Replace("{{ config Site.Name }}", site.Name)
