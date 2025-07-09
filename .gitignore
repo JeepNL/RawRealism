@@ -361,7 +361,23 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
 /RawRealism/www/img/en/
 /RawRealism/www/img/nl/
 /RawRealism/www/archief/
 /RawRealism/www/archive/
+/RawRealism/www/pages/en/
+/RawRealism/www/pages/nl/
+/RawRealism/www/404.html
+/RawRealism/www/feed-en.xml
+/RawRealism/www/feed-nl.xml
+/RawRealism/www/index.html
+/RawRealism/www/sitemap.xml
+
+/RawRealism/www/pages/en/contact.html
+/RawRealism/www/pages/en/privacy.html
+/RawRealism/www/pages/en/rss.html
+/RawRealism/www/pages/nl/contact.html
+/RawRealism/www/pages/nl/over.html
+/RawRealism/www/pages/nl/privacy.html
+/RawRealism/www/pages/nl/rss.html
