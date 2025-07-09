@@ -1,6 +1,6 @@
 ﻿{
   "Locale": "nl_NL",
-  "DateIso8601": "2025-06-30T16:23:00+02:00",
+  "DateIso8601": "2025-06-30T16:24:00+02:00",
   "PostTitle": "“Je begrijpt niet wat zionisme is.”",
   "Slug": "je_begrijpt_niet_wat_zionisme_is",
   "Description": "Over hoe populistische politici en opiniemakers iemand ten onrechte tot zondebok maken — en waarom dat gevaarlijk is.",
