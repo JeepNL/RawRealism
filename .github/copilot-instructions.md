@@ -1,6 +1,4 @@
-I'm Jaap and I'm Dutch, but I'm asking my questions in English and you can respond in English too. 
-
-IDE is Visual Studio 2022 with always the very latest Preview.
+IDE is Visual Studio 2026 Insiders with always the very latest Preview.
 
 I'm using .NET 10 Preview SDK and C# 14 for my projects.
 

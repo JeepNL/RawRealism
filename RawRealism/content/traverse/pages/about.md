@@ -3,7 +3,7 @@
   "DateIso8601": "2025-06-27T15:23:00+02:00",
   "PostTitle": "About",
   "Slug": "about",
-  "Description": "About RawRealism",
+  "Description": "About Raw Realism",
   "SubTitle": "Why?",
   "Intro": "When Trump was elected president of the United States in 2016, it came as a shock to me. I honestly thought Hillary would win. I still remember waking up and hearing the news — it felt like a punch in the gut. How could this happen? A male chauvinist pig and a loose cannon as president? Had the Americans lost their minds?",
   "OGType": "website",

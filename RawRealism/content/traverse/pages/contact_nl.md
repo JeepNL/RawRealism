@@ -3,9 +3,9 @@
   "DateIso8601": "2025-06-19T18:00:00+02:00",
   "PostTitle": "Contact",
   "Slug": "contact",
-  "Description": "Contactpagina voor RawRealism",
-  "SubTitle": "Contactgegevens voor RawRealism",
-  "Intro": "Deze pagina biedt contactinformatie voor RawRealism.",
+  "Description": "Contactpagina voor Raw Realism",
+  "SubTitle": "Contactgegevens voor Raw Realism",
+  "Intro": "Deze pagina biedt contactinformatie voor Raw Realism.",
   "OGType": "website",
   "Category": "contact",
   "Tags": ["contact", "blogging"],
@@ -19,7 +19,7 @@
 
 ---
 
-Volg RawRealism op Bluesky voor updates en discussies. Je kunt RawRealism ook bereiken via het hieronder vermelde emailadres.
+Volg Raw Realism op Bluesky voor updates en discussies. Je kunt Raw Realism ook bereiken via het hieronder vermelde emailadres.
 
-- Bluesky: <a href="https://bsky.app/profile/rawrealism.com" target="_blank">RawRealism</a>
+- Bluesky: <a href="https://bsky.app/profile/rawrealism.com" target="_blank">Raw Realism</a>
 - RawRealism [at] Tutanota [dot] com
