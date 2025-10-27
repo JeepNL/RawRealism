@@ -1,6 +1,6 @@
 ﻿{
   "Locale": "nl_NL",
-  "DateIso8601": "2025-10-27T19:08:00+01:00",
+  "DateIso8601": "2025-10-27T18:39:00+01:00",
   "PostTitle": "Amazon en ik",
   "Slug": "amazon_en_ik",
   "Description": "De aanval is geopend: Amazon pompt 1,4 miljard euro in Nederland. Moeten we dat eigenlijk wel willen?",
@@ -8,7 +8,7 @@
   "Intro": "Vandaag lees ik op NOS.nl dat Amazon 1,4 miljard euro steekt in een nieuwe poging om de Nederlandse markt te veroveren. Ze mikken daarbij vooral op Bol, Coolblue en Wehkamp.",
   "OGType": "article",
   "Category": "economie",
-  "Tags": ["amazon", "jeff bezos", "wapo"],
+  "Tags": ["amazon", "jeff bezos"],
   "Author": {
     "Name": "Jaap"
   },
