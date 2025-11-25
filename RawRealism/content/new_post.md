@@ -1,6 +1,6 @@
 ﻿{
   "Locale": "nl_NL",
-  "DateIso8601": "2025-11-25T17:00:00+01:00",
+  "DateIso8601": "2025-11-25T17:10:00+01:00",
   "PostTitle": "Het rampzalige 28-puntenplan: Ruslands onverwachte geschenk aan Europa",
   "Slug": "Het_rampzalige_28-puntenplan_Ruslands_geschenk_aan_Europa",
   "Description": "Poetins verlanglijstje is geen vredesplan maar een platte machtsdemonstratie. Misplaatst, wereldvreemd en politiek amateuristisch. Geen serieus land had dit ooit zo op papier gezet.",
@@ -63,5 +63,4 @@ Dit is geen klein meningsverschil; het is een crisis van geloofwaardigheid.
 Is dit het begin van het einde van Trumps binnenlandse greep? Misschien, en die gedachte is allesbehalve irreëel. Want wat deze week vooral laat zien, is dat Europa wakker en eensgezind is, én dat binnen de GOP eindelijk de eerste echte scheuren zichtbaar worden. Dat is precies het soort interne strijd dat Trump’s macht breekt. En als dat proces doorzet, wordt niet alleen Europa sterker, maar ook de democratische kern van de Verenigde Staten.
 
 ### Nadere toelichting
-Er zijn commentatoren die een veel somberder beeld schetsen: dat Europa te traag, te verdeeld of te afhankelijk zou blijven. Maar dat doet geen recht aan wat er nú feitelijk gebeurt. De snelheid, eensgezindheid en scherpte waarmee Europa reageert tonen een realiteitszin die we jaren hebben gemist. Precies daarom kies ik bewust voor een andere en, in mijn ogen, beter verdedigbare interpretatie interpretatie dan de sombere analyses.
-
+Er zijn commentatoren die een veel somberder beeld schetsen: dat Europa te traag, te verdeeld of te afhankelijk zou blijven. Maar dat doet geen recht aan wat er nú feitelijk gebeurt. De snelheid, eensgezindheid en scherpte waarmee Europa reageert tonen een realiteitszin die we jaren hebben gemist. Precies daarom kies ik bewust voor een andere en, in mijn ogen, beter verdedigbare interpretatie dan de sombere analyses.
