@@ -13,7 +13,7 @@
     "Name": "Jaap"
   },
   "Graphic": {
-    "Alt": "Huwelijk in Venetië"
+    "Alt": "Vlaggen van Oekraïne en de EU"
   }
 }
 
