@@ -13,7 +13,7 @@
     "Name": "Jaap"
   },
   "Graphic": {
-    "Alt": "Het pakje Nongshim Neoguri Ramyun"
+    "Alt": "Het pakje Neoguri Ramyun"
   }
 }
 
