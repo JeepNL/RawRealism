@@ -14,6 +14,8 @@ on:
 jobs:
   generate:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true # Force JavaScript actions to use Node.js 24.x, can be removed once all actions have been updated to support Node.js 24.x
 
     steps:
       - name: Checkout main branch
@@ -49,7 +51,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout cf-pages branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: cf-pages
           path: cf-pages-branch
