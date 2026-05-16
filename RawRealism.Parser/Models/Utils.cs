@@ -25,7 +25,7 @@ public static class Utils
         };
     }
 
-    // Cnvert image to WebP format, with 75% quality and a width of 800px, and variable height.
+    // Convert image to WebP format, with 75% quality and a width of 800px, and variable height.
     public static void ConvertImage(string inputImgFile, string outputImgFile)
     {
         try

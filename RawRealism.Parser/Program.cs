@@ -148,6 +148,8 @@ internal class Program
                 return;
             }
 
+            YearMonth postYearMonth = Utils.GetYearMonthFromIso8601(contentMetaData.DateIso8601);
+
             bool isRss = false; // Default to false, will be set later based on the page type.
 
             /// What do we have? 1) default root pages, 2) default pages, and 3) posts.
@@ -158,10 +160,10 @@ internal class Program
                 isRss = true; // If it's a post, we want to generate an RSS feed for it.
                 contentMetaData.PageType = PageType.Post;
                 string publishLangDir = contentMetaData.Lang == "nl" ? "archief" : "archive"; // Use "archief" for Dutch, "archive" for English.
-                contentMetaData.PublishDir = Path.Combine(site.ProjectRoot, "www", publishLangDir, yearMonth.Yyyy, yearMonth.Mm);
-                contentMetaData.Graphic.PublishDir = Path.Combine(site.ProjectRoot, "www", "img", contentMetaData.Lang, yearMonth.Yyyy, yearMonth.Mm);
-                contentMetaData.RelativeUrl = $"/{publishLangDir}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}.html"; // Relative URL for the post.
-                contentMetaData.Graphic.RelativeUrl = $"/img/{contentMetaData.Lang}/{yearMonth.Yyyy}/{yearMonth.Mm}/{contentMetaData.Slug}.webp"; // Relative URL for the graphic.
+                contentMetaData.PublishDir = Path.Combine(site.ProjectRoot, "www", publishLangDir, postYearMonth.Yyyy, postYearMonth.Mm);
+                contentMetaData.Graphic.PublishDir = Path.Combine(site.ProjectRoot, "www", "img", contentMetaData.Lang, postYearMonth.Yyyy, postYearMonth.Mm);
+                contentMetaData.RelativeUrl = $"/{publishLangDir}/{postYearMonth.Yyyy}/{postYearMonth.Mm}/{contentMetaData.Slug}.html"; // Relative URL for the post.
+                contentMetaData.Graphic.RelativeUrl = $"/img/{contentMetaData.Lang}/{postYearMonth.Yyyy}/{postYearMonth.Mm}/{contentMetaData.Slug}.webp"; // Relative URL for the graphic.
             }
             else // root or default pages
             {
