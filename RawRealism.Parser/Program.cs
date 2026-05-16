@@ -369,10 +369,24 @@ internal class Program
         sb.AppendLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
         sb.AppendLine(@"<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">");
 
-        foreach (var post in allContent.OrderByDescending(p => p.Date))
+        DateTime? latestPostDate = allContent
+            .Where(c => c.IsRss)
+            .OrderByDescending(c => c.Date)
+            .Select(c => c.Date)
+            .Cast<DateTime?>()
+            .FirstOrDefault();
+
+        foreach (var content in allContent.OrderByDescending(p => p.Date))
         {
-            string loc = $"{site.Domain}{post.RelativeUrl.Replace(".html", "")}";
-            string lastmod = post.Date.ToString("yyyy-MM-dd");
+            string loc = $"{site.Domain}{content.RelativeUrl.Replace(".html", "")}";
+
+            DateTime effectiveLastModifiedDate =
+                content.RelativeUrl == "/" && latestPostDate.HasValue
+                    ? latestPostDate.Value
+                    : content.Date;
+
+            string lastmod = effectiveLastModifiedDate.ToString("yyyy-MM-dd");
+
             sb.AppendLine("  <url>");
             sb.AppendLine($"    <loc>{System.Security.SecurityElement.Escape(loc)}</loc>");
             sb.AppendLine($"    <lastmod>{lastmod}</lastmod>");
