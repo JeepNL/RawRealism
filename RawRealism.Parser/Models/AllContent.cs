@@ -1,6 +1,6 @@
 ﻿namespace RawRealism.Parser.Models;
 
-public class AllPosts // Class representing a summary of a post, used for listing posts on the website, RSS feeds and sitemaps.
+public class AllContent // Class representing a summary of content used for posts, listing posts on the website, RSS feeds and sitemaps.
 {
     public required string Lang { get; set; } // uppercase, e.g., "EN" or "NL".
     public required string Title { get; set; }

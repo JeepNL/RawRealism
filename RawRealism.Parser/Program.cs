@@ -133,7 +133,7 @@ internal class Program
         }
 
         /// Step 5, Enumerate all .md files in the content/traverse directory and generate HTML files for each (default) page and post.
-        var allPosts = new List<AllPosts>(); // for index.html, RSS feeds and sitemap.xml
+        var allContent = new List<AllContent>(); // for index.html, RSS feeds and sitemap.xml
         string traverseContentPath = Path.Combine(site.ProjectRoot, "content", "traverse");
         foreach (string mdFile in Directory.EnumerateFiles(traverseContentPath, "*.md", SearchOption.AllDirectories))
         {
@@ -186,7 +186,7 @@ internal class Program
                 contentMetaData.Graphic.PublishDir = Path.Combine(site.ProjectRoot, "www", "img");
             }
 
-            allPosts.Add(new AllPosts // for index.html, RSS feeds and sitemap.xml
+            allContent.Add(new AllContent // for index.html, RSS feeds and sitemap.xml
             {
                 Lang = contentMetaData.Lang.ToUpper(), // Use uppercase for the language code, e.g., "EN", "NL" for Display on Index.html
                 Title = contentMetaData.PostTitle,
@@ -237,12 +237,12 @@ internal class Program
         }
 
         // Last: Generate index.html and RSS feeds
-        PublishPage(indexMetaData!, site, templates, allPosts); // Generate the HTML file for index.html
-        GenerateRssFeeds(allPosts, site);
-        GenerateSitemap(allPosts, site);
+        PublishPage(indexMetaData!, site, templates, allContent); // Generate the HTML file for index.html
+        GenerateRssFeeds(allContent, site);
+        GenerateSitemap(allContent, site);
     }
 
-    private static void PublishPage(Meta contentMetaData, Site site, List<Template> templates, List<AllPosts>? indexPosts = null)
+    private static void PublishPage(Meta contentMetaData, Site site, List<Template> templates, List<AllContent>? indexPosts = null)
     {
         Console.WriteLine($"Processing file: {contentMetaData.Slug + ".md"}");
 
@@ -361,7 +361,7 @@ internal class Program
         File.WriteAllText(Path.Combine(contentMetaData.PublishDir, contentMetaData.Slug + ".html"), defaultTemplateContent, Encoding.UTF8);
     }
 
-    private static void GenerateSitemap(List<AllPosts> allPosts, Site site)
+    private static void GenerateSitemap(List<AllContent> allContent, Site site)
     {
         Console.WriteLine($"Processing file: sitemap.xml");
 
@@ -369,7 +369,7 @@ internal class Program
         sb.AppendLine(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
         sb.AppendLine(@"<urlset xmlns=""http://www.sitemaps.org/schemas/sitemap/0.9"">");
 
-        foreach (var post in allPosts.OrderByDescending(p => p.Date))
+        foreach (var post in allContent.OrderByDescending(p => p.Date))
         {
             string loc = $"{site.Domain}{post.RelativeUrl.Replace(".html", "")}";
             string lastmod = post.Date.ToString("yyyy-MM-dd");
@@ -385,7 +385,7 @@ internal class Program
         File.WriteAllText(sitemapPath, sb.ToString(), Encoding.UTF8);
     }
 
-    private static void GenerateRssFeeds(List<AllPosts> indexPosts, Site site)
+    private static void GenerateRssFeeds(List<AllContent> indexPosts, Site site)
     {
         var now = DateTime.UtcNow;
 
