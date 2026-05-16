@@ -53,7 +53,7 @@ Ik blog in het Nederlands en het Engels. Mijn Engels is redelijk tot goed, maar 
 
 ## Blogsoftware
 
-Geen WordPress. Geen ander CMS. Alles wat je hier ziet, heb ik zelf geprogrammeerd.
+Geen WordPress. Geen ander CMS. Alles wat je hier ziet, heb ik zelf geprogrammeerd. Zie de GitHub-repository als je nieuwsgierig bent, zie de link hieronder.
 
 Omdat ik het leuk vind. En omdat programmeren voor mij ook een creatieve uitlaatklep is.
 

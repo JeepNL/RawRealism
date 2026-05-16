@@ -57,7 +57,7 @@ I blog in both Dutch and English. My English is decent, but if you’re reading 
 
 No WordPress. No CMS.
 
-Everything you see here — I built it myself.
+Everything you see here — I built it myself. See the GitHub repository if you’re curious, link below.
 
 Because I enjoy it. And because programming is a creative outlet for me too.
 
