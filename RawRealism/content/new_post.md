@@ -144,7 +144,7 @@ GEVONDEN!
 
 Ja, zij met dat mooie haar, haar lieve lach en haar mooie stem was mijn eerste echte liefde. We waren een tijdje een stel, maar ik heb het verkloot. Te jong nog, 19 of 20. Chaos. Ik. Met de wijsheid van nu denk ik: ik ben geen relatiemateriaal. Blijkbaar. Ik heb eindelijk de zekerheid, veiligheid en rust gevonden waar ik altijd naar op zoek was. Wat ook waar is: na die eerste relatie heb ik mij nooit meer zo zeker en rustig gevoeld in een relatie. Maar misschien maak ik het nu mooier dan het was. Ook goed. Mag.
 
-Ik heb geen spijt. Shit happens. Het leven loopt door. Het stopt voor niks. En ik heb het over 44 jaar geleden.
+Ik heb wel spijt. Ik had gewild dat ik het toen anders had aangepakt. Maar ik was ook de Jaap van toen. Jong. Onzeker. Dat was de persoon die die keuzes maakte. Life happens. En ik heb het over 44 jaar geleden.
 
 Waar ik vooral blij om ben, is dat ik die tijd heb mogen meemaken. En ik hoop dat het goed met haar gaat. Dat verdient ze.
 
