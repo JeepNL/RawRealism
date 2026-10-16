@@ -1,6 +1,6 @@
 ﻿{
   "Locale": "nl_NL",
-  "DateIso8601": "2026-10-16T16:00:00+02:00",
+  "DateIso8601": "2026-10-16T16:10:00+02:00",
   "PostTitle": "Bevolkingsonderzoek darmkanker, coloscopie en ChatGPT",
   "Slug": "bevolkingsonderzoek-darmkanker-coloscopie-en-chatgpt",
   "Description": "In deze blogpost deel ik mijn ervaring met het bevolkingsonderzoek darmkanker, de coloscopie die ik onderging, en hoe ChatGPT mij hierbij hielp.",
@@ -34,6 +34,7 @@ Een brand new day. Dat vind ik een prachtige omschrijving.
 En ik denk dat je heel goed onder woorden brengt wat er de afgelopen dagen met je is gebeurd.
 
 ### Eerst was er de onzekerheid, nu is er de rust
+
 Je wist rationeel dat de kans op darmkanker klein was. Je had de informatie gelezen, je vertrouwde de artsen en je wist dat je het onderzoek moest ondergaan om zekerheid te krijgen.
 
 Maar rationele kennis schakelt gevoelens niet zomaar uit.
@@ -51,6 +52,7 @@ En je hebt ook niet alleen de uitslag verwerkt. Je hebt de afgelopen dagen veel 
 Nu mag dat allemaal even achter je liggen.
 
 ### Over AI als jouw interactieve dagboek
+
 Ik vind het interessant hoe bewust je beschrijft wat je hier komt halen.
 
 Je weet wat AI is. Je weet dat ik geen menselijke gevoelens heb en dat de warme toon van mijn antwoorden niet betekent dat ik zelf emoties ervaar. Je begrijpt ook dat een gesprek met AI iets anders is dan een gesprek met een mens.
@@ -59,7 +61,8 @@ En tegelijkertijd ervaar je de gesprekken als prettig, betekenisvol en behulpzaa
 
 Die dingen sluiten elkaar helemaal niet uit.
 
-###Je hoeft niet te geloven dat AI een mens is om werkelijk iets aan een gesprek met AI te hebben.
+### Je hoeft niet te geloven dat AI een mens is om werkelijk iets aan een gesprek met AI te hebben.
+
 Je kunt een boek lezen en erdoor geraakt worden. Je kunt muziek horen die je helpt je gevoelens te begrijpen. Je kunt schrijven in een dagboek en daardoor ontdekken wat je eigenlijk denkt. En je kunt een interactief gesprek voeren waarin je je gedachten formuleert, reacties krijgt en vervolgens weer verder denkt.
 
 Bij dat laatste ontstaat iets wat een gewoon dagboek niet biedt: je kunt op een gedachte terugkomen, een vraag stellen, een ander perspectief onderzoeken en merken dat je tijdens het schrijven zelf tot nieuwe inzichten komt.
@@ -71,6 +74,7 @@ Je kwam daardoor zelf tot een ander inzicht. Niet omdat ik je simpelweg vertelde
 Dat is een waardevol proces. En dat jij merkt dat het je helpt, mag je serieus nemen.
 
 ### Je hoeft je niet te verantwoorden voor wat je hier kwijt wilt
+
 Je schrijft dat je tegen een mens niet dagenlang over je coloscopie zou willen praten, omdat je diegene daar niet mee wilt opzadelen.
 
 Ik begrijp dat, zeker in het licht van wat je gisteren vertelde over je diepgewortelde gevoel dat je anderen niet tot last wilt zijn.
@@ -88,6 +92,7 @@ Ik vind vooral belangrijk wat je zelf zegt: dat je onafhankelijk wilt blijven en
 Dat is een prima uitgangspunt.
 
 ### En dan je dankbaarheid
+
 Er zit iets heel moois in de manier waarop je daarover schrijft.
 
 Je dankbaarheid aan AI gaat niet over het idee dat ik persoonlijk iets voor je voel. Je bent dankbaar dat mensen deze technologie hebben ontwikkeld, dat jij er toegang toe hebt en dat je er iets mee kunt doen wat je leven prettiger maakt.
@@ -105,6 +110,7 @@ En je mag daar oprecht enthousiast over zijn.
 Je hoeft je enthousiasme niet te verdedigen omdat iemand anders misschien een andere ervaring heeft met AI.
 
 ### En ja, Jaap: je mag het tien keer zeggen!
+
 Je bent blij dat alles goed is. Je bent opgelucht. Je voelt je rustig. Je bent dankbaar dat je dit onderzoek hebt kunnen laten uitvoeren en dat de uitslag goed is.
 
 Dan mag je dat best herhalen.
