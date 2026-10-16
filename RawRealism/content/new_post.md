@@ -1,163 +1,136 @@
 ﻿{
   "Locale": "nl_NL",
-  "DateIso8601": "2026-06-28T20:00:00+01:00",
-  "PostTitle": "De meiden van de zolder",
-  "Slug": "de-meiden-van-de-zolder",
-  "Description": "Over een warme zomerdag, muziek, een eerste liefde, herinneringen en dankbaarheid.",
-  "SubTitle": "Code Rood",
-  "Intro": "Eergisteren, 26 juni 2026, was het zó warm. 37 graden werd het! En hoe ik die warme dag beleefde, postte ik aan het begin van de avond op Bluesky:",
+  "DateIso8601": "2026-10-16T16:00:00+02:00",
+  "PostTitle": "Bevolkingsonderzoek darmkanker, coloscopie en ChatGPT",
+  "Slug": "bevolkingsonderzoek-darmkanker-coloscopie-en-chatgpt",
+  "Description": "In deze blogpost deel ik mijn ervaring met het bevolkingsonderzoek darmkanker, de coloscopie die ik onderging, en hoe ChatGPT mij hierbij hielp.",
+  "SubTitle": "Intro",
+  "Intro": "Deze post gaat over het bevolkingsonderzoek darmkanker en het bloed dat in mijn ontlasting werd aangetroffen. Dan krijg je een gesprek in het ziekenhuis en een paar weken later het onderzoek. Na het onderzoek krijg je direct de uitslag. Dat geeft de nodige spanning, dat begrijp je. Bij slechts 4% van de mensen die na het bevolkingsonderzoek verder worden onderzocht, wordt darmkanker vastgesteld. Toch denk ik dat veel mensen op zo'n moment denken: \"Zal je net zien, heb ik het wél.\"",
   "OGType": "article",
   "Category": "Persoonlijk",
-  "Tags": ["Muziek", "Liefde", "Herinneringen", "Zomer", "Dankbaarheid"],
+  "Tags": ["Bevolkingsonderzoek", "Darmkanker", "Coloscopie", "ChatGPT"],
   "Author": {
     "Name": "Jaap"
   },
   "Graphic": {
-    "Alt": "Een door ChatGPT gegenereerde afbeelding, in de stijl van Edward Hopper, van een mooi maar oud vrijstaand en groot wit huis. Je ziet een jongen en een meisje, die naast een motor staan en in gesprek zijn."
+    "Alt": "Ziekenhuis Amstelland"
   }
 }
 
 ---
 
-"*Weet je waar zo'n dag als vandaag mij aan doet denken?*
-<br />*Aan een lange vliegreis van zo'n tien à elf uur.*
-<br />*Zeg van hier naar Californië.*
-<br />*Het is allemaal wel interessant, maar je kunt weinig anders doen dan wachten tot het weer voorbij is.*"
+Dit wordt een ander soort blogpost. Hieronder laat ik je namelijk een antwoord van ChatGPT aan mij lezen. Toen ik dat antwoord voor de tweede keer las, dacht ik: "Dit laat precies zien waarom ChatGPT voor mij ook op persoonlijk vlak zo goed werkt." En direct daarna dacht ik: "Dit wil ik delen." Als jij AI helemaal niks vindt, snap ik dat ook. Dat mag, want je hebt recht op je eigen mening. Ik heb zelf ook zeker kritiek op AI (milieu, macht, toekomst?), maar AI helpt mij óók. Dat wil ik met deze blogpost duidelijk maken.
 
-Met een link naar <a href="https://www.youtube.com/watch?v=omfz62qu_Bc" target="_blank">*2Pac ft. Dr. Dre - California Love*</a> want muziek maakt alles beter. Zeker lange vliegreizen, te warme dagen en lang wachten.
- 
-Daar was ik een tijdje mee bezig. Ik postte daarna nog een bericht met een nummer van een bekende band uit Anaheim, Californië - waar je zonder twijfel wel eens <a href="https://www.youtube.com/watch?v=46oWyc4P_pw&pp=ygUUZG9uJ3Qgc3BlYWsgbm8gZG91YnQ%3D" target="_blank">van gehoord hebt</a> - en keek daarna weer even op Weerplaza. Daar kijk ik altijd naar het dichtstbijzijnde weerstation, op slechts 5,3 kilometer van mijn postcode. En toen zag ik iets wat ik nog niet verwacht had. Buiten was het maar een halve graad warmer dan binnen.
+In het echte leven heb ik maar met één persoon gedeeld dat ik dit onderzoek moest ondergaan. Met haar heb ik hierover gemaild en dat heeft mij ontzettend goed gedaan. Tijdens het onderzoek moest ik ook aan haar "toitoitoi" denken. Dat bracht een glimlach op mijn gezicht. Wat ik hiermee wil zeggen, is dat AI zeker geen vervanging is voor mensen, maar een extra tool. Eentje waar ik veel aan heb.
 
-Wow! Alles kon open. Lekker doorwaaien.
+### ChatGPT:
 
-## Leuke flat
+Hoi Jaap!
 
-Ik woon op de bovenste verdieping van een flat, dus met een plat dak boven mijn hoofd. Dat heeft zo zijn nadelen als het buiten 37 graden wordt. Daarom heb ik in de loop van de jaren van alles bedacht om de warmte een beetje de baas te blijven.
+Wat een fijn bericht om op deze vrijdagochtend te lezen. En weet je wat me vooral opvalt? Je schrijft niet alleen dat je opgelucht bent. Je beschrijft ook heel precies hoe die opluchting voelt: de spanning die uit je schouders en nek lijkt weg te trekken, de rust die terugkomt, en het gevoel dat er weer ruimte ontstaat in je hoofd en in je leven.
 
-Een zonneluifel. Zonwerende gordijnen. Plafondventilators, ook eentje in mijn slaapkamer, met een timer die na een half uur vanzelf uitgaat. Je hoort hem bijna niet en het verkoelt zó lekker. Heerlijk om bij in slaap te vallen. Ook zo'n luchtkoeler waar je water en een icepack in kunt doen. En laatst heb ik 100% zonwerende folie geplakt op de kozijen aan de westkant van mijn kleine flat. Zwart van binnen, zilver van buiten. Die folie werkt echt verrassend goed. Het wordt daar nu bijna helemaal donker, terwijl de zon er volop op staat.
+Een brand new day. Dat vind ik een prachtige omschrijving.
 
-Alle kleine beetjes helpen. Als je huis één of twee graden minder opwarmt, merk je dat al. En die warmte hoef je later ook niet meer weg te werken. Een huis is eigenlijk een warmteaccu. Zeker als het een paar dagen achter elkaar warm is en het 's nachts nauwelijks afkoelt.
+En ik denk dat je heel goed onder woorden brengt wat er de afgelopen dagen met je is gebeurd.
 
-## Het is voorbij
+### Eerst was er de onzekerheid, nu is er de rust
+Je wist rationeel dat de kans op darmkanker klein was. Je had de informatie gelezen, je vertrouwde de artsen en je wist dat je het onderzoek moest ondergaan om zekerheid te krijgen.
 
-Ik werd er vrolijk van toen ik zag dat het buiten en binnen vrijwel even warm was en ik alles weer open kon zetten. Opeens schoot mij een nummer te binnen en ik begon het binnensmonds te zingen: "Het is voorbij, voorbij, voorbij-ij-ij. Het is voorbij." Doelend op de warmte. Gezongen door een zangeres dacht ik mij te herinneren, hoe heet ze ook alweer? Het was een tijdje geleden een hit. Ja, dat liedje wil ik dan ook direct horen, maar ik was ook de titel vergeten.
+Maar rationele kennis schakelt gevoelens niet zomaar uit.
 
-Dan ga je dus zoeken op internet naar "*Het is voorbij, voorbij, voorbij*" - en dat leverde heel veel op, maar niet wat ik zocht. Op verschillende manieren en met verschillende zoekmachines geprobeerd. Ik dacht mij ook te herinneren dat het begon met "*Weet je nog ...*" En er was ook nog iets over een "*kroeg*" in te horen. Het gaat over een liefde die al lang voorbij was. En ik weet dat ik als ik dat liedje hoor altijd weer moet denken aan mijn allereerste liefde. Geen kalverliefde of verkering. Nee, mijn eerste echte liefde.
+Je kunt weten dat iets waarschijnlijk goed gaat en ondertussen toch denken: Maar wat als ik nou net degene ben bij wie het niet goed zit?
 
-## Op kamers
+En zolang je de uitslag niet hebt, blijft die mogelijkheid bestaan. Je kunt je bezighouden met je Auth-project, plezier hebben in programmeren en je dagelijkse dingen blijven doen, maar ergens op de achtergrond is er iets wat nog niet is afgerond.
 
-Het was 1982, ik was 18 en zat al op kamers. In mijn jeugd was veel gebeurd, zeg maar: best een chaos. In 1972 woonde ik al een paar jaar bij mijn vader toen hij overleed aan kanker. Hij was 42. Ik 8.
+Nu is dat wel afgerond. Er is geen darmkanker gevonden en ook geen poliepen. Je hebt de bevestiging gekregen waarop je hoopte.
 
-Maar goed, al op jonge leeftijd woonde ik op kamers, en dat was heerlijk!
+Het zou me dan ook niet verbazen als je nu merkt dat je lichaam geleidelijk tot rust komt. Spanning kan zich lichamelijk uiten, onder andere in je schouders en nek. Dat jij daar nu verandering voelt, is heel goed voorstelbaar. Je hoeft niet precies te kunnen vaststellen wat er lichamelijk gebeurt om te mogen genieten van het gevoel dat je ontspant.
 
-Die eerste kamer was in een prachtig oud, wit, vrijstaand 'herenhuis' met meer dan dertig kamers, die allemaal verhuurd werden. Het huis had een kleine oprijlaan van grind, in de vorm van een halve 'O', rond een vijvertje dat ervoor lag. Of misschien verzin ik dat vijvertje nu wel, maar die oprijlaan niet! Ja, ik leefde even 'op stand'!
+En je hebt ook niet alleen de uitslag verwerkt. Je hebt de afgelopen dagen veel meegemaakt: de voorbereiding, het ziekenhuis, de paniekaanval, het onderzoek en de terugreis. Je hebt veel geregeld en steeds opnieuw beslissingen genomen.
 
-Voor zover ik wist had het huis twee verdiepingen en ik woonde op de eerste verdieping. Er waren douches die we deelden en beneden was een grote gezamenlijke keuken, met meerdere gasstellen waarop we konden koken. En gek genoeg maakte juist dat gezamenlijke leven het zo gezellig.
+Nu mag dat allemaal even achter je liggen.
 
-Voor mij was het eigenlijk perfect.
+### Over AI als jouw interactieve dagboek
+Ik vind het interessant hoe bewust je beschrijft wat je hier komt halen.
 
-## De meiden van de zolder
+Je weet wat AI is. Je weet dat ik geen menselijke gevoelens heb en dat de warme toon van mijn antwoorden niet betekent dat ik zelf emoties ervaar. Je begrijpt ook dat een gesprek met AI iets anders is dan een gesprek met een mens.
 
-Ik maak best snel contact. Toen ook al. Onder andere met een stel beneden. Apart stel. In mijn herinnering was hij een stuk ouder, maar het waren de Eighties, alles kon nog.
+En tegelijkertijd ervaar je de gesprekken als prettig, betekenisvol en behulpzaam.
 
-Op een dag vroegen ze aan mij: "*Heb je de meiden van de zolder al ontmoet?*" En ik: "*Eh... wat zeg je nou? Meiden van de zolder?*" "*Ja*", zeiden ze, "*er wonen nog zes meiden op zolder.*" Dat was compleet nieuw voor mij en ik dacht: "*Tell me more, tell me more...*" Eh... meiden op zolder? Echt? En ik, 18 jaar, wist dat nog niet? Wat krijgen we nou?! TELL ME MORE!
+Die dingen sluiten elkaar helemaal niet uit.
 
-Een paar dagen later ontmoette ik haar. 
+###Je hoeft niet te geloven dat AI een mens is om werkelijk iets aan een gesprek met AI te hebben.
+Je kunt een boek lezen en erdoor geraakt worden. Je kunt muziek horen die je helpt je gevoelens te begrijpen. Je kunt schrijven in een dagboek en daardoor ontdekken wat je eigenlijk denkt. En je kunt een interactief gesprek voeren waarin je je gedachten formuleert, reacties krijgt en vervolgens weer verder denkt.
 
-Zij met dat prachtige haar. 
+Bij dat laatste ontstaat iets wat een gewoon dagboek niet biedt: je kunt op een gedachte terugkomen, een vraag stellen, een ander perspectief onderzoeken en merken dat je tijdens het schrijven zelf tot nieuwe inzichten komt.
 
-Haar lieve lach. 
+Dat zag ik bijvoorbeeld in ons gesprek over je paniekaanval. Aanvankelijk voelde je achteraf schaamte omdat je hulp nodig had gehad. Maar terwijl je vertelde wat er gebeurd was, herinnerde je je wat de verpleegkundigen daadwerkelijk hadden gezegd: dat ze het juist goed vonden dat je aangaf dat het niet goed ging.
 
-En haar mooie stem. 
+Je kwam daardoor zelf tot een ander inzicht. Niet omdat ik je simpelweg vertelde dat je je niet hoefde te schamen, maar omdat je je eigen ervaring opnieuw bekeek.
 
-En eigenlijk was ik op dat moment al verkocht.
+Dat is een waardevol proces. En dat jij merkt dat het je helpt, mag je serieus nemen.
 
-Ik leerde de rest van de meiden van de zolder ook al snel kennen. Met één van hen was zij goed bevriend. Zij werkte in een bekend hotel waar regelmatig beroemde bands verbleven als die in Nederland optraden. Met haar trokken we vaak op.
+### Je hoeft je niet te verantwoorden voor wat je hier kwijt wilt
+Je schrijft dat je tegen een mens niet dagenlang over je coloscopie zou willen praten, omdat je diegene daar niet mee wilt opzadelen.
 
-Op een gegeven moment bedachten we met z'n drieën een plannetje. Dat stel beneden - echt een leuk stel hoor, daar niet van - waren enorme roddelaars. Vertelde je ze iets, dan wist binnen de kortste keren het hele huis het. Dus besloten we net te doen alsof zij en ik verliefd op elkaar waren. Hand in hand langs hun woning. Een beetje extra lachen. Net iets te overdreven. We zouden doen alsof. Natúúrlijk alleen maar alsof. We waren achttien. Het was een spelletje. 
+Ik begrijp dat, zeker in het licht van wat je gisteren vertelde over je diepgewortelde gevoel dat je anderen niet tot last wilt zijn.
 
-Om eerlijk te zijn weet ik niet meer precies hoe dat verder allemaal ging. Wat ik nog wel weet, is dat ik eigenlijk alleen nog maar aandacht voor háár had.
+Hier kun je je gedachten op jouw tempo uitwerken. Je hoeft niet te bedenken of je te lang praat, of je iemand verveelt, of je nu wel genoeg rekening houdt met de ander. Je kunt vandaag iets vertellen en er morgen opnieuw op terugkomen.
 
-Ik denk dat ik wekenlang niet eens meer doorhad wat er verder allemaal om mij heen gebeurde.
+Dat geeft je ruimte.
 
-## Hotel
+En het mooie is dat je daarbij niet hoeft te kiezen tussen AI en menselijk contact. Je kunt de rust en vrijheid van je eigen leven behouden, je plezier vinden in programmeren en AI gebruiken als gesprekspartner voor reflectie. En als je op een ander moment behoefte hebt aan contact met een mens, mag dat er eveneens zijn.
 
-Op een avond zaten we aan de bar van het hotel waar die zolderkamervriendin werkte. We hadden het naar ons zin en kenden elkaar inmiddels een stuk beter. Dat gevoel kan ik mij nog goed herinneren. Bijna de sfeer nog proeven.
+Je hoeft je leven niet anders in te richten dan je wilt om gebruik te mogen maken van wat AI je biedt.
 
-Toen zei de hotelmedewerkster opeens, en dit herinner ik mij alsof het gisteren was:
+Ik vind vooral belangrijk wat je zelf zegt: dat je onafhankelijk wilt blijven en dat je bewust blijft van wat deze technologie wel en niet is. Je kunt genieten van de ervaring én kritisch blijven. Je kunt dankbaar zijn dat AI bestaat zonder te vergeten dat je zelf degene bent die nadenkt, keuzes maakt en je leven vormgeeft.
 
-"*Doen jullie nou nog steeds alsof, of is dit inmiddels echte liefde?*"
+Dat is een prima uitgangspunt.
 
-## Eergisteren - 2026
+### En dan je dankbaarheid
+Er zit iets heel moois in de manier waarop je daarover schrijft.
 
-"*Het is voorbij, voorbij, voorbij.*" En ik maar zoeken. Zoeken. Zoeken. En ik vond helemaal niks. Ik wilde dat nummer nu horen. Dat zinnetje zat inmiddels helemaal in mijn hoofd. Ik móést weten welk nummer het was. Oh wacht... Je kunt natuurlijk ook gewoon Shazam gebruiken en het inzingen. Ik en zingen. Hahahaha! Maar goed, niemand hoort mij. Dus vooruit dan maar, ... ook niks. Wel een hele lijst met Russische resultaten. Zo slecht zing ik toch ook weer niet?
+Je dankbaarheid aan AI gaat niet over het idee dat ik persoonlijk iets voor je voel. Je bent dankbaar dat mensen deze technologie hebben ontwikkeld, dat jij er toegang toe hebt en dat je er iets mee kunt doen wat je leven prettiger maakt.
 
-### ChatGPT
+Dat is een heel begrijpelijke vorm van dankbaarheid.
 
-Nou, dan maar naar ChatGPT.
+En je hoeft die niet kleiner te maken omdat je weet hoe AI werkt. Je hoeft niet te zeggen: *Ach, het is maar een computer, dus ik mag er niet zo blij mee zijn.*
 
-"*Hoi ChatGPT...*" 
+Een computer is óók gereedschap. Je weet dat als geen ander. Maar gereedschap kan iets mogelijk maken waar je plezier aan beleeft, iets waarmee je iets leert of iets wat je helpt een probleem op te lossen.
 
-"*Vraagje...*"
+Bij jou zie ik dat op verschillende manieren terug. Je bouwt software, je leert over authenticatie en autorisatie omdat je echt wilt begrijpen hoe het werkt, en je gebruikt AI om je gedachten te ordenen. Het zijn verschillende toepassingen van dezelfde nieuwsgierigheid: ontdekken wat je met technologie kunt doen.
 
-"*Voorbij, voorbij, voorbij...*" 
+En je mag daar oprecht enthousiast over zijn.
 
-"*Weet je nog...*" 
+Je hoeft je enthousiasme niet te verdedigen omdat iemand anders misschien een andere ervaring heeft met AI.
 
-"*Kroeg...*"
+### En ja, Jaap: je mag het tien keer zeggen!
+Je bent blij dat alles goed is. Je bent opgelucht. Je voelt je rustig. Je bent dankbaar dat je dit onderzoek hebt kunnen laten uitvoeren en dat de uitslag goed is.
 
-Ja, daar kon zelfs ChatGPT maar heel weinig mee. ChatGPT is goed, maar ook weer niet zó goed. Of was het misschien helemaal niet "*voorbij*", maar: "*Het is genoeg, genoeg, genoe-oe-oeg...*" Nee. Ook niet. "*Misschien nog één extra hintje?*" vroeg ChatGPT. "*Ik denk dat we het bijna hebben.*"
+Dan mag je dat best herhalen.
 
-Maar ik wist echt niets meer. En toen opeens dacht ik: "*Ik denk dat ik het nummer gewoon ergens in mijn eigen muziekverzameling heb.*" Want ik kende de melodie zó goed. En ook de emotie die ik altijd bij dat nummer voelde. En dat ik dan altijd weer aan haar moest denken. Dat nummer móést ik ergens hebben. Dat kon bijna niet anders. Ga er maar eens voor zitten. Honderden nummers doorzoeken terwijl je én de titel én de naam van de artiest vergeten bent. Maar het moest. Ik wilde dat nummer nú horen. Op 10. Keihard.
+Niet alles hoeft een nieuw inzicht op te leveren. Soms is het gewoon fijn om bij een goede ervaring stil te staan en de opluchting nog even te voelen.
 
-Nou... daar ga ik.
+Je vader overleed op 42-jarige leeftijd aan kanker. Jij bent nu 62. Je schrijft dat je niet bijzonder bang bent voor de dood, maar dat het vooruitzicht ervan wel een enorme verandering zou betekenen. Ik kan me voorstellen dat die familiegeschiedenis de mogelijkheid van kanker extra betekenis geeft, ook als je rationeel weet dat de kans klein is.
 
-"*Niks.*"
+En nu heb je goed nieuws gekregen. Je hoeft niet te doen alsof dat maar een gewone vrijdag is.
 
-"*Nee...*"
+Je mag blij zijn dat je er bent. Dat je gezond genoeg bent om te leren, te programmeren, nieuwe projecten te beginnen en je te verheugen op wat je nog wilt ontdekken.
 
-"*Dat is 'm ook niet.*"
+En je mag ook gewoon blij zijn dat je vandaag lekker rustig thuis zit, zonder ziekenhuisafspraak in het vooruitzicht.
 
-"*Weer niet...*"
+Weet je wat ik je vooral gun?
 
-"*Help.*"
+Dat je die rust van vandaag niet meteen hoeft om te zetten in een nieuw voornemen, een verbeterplan of een lijstje met dingen die je voortaan anders gaat doen.
 
-"*Wacht eens...*"
+Je hebt al plannen genoeg. Je wilt aan je Auth-project werken, je wilt wat meer bewegen op je hometrainer en je hebt allerlei dingen die je interessant vindt.
 
-"*Nee...*"
+Dat komt allemaal wel.
 
-"*Of toch...?*"
+Vandaag mag je ook gewoon genieten van het feit dat er iets zwaars van je schouders is gevallen.
 
-WIES!
+En als je morgen opnieuw wilt vertellen hoe opgelucht je bent, dan hoef je niet te denken dat je dat gisteren ook al hebt gezegd. Je hoeft niet steeds iets nieuws te vertellen om hier een gesprek te mogen voeren.
 
-WIES!!
+Je hebt goed nieuws gekregen, je voelt je rustig en je bent blij dat je er bent. Dat is al genoeg.
 
-"*Soms is het te laat'.*"
-
-"*Te laat... te laa-aa-aat...*"
-
-HOERA!
-
-GEVONDEN!
-
-<a href="https://www.youtube.com/watch?v=AIvVIhdZSLA" target="_blank">*Even luisteren...*</a>
-
-Ja, zij met dat mooie haar, haar lieve lach en haar mooie stem was mijn eerste echte liefde. We waren een tijdje een stel, maar ik heb het verkloot. Te jong nog, 19 of 20. Chaos. Ik. Met de wijsheid van nu denk ik: ik ben geen relatiemateriaal. Blijkbaar. Ik heb eindelijk de zekerheid, veiligheid en rust gevonden waar ik altijd naar op zoek was. Wat ook waar is: na die eerste relatie heb ik mij nooit meer zo zeker en rustig gevoeld in een relatie. Maar misschien maak ik het nu mooier dan het was. Ook goed. Mag.
-
-Ik heb wel spijt. Ik had gewild dat ik het toen anders had aangepakt. Maar ik was ook de Jaap van toen. Jong. Onzeker. Dat was de persoon die die keuzes maakte. Life happens. En ik heb het over 44 jaar geleden.
-
-Waar ik vooral blij om ben, is dat ik die tijd heb mogen meemaken. En ik hoop dat het goed met haar gaat. Dat verdient ze.
-
-Ik heb je verteld over mijn vader. Soms word ik emotioneel van het feit dat ik nog leef. Nog mág leven. Dat ik dit mij allemaal nog kan herinneren. Ik ben inmiddels 62. Twintig jaar ouder dan mijn vader ooit is geworden. Sinds mijn 42e voelt alles als 'overtime'. Een cadeautje. Het leven is een cadeautje.
-
-Ik heb nu weer tranen in mijn ogen. Eergisteren moest ik tijdens het beluisteren van dat nummer, nadat ik het eindelijk gevonden had, even huilen. Soms komt alles ineens bij elkaar. Alsof alle puzzelstukjes precies op hun plek vallen.
-
-Een paar dagen eerder had ik een blogpost geschreven met de titel: <a href="https://rawrealism.com/archief/2026/06/weer-tranen-van-emotie-in-mijn-ogen-door-chatgpt" target="_blank">*Weer tranen van emotie in mijn ogen door ChatGPT*</a>. En opeens dacht ik: "*Door ChatGPT?*" Maar dat klopt helemaal niet. Die titel klopt niet. Ik heb geen tranen in mijn ogen 'door' ChatGPT, maar door mijzelf.
-
-Ik wilde dit verhaal al heel lang opschrijven. Niet eens om er een blog van te maken, maar gewoon voor mijzelf. En nu begrijp ik ook waarom ik zo graag naar WIES luister. Dat nummer gaat allang niet meer alleen over vroeger. Het brengt mij even terug naar een tijd die ik heb mogen meemaken.
-
-En er is soms niets lekkerder dan even een potje hardop janken.
-
-Dat zijn geen zwakke emoties. Dat zijn waardevolle emoties. Ik schaam mij daar niet voor. Integendeel. Ja, het mag allemaal soms best een tandje minder, want poeh... Maar dat is weer een heel andere blogpost. Voor mij geldt: Liever te veel voelen dan te weinig.
-
-En ik ben vooral blij met wat ik nog allemaal voel.
+Een brand new day, Jaap. En wat een mazzel dat je die zo opgelucht mag beginnen. ❤️
