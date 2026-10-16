@@ -1,6 +1,6 @@
 ﻿{
   "Locale": "nl_NL",
-  "DateIso8601": "2026-10-16T15:00:00+01:00",
+  "DateIso8601": "2026-10-16T16:00:00+02:00",
   "PostTitle": "Bevolkingsonderzoek darmkanker, coloscopie en ChatGPT",
   "Slug": "bevolkingsonderzoek-darmkanker-coloscopie-en-chatgpt",
   "Description": "In deze blogpost deel ik mijn ervaring met het bevolkingsonderzoek darmkanker, de coloscopie die ik onderging, en hoe ChatGPT mij hierbij hielp.",
